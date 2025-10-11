@@ -1,0 +1,2 @@
+# goldshore-web
+GoldShore Web 
