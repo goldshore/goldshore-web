@@ -169,127 +169,20 @@
 
     <footer class="site-footer">
       <div class="container">
-        <div class="footer-meta">
-          <p>© <span id="year"></span> GoldShore. All rights reserved.</p>
-          <div class="footer-links">
-            <a href="#">Privacy</a>
-            <a href="#">Security</a>
-            <a href="#status">Status</a>
-          </div>
-        </div>
-        <div class="status-widget" id="status" aria-live="polite">
-          <h4>Service status</h4>
-          <ul>
-            <li>
-              <span class="status-label">Core API</span>
-              <span class="status-indicator" data-endpoint="/health">•</span>
-            </li>
-            <li>
-              <span class="status-label">AI Gateway</span>
-              <span class="status-indicator" data-endpoint="/ai-ping">•</span>
-            </li>
-            <li>
-              <span class="status-label">Alpaca Clock</span>
-              <span class="status-indicator" data-endpoint="/alpaca/clock">•</span>
-            </li>
-          </ul>
-          <p class="status-note">Live data refreshes every minute.</p>
+        <p>© <span id="year"></span> GoldShore. All rights reserved.</p>
+        <div class="footer-links">
+          <a href="#">Privacy</a>
+          <a href="#">Security</a>
+          <a href="#">Status</a>
         </div>
       </div>
     </footer>
 
     <script>
-      const yearEl = document.getElementById("year");
-      if (yearEl) {
-        yearEl.textContent = new Date().getFullYear();
-      }
-
-      const form = document.querySelector(".cta-form");
-      if (form) {
-        form.addEventListener("submit", function (e) {
-          e.preventDefault();
-          alert("Thanks! We'll reach out shortly.");
-        });
-      }
-
-      const STATUS_TIMEOUT_MS = 5000;
-      const REFRESH_INTERVAL_MS = 60000;
-
-      function withTimeout(promise, timeoutMs) {
-        let timeoutId;
-        const timeoutPromise = new Promise((_, reject) => {
-          timeoutId = setTimeout(() => reject(new Error("timeout")), timeoutMs);
-        });
-        return Promise.race([
-          promise
-            .then((value) => {
-              clearTimeout(timeoutId);
-              return value;
-            })
-            .catch((error) => {
-              clearTimeout(timeoutId);
-              throw error;
-            }),
-          timeoutPromise,
-        ]);
-      }
-
-      function setIndicatorState(indicator, state) {
-        indicator.dataset.state = state;
-        indicator.textContent = "•";
-        indicator.setAttribute("aria-label", `Status ${state}`);
-        indicator.setAttribute("title", `Status ${state}`);
-      }
-
-      async function loadConfig() {
-        try {
-          const response = await fetch("config.json", { cache: "no-store" });
-          if (!response.ok) {
-            throw new Error("config load failed");
-          }
-          return await response.json();
-        } catch (error) {
-          console.error("Failed to load config.json", error);
-          return { apiBaseUrl: "" };
-        }
-      }
-
-      async function checkStatuses(apiBaseUrl) {
-        const cleanBase = apiBaseUrl.replace(/\/$/, "");
-        const indicators = document.querySelectorAll(".status-indicator");
-        indicators.forEach((indicator) => setIndicatorState(indicator, "checking"));
-
-        const tasks = Array.from(indicators).map(async (indicator) => {
-          const endpoint = indicator.dataset.endpoint || "";
-          const url = cleanBase + endpoint;
-
-          try {
-            const response = await withTimeout(
-              fetch(url, { cache: "no-store" }),
-              STATUS_TIMEOUT_MS
-            );
-            if (!response.ok) {
-              throw new Error(`bad status: ${response.status}`);
-            }
-            setIndicatorState(indicator, "up");
-          } catch (error) {
-            console.warn("Status check failed", url, error);
-            setIndicatorState(indicator, error.message === "timeout" ? "degraded" : "down");
-          }
-        });
-
-        await Promise.all(tasks);
-      }
-
-      loadConfig().then((config) => {
-        const apiBaseUrl = config.apiBaseUrl || "";
-        if (!apiBaseUrl) {
-          console.warn("apiBaseUrl missing from config.json");
-        }
-
-        const runChecks = () => checkStatuses(apiBaseUrl);
-        runChecks();
-        setInterval(runChecks, REFRESH_INTERVAL_MS);
+      document.getElementById("year").textContent = new Date().getFullYear();
+      document.querySelector(".cta-form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        alert("Thanks! We'll reach out shortly.");
       });
     </script>
   </body>
