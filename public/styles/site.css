@@ -1,13 +1,20 @@
 :root {
   color-scheme: light;
-  --background: #f7f9fc;
-  --surface: #ffffff;
-  --primary: #2152ff;
-  --primary-dark: #0d1c5a;
-  --text: #0f172a;
-  --muted: #475569;
-  --border: #e2e8f0;
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --background: var(--gs-bg);
+  --surface: var(--gs-surface);
+  --primary: var(--gs-primary);
+  --primary-dark: var(--gs-primary-dark);
+  --text: var(--gs-fg);
+  --muted: var(--gs-muted);
+  --border: var(--gs-border);
+  --primary-soft: var(--gs-primary-soft);
+  --primary-soft-strong: var(--gs-primary-soft-strong);
+  --primary-soft-alt: var(--gs-primary-soft-alt);
+  --accent-soft: var(--gs-accent-soft);
+  --accent-glow: var(--gs-accent-glow);
+  --overlay-ink: var(--gs-ink-overlay);
+  --on-dark: var(--gs-on-dark);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 * {
@@ -48,10 +55,15 @@ img {
 }
 
 .logo {
-  font-weight: 700;
-  font-size: 1.25rem;
+  display: inline-flex;
+  align-items: center;
   text-decoration: none;
   color: var(--primary-dark);
+}
+
+.logo img {
+  display: block;
+  height: auto;
 }
 
 .site-nav {
@@ -74,7 +86,7 @@ img {
 .site-nav .cta {
   padding: 0.5rem 1rem;
   border-radius: 999px;
-  background: rgba(33, 82, 255, 0.12);
+  background: var(--primary-soft-strong);
   color: var(--primary);
 }
 
@@ -118,21 +130,21 @@ img {
 }
 
 .btn.primary {
-  background: linear-gradient(135deg, var(--primary), #4f46e5);
+  background: linear-gradient(135deg, var(--primary), var(--gs-accent));
   color: white;
 }
 
 .btn.secondary {
-  border-color: rgba(33, 82, 255, 0.3);
+  border-color: var(--primary-soft-alt);
   color: var(--primary);
-  background: rgba(33, 82, 255, 0.08);
+  background: var(--primary-soft);
 }
 
 .hero-card {
   background: var(--surface);
   border-radius: 24px;
   padding: 1.5rem;
-  box-shadow: 0 25px 60px rgba(15, 23, 42, 0.08);
+  box-shadow: 0 25px 60px var(--overlay-ink);
   border: 1px solid var(--border);
 }
 
@@ -162,7 +174,7 @@ img {
 }
 
 .hero-card .value.good {
-  color: #059669;
+  color: var(--gs-success);
 }
 
 .card-footer {
@@ -192,10 +204,10 @@ img {
 }
 
 .pillars article {
-  background: linear-gradient(135deg, rgba(33, 82, 255, 0.08), rgba(79, 70, 229, 0.05));
+  background: linear-gradient(135deg, var(--primary-soft), var(--accent-soft));
   border-radius: 18px;
   padding: 1.5rem;
-  border: 1px solid rgba(33, 82, 255, 0.12);
+  border: 1px solid var(--primary-soft-strong);
 }
 
 .pillars h3 {
@@ -235,14 +247,14 @@ img {
 }
 
 .cta-section {
-  background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.25), transparent 55%),
+  background: radial-gradient(circle at top left, var(--accent-glow), transparent 55%),
     var(--primary-dark);
   color: white;
   padding: 5rem 0;
 }
 
 .cta-section p {
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--on-dark);
   max-width: 560px;
 }
 
