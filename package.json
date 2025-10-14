@@ -3,6 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "rm -rf dist && mkdir -p dist && cp index.html dist/index.html && cp styles.css dist/styles.css && cp CNAME dist/CNAME"
+    "build": "rm -rf dist && mkdir -p dist && cp index.html dist/index.html && cp CNAME dist/CNAME && cp -R public/* dist/"
   }
 }

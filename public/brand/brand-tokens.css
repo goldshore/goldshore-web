@@ -1,0 +1,18 @@
+:root {
+  --gs-bg: #f7f9fc;
+  --gs-surface: #ffffff;
+  --gs-primary: #2152ff;
+  --gs-primary-dark: #0d1c5a;
+  --gs-fg: #0f172a;
+  --gs-muted: #475569;
+  --gs-border: #e2e8f0;
+  --gs-accent: #4f46e5;
+  --gs-success: #059669;
+  --gs-primary-soft: rgba(33, 82, 255, 0.08);
+  --gs-primary-soft-strong: rgba(33, 82, 255, 0.12);
+  --gs-primary-soft-alt: rgba(33, 82, 255, 0.3);
+  --gs-accent-soft: rgba(79, 70, 229, 0.05);
+  --gs-accent-glow: rgba(79, 70, 229, 0.25);
+  --gs-ink-overlay: rgba(15, 23, 42, 0.08);
+  --gs-on-dark: rgba(255, 255, 255, 0.8);
+}
