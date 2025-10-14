@@ -37,6 +37,7 @@ CNAMEs for @, www, and api as described; attach the Pages and Worker routes;
 confirm SSL = Full (strict). After successful verification, proceed to initial
 deploy workflows.”
 ```
+finish Phase 1 and unblock the initial release:
 
 ## Phase 1 – DNS reset and verification
 
@@ -65,6 +66,7 @@ deploy workflows.”
 7. **Report back** with a DNS summary (redacting sensitive MX/TXT entries) and
    confirmation that Pages and Worker domain verifications succeeded. Include
    the Cloudflare DNS table in the response.
+   confirmation that Pages and Worker domain verifications succeeded.
 
 When Phase 1 is complete, proceed to the initial deploy workflows:
 
