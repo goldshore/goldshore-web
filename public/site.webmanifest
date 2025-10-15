@@ -1,0 +1,20 @@
+{
+  "name": "Gold Shore Labs",
+  "short_name": "GoldShore",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7f9fc",
+  "theme_color": "#2152ff",
+  "icons": [
+    {
+      "src": "/icons/icon-192.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/icons/icon-512.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
