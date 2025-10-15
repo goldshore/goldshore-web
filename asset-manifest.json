@@ -1,0 +1,84 @@
+{
+  "assets": [
+    {
+      "path": "public/apple-touch-icon.svg",
+      "type": "svg",
+      "bytes": 1127,
+      "sha256": "0413e91aae0ee31e3892164daef94aef03f07aaeaf48ead736af4336fa5102c1",
+      "last_commit": "8a3b534f6cab964930806cb5ac23733afd8f1bde",
+      "probable_role": "icon",
+      "license_notice": "N/A"
+    },
+    {
+      "path": "public/assets/logos/goldshore-logo-primary.svg",
+      "type": "svg",
+      "bytes": 1368,
+      "sha256": "17c28aaa5642cdda7104cca1ae33ec93fb998841396d5f154c21aa1849a21218",
+      "last_commit": "8a3b534f6cab964930806cb5ac23733afd8f1bde",
+      "probable_role": "logo",
+      "license_notice": "N/A"
+    },
+    {
+      "path": "public/brand/brand-tokens.css",
+      "type": "css",
+      "bytes": 1252,
+      "sha256": "5a8e22f5b4c72ee2b636947b8a2a4c7789e275aded6f2791ac149f6ceefaaf09",
+      "last_commit": "(pending)",
+      "probable_role": "css",
+      "license_notice": "N/A"
+    },
+    {
+      "path": "public/favicon.svg",
+      "type": "svg",
+      "bytes": 1133,
+      "sha256": "77106a760ae4ac10ffa38949affc5465ba3cb287841c1c287ea5314d840ea2fe",
+      "last_commit": "8a3b534f6cab964930806cb5ac23733afd8f1bde",
+      "probable_role": "icon",
+      "license_notice": "N/A"
+    },
+    {
+      "path": "public/icons/icon-192.svg",
+      "type": "svg",
+      "bytes": 1135,
+      "sha256": "0c71368af8456ecbcd20576318d03c636086a59606db620c2b022c9cad631a52",
+      "last_commit": "8a3b534f6cab964930806cb5ac23733afd8f1bde",
+      "probable_role": "icon",
+      "license_notice": "N/A"
+    },
+    {
+      "path": "public/icons/icon-512.svg",
+      "type": "svg",
+      "bytes": 1135,
+      "sha256": "81bd88e972991ad88bedbb35cd09068bbd083f1c345359e380e2a01e51545be0",
+      "last_commit": "8a3b534f6cab964930806cb5ac23733afd8f1bde",
+      "probable_role": "icon",
+      "license_notice": "N/A"
+    },
+    {
+      "path": "public/site.webmanifest",
+      "type": "webmanifest",
+      "bytes": 388,
+      "sha256": "6aec99a09f8b9a313bdce5d98851aa76d58daac59d1da1374371ee28d267bfb1",
+      "last_commit": "(pending)",
+      "probable_role": "manifest",
+      "license_notice": "N/A"
+    },
+    {
+      "path": "public/styles/site.css",
+      "type": "css",
+      "bytes": 11402,
+      "sha256": "0f98d9cb5f589ee2349c88740268d0148c944d99c29c708e747e26d7c52f5358",
+      "last_commit": "(pending)",
+      "probable_role": "css",
+      "license_notice": "N/A"
+    }
+  ],
+  "summary": {
+    "by_type": {
+      "svg": 5,
+      "css": 2,
+      "webmanifest": 1
+    },
+    "total_bytes": 18940
+  }
+}
