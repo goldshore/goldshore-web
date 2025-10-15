@@ -3,8 +3,8 @@
   "short_name": "GoldShore",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#040712",
-  "theme_color": "#4c8eff",
+  "background_color": "#f7f9fc",
+  "theme_color": "#2152ff",
   "icons": [
     {
       "src": "/icons/icon-192.svg",

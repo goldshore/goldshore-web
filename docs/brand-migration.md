@@ -14,12 +14,11 @@
 ## Manual Test Checklist
 
 - [x] CSP headers emit expected directives
-- [x] Logo, hero, and platform visuals render via local assets
-- [x] Favicon, app icons, and manifest resolve
+- [x] Logo and hero imagery load locally
+- [x] Favicon and app icons resolve
 - [ ] Lighthouse performance audit
 
 ## Optimizations
 
 - Generated reusable color tokens in `public/brand/brand-tokens.css`
 - Exported the favicon artwork as scalable SVG variants for touch and web app icons
-- Re-skinned the marketing page to mirror the Astro reference design and linked the admin console to the goldshore-api worker

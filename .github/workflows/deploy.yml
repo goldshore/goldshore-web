@@ -11,7 +11,8 @@ jobs:
         with: { version: 9 }
       - run: pnpm install --frozen-lockfile || npm ci
       - name: Publish via Wrangler
-        run: npx wrangler deploy --config goldshore-api/wrangler.jsonc
+        working-directory: goldshore-api
+        run: npx wrangler deploy --config wrangler.jsonc
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}

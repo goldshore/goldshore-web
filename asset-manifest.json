@@ -21,9 +21,9 @@
     {
       "path": "public/brand/brand-tokens.css",
       "type": "css",
-      "bytes": 1252,
-      "sha256": "5a8e22f5b4c72ee2b636947b8a2a4c7789e275aded6f2791ac149f6ceefaaf09",
-      "last_commit": "(pending)",
+      "bytes": 550,
+      "sha256": "7fbec45a02e1a130c70d4a3a2b800dfac7152974659a0b507c4f88b43bb550f1",
+      "last_commit": "8a3b534f6cab964930806cb5ac23733afd8f1bde",
       "probable_role": "css",
       "license_notice": "N/A"
     },
@@ -58,17 +58,17 @@
       "path": "public/site.webmanifest",
       "type": "webmanifest",
       "bytes": 388,
-      "sha256": "6aec99a09f8b9a313bdce5d98851aa76d58daac59d1da1374371ee28d267bfb1",
-      "last_commit": "(pending)",
+      "sha256": "85a4a7903c042fc286d5ad35daa2d100c6c6e70f14d449de3c5ee3f97ef876bc",
+      "last_commit": "8a3b534f6cab964930806cb5ac23733afd8f1bde",
       "probable_role": "manifest",
       "license_notice": "N/A"
     },
     {
       "path": "public/styles/site.css",
       "type": "css",
-      "bytes": 11402,
-      "sha256": "0f98d9cb5f589ee2349c88740268d0148c944d99c29c708e747e26d7c52f5358",
-      "last_commit": "(pending)",
+      "bytes": 5495,
+      "sha256": "60ba60e7e568c576c2e596bed116d20be6f28981d3978485086c1e60e7bc3d1b",
+      "last_commit": "8a3b534f6cab964930806cb5ac23733afd8f1bde",
       "probable_role": "css",
       "license_notice": "N/A"
     }
@@ -79,6 +79,6 @@
       "css": 2,
       "webmanifest": 1
     },
-    "total_bytes": 18940
+    "total_bytes": 12331
   }
 }
