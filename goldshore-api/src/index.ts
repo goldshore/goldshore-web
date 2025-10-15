@@ -24,7 +24,11 @@ const pickOrigin = (env: Env, req: Request) => {
 
 const json = (data: unknown, init: ResponseInit = {}) =>
   new Response(JSON.stringify(data), {
-    headers: { "Content-Type": "application/json; charset=utf-8", ...init.headers },
+    ...init,
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      ...(init.headers ?? {})
+    },
     status: init.status ?? 200
   })
 
