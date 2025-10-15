@@ -177,6 +177,65 @@ img {
   color: var(--gs-success);
 }
 
+.section-heading {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 3rem;
+}
+
+.section-heading .tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--primary-soft);
+  color: var(--primary);
+  width: fit-content;
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-size: clamp(2rem, 3vw, 2.75rem);
+}
+
+.section-heading p {
+  margin: 0;
+  color: var(--muted);
+  max-width: 640px;
+}
+
+.feature-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.feature-card {
+  background: var(--surface);
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  box-shadow: 0 18px 40px -24px var(--overlay-ink);
+}
+
+.feature-card h3 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.feature-card p {
+  margin: 0;
+  color: var(--muted);
+}
+
 .card-footer {
   font-size: 0.875rem;
   color: var(--muted);
@@ -413,6 +472,120 @@ section {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+}
+
+.architecture {
+  background: radial-gradient(circle at top right, var(--accent-glow), transparent 55%),
+    var(--surface);
+  padding: 5rem 0;
+}
+
+.architecture-diagram {
+  display: grid;
+  gap: 2.5rem;
+}
+
+.architecture-diagram .diagram-row {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.step-card {
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid var(--primary-soft);
+  border-radius: 18px;
+  padding: 1.75rem;
+  backdrop-filter: blur(4px);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.step-card h3 {
+  margin: 0;
+}
+
+.step-card p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.step-index {
+  display: inline-flex;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.integrations {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.integration-card {
+  background: var(--surface);
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+  color: var(--muted);
+}
+
+.integration-card strong {
+  display: block;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.ops {
+  padding: 5rem 0;
+}
+
+.ops-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.ops-card {
+  background: var(--surface);
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.ops-card h3 {
+  margin: 0;
+}
+
+.ops-card p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.ops-card footer {
+  margin-top: auto;
+}
+
+.ops-card a {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.ops-card a:hover,
+.ops-card a:focus {
+  text-decoration: underline;
 }
 
 .link {
