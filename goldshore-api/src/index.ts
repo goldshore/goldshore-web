@@ -22,15 +22,16 @@ const pickOrigin = (env: Env, req: Request) => {
   return allow.includes(origin) ? origin : ""
 }
 
-const json = (data: unknown, init: ResponseInit = {}) =>
-  new Response(JSON.stringify(data), {
+const json = (data: unknown, init: ResponseInit = {}) => {
+  const headers = new Headers(init.headers ?? {})
+  headers.set("Content-Type", "application/json; charset=utf-8")
+
+  return new Response(JSON.stringify(data), {
     ...init,
-    headers: {
-      "Content-Type": "application/json; charset=utf-8",
-      ...(init.headers ?? {})
-    },
-    status: init.status ?? 200
+    status: init.status ?? 200,
+    headers
   })
+}
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
