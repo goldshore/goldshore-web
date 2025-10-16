@@ -1,5 +1,5 @@
 {
-  "name": "goldshore-api",
+  "name": "goldshore-web",
   "main": "src/index.ts",
   "compatibility_date": "2025-10-15",
 
@@ -8,11 +8,11 @@
   ],
 
   "kv_namespaces": [
-    { "binding": "KV_CACHE", "id": "REPLACE_WITH_KV_CACHE_ID" }
+    { "binding": "KV_CACHE", "id": "GOLDSHORE-API" }
   ],
 
   "d1_databases": [
-    { "binding": "DB", "database_name": "goldshore_db", "database_id": "REPLACE_WITH_D1_ID" }
+    { "binding": "DB", "database_name": "GOLDSHORE_DB", "database_id": "goldshore" }
   ],
 
   "r2_buckets": [
@@ -25,7 +25,7 @@
 
   "vars": {
     "ENV": "production",
-    "CORS_ALLOWED_ORIGINS": "https://goldshore.org,https://web.goldshore.org,https://api.goldshore.org,https://*.workers.dev,https://*.pages.dev,http://localhost:5173",
+    "CORS_ALLOWED_ORIGINS": "https://goldshore.org,https://api.goldshore.org,https://*.workers.dev,https://*.pages.dev,http://localhost:5173",
     "QUOTES_MAX_AGE": "30",
     "NEWS_MAX_AGE": "300"
   }
