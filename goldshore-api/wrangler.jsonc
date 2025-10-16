@@ -1,7 +1,3 @@
-# from the root of goldshore-api
-git rm -f wrangler.json  # remove the broken file that Pages is picking up
-
-cat > wrangler.jsonc <<'JSONC'
 {
   "name": "goldshore-api",
   "main": "src/index.ts",
@@ -29,13 +25,8 @@ cat > wrangler.jsonc <<'JSONC'
 
   "vars": {
     "ENV": "production",
-    "CORS_ALLOWED_ORIGINS": "https://goldshore.org,https://web.goldshore.org,https://*.pages.dev,http://localhost:5173",
+    "CORS_ALLOWED_ORIGINS": "https://goldshore.org,https://web.goldshore.org,https://api.goldshore.org,https://*.workers.dev,https://*.pages.dev,http://localhost:5173",
     "QUOTES_MAX_AGE": "30",
     "NEWS_MAX_AGE": "300"
   }
 }
-JSONC
-
-git add wrangler.jsonc
-git commit -m "fix: remove invalid wrangler.json; add clean wrangler.jsonc (Worker-only)"
-git push
