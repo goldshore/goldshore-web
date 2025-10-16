@@ -1,12 +1,41 @@
+# from the root of goldshore-api
+git rm -f wrangler.json  # remove the broken file that Pages is picking up
+
+cat > wrangler.jsonc <<'JSONC'
 {
   "name": "goldshore-api",
   "main": "src/index.ts",
-  "compatibility_date": "2025-10-12",
+  "compatibility_date": "2025-10-15",
+
   "routes": [
     { "pattern": "api.goldshore.org/*", "zone_name": "goldshore.org" }
   ],
+
+  "kv_namespaces": [
+    { "binding": "KV_CACHE", "id": "REPLACE_WITH_KV_CACHE_ID" }
+  ],
+
+  "d1_databases": [
+    { "binding": "DB", "database_name": "goldshore_db", "database_id": "REPLACE_WITH_D1_ID" }
+  ],
+
+  "r2_buckets": [
+    { "binding": "R2", "bucket_name": "goldshore-reports" }
+  ],
+
+  "queues": {
+    "producers": [{ "binding": "JOBS", "queue": "jobs" }]
+  },
+
   "vars": {
-    // comma-separated list; no trailing slashes
-    "CORS_ALLOWED_ORIGINS": "https://goldshore.org,https://trade.goldshore.org,http://localhost:5173"
+    "ENV": "production",
+    "CORS_ALLOWED_ORIGINS": "https://goldshore.org,https://web.goldshore.org,https://*.pages.dev,http://localhost:5173",
+    "QUOTES_MAX_AGE": "30",
+    "NEWS_MAX_AGE": "300"
   }
 }
+JSONC
+
+git add wrangler.jsonc
+git commit -m "fix: remove invalid wrangler.json; add clean wrangler.jsonc (Worker-only)"
+git push
