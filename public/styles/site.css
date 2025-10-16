@@ -239,6 +239,7 @@ section {
   display: grid;
   gap: 1.75rem;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  align-items: stretch;
 }
 
 .feature-card {
@@ -250,6 +251,7 @@ section {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  height: 100%;
 }
 
 .feature-card h3 {
@@ -260,6 +262,7 @@ section {
 .feature-card p {
   margin: 0;
   color: var(--muted);
+  flex: 1;
 }
 
 .architecture {
@@ -275,6 +278,7 @@ section {
   display: grid;
   gap: 1.5rem;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  align-items: stretch;
 }
 
 .step-card {
@@ -317,6 +321,7 @@ section {
   box-shadow: 0 16px 38px var(--overlay-ink);
   display: grid;
   gap: 0.5rem;
+  height: 100%;
 }
 
 .integration-card strong {
@@ -336,6 +341,7 @@ section {
   display: grid;
   gap: 1.5rem;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  align-items: stretch;
 }
 
 .ops-card {
@@ -346,6 +352,7 @@ section {
   display: grid;
   gap: 0.75rem;
   box-shadow: 0 20px 40px var(--overlay-ink);
+  height: 100%;
 }
 
 .ops-card h3 {
@@ -359,6 +366,16 @@ section {
 
 .ops-card footer {
   margin-top: 0.5rem;
+}
+
+@media (min-width: 960px) {
+  .architecture-diagram {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .diagram-row + .diagram-row {
+    margin-top: 0;
+  }
 }
 
 .pillars {
