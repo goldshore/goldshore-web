@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  @apply bg-background text-slate-900 font-sans antialiased;
+}
+
+a {
+  @apply transition-colors duration-150;
+}
+
+button {
+  @apply font-sans;
+}

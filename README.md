@@ -1,76 +1,45 @@
 # GoldShore Web
 
-This repository hosts the marketing site for GoldShore. The deployment
-pipeline is ready, but DNS needs to be normalized before the Pages site and
-Worker can go live. Hand the following brief to the deployment agent so it can
-finish Phase 1 and unblock the initial release. Keep the following
-ready-to-paste agent issue handy for the `goldshore-api` repository so the
-automations can take over immediately:
+This repository contains the marketing site for [goldshore.org](https://goldshore.org). The project is built with
+[Astro 4](https://astro.build) and [Tailwind CSS 3](https://tailwindcss.com), and deploys to Cloudflare Pages as a static
+site.
 
+## Prerequisites
+
+- Node.js 18+
+- npm 9+
+
+## Local development
+
+Install dependencies and start the dev server:
+
+```bash
+npm install
+npm run dev
 ```
-**Repository:** goldshore-api
-**Issue title:** DNS reset and domain verification (Phase 1 Deployment)
 
-### Summary
-Fix all DNS mis-points and verify that both the Pages and Worker environments
-resolve before proceeding with app or pipeline work.
+The site is available at `http://localhost:4321`. Content lives in `src/pages` and shared structure lives in
+`src/layouts`. Global styling is managed with Tailwind in `src/styles/global.css`.
 
-### Checklist for the agent
-1. Export a backup of the existing Cloudflare DNS zone (Advanced → Export zone
-   file) and keep it safe.
-2. Replace non-email A/AAAA/CNAME records with the GoldShore baselines listed
-   below.
-3. Confirm DNS propagation (`nslookup goldshore.org` and `nslookup
-   api.goldshore.org`) until Cloudflare IPs are returned and Cloudflare marks
-   the records as active.
-4. Attach the Pages and Worker domains/routes as described.
-5. Verify Cloudflare SSL/TLS mode is **Full (strict)**.
-6. Hit the Pages root and Worker health check once live.
-7. Report back with a sanitized DNS table plus confirmation that Pages and the
-   Worker domain verifications succeeded.
+## Production build
 
-> Label this issue `phase1/dns` so follow-up automations can detect completion.
-
-### TL;DR directive for the agent
-“Start with DNS correction and domain verification for goldshore.org. Configure
-CNAMEs for @, www, and api as described; attach the Pages and Worker routes;
-confirm SSL = Full (strict). After successful verification, proceed to initial
-deploy workflows.”
+```bash
+npm ci
+npm run build
 ```
-finish Phase 1 and unblock the initial release:
 
-## Phase 1 – DNS reset and verification
+The compiled site is written to the `dist/` directory and is suitable for Cloudflare Pages deployments.
 
-1. **Export a backup of the current DNS zone** from Cloudflare for
-   `goldshore.org` (DNS → Advanced → Export zone file).
-2. **Replace existing A/AAAA/CNAME records** with the following CNAMEs (keep MX
-   and TXT records for email):
+## Deployment notes
 
-   | Type  | Name | Target                    | Proxy   | Purpose                     |
-   | ----- | ---- | ------------------------- | ------- | --------------------------- |
-   | CNAME | `@`  | `goldshore-web.pages.dev` | Proxied | Root site                   |
-   | CNAME | www  | `goldshore-web.pages.dev` | Proxied | Alias                       |
-   | CNAME | api  | `workers.dev`             | Proxied | Worker endpoint placeholder |
+- Cloudflare Pages project name: `goldshore-web`
+- Publish directory: `dist`
+- Required environment variables:
+  - `PUBLIC_API_URL = https://api.goldshore.org/v1`
+  - `PUBLIC_SITE_URL = https://goldshore.org`
+- The GitHub workflow should use `cloudflare/pages-action@v1` with
+  `projectName: goldshore-web`, `directory: dist`, and the `CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_ACCOUNT_ID` secrets.
 
-3. **Verify propagation** via `nslookup` for `goldshore.org` and
-   `api.goldshore.org`, ensuring Cloudflare IPs are returned and the DNS tab
-   shows green checks.
-4. **Attach domains**:
-   - Pages project `goldshore-web`: add custom domains `goldshore.org` and
-     `www.goldshore.org`.
-   - Worker service `GoldShore`: add route `api.goldshore.org/*`.
-5. **Confirm SSL/TLS** mode is set to **Full (strict)** in Cloudflare.
-6. **Validate reachability** once deployments complete:
-   - `https://goldshore.org` should serve the Pages splash.
-   - `https://api.goldshore.org/health` should respond with `ok`.
-7. **Report back** with a DNS summary (redacting sensitive MX/TXT entries) and
-   confirmation that Pages and Worker domain verifications succeeded. Include
-   the Cloudflare DNS table in the response.
-   confirmation that Pages and Worker domain verifications succeeded.
+## Security headers
 
-When Phase 1 is complete, proceed to the initial deploy workflows:
-
-1. Trigger `deploy-pages.yml` on branch `main` in `goldshore-web`.
-2. Trigger `deploy-worker.yml` in `goldshore-api`.
-3. Confirm that GitHub App webhooks receive `200` responses from
-   `/webhook/github`.
+Static response headers for Pages are defined in `public/_headers` to enforce CSP, HSTS, and other security policies.
