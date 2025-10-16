@@ -8,11 +8,11 @@
   ],
 
   "kv_namespaces": [
-    { "binding": "KV_CACHE", "id": "GOLDSHORE-API" }
+    { "binding": "KV_CACHE", "id": "578fc33519014f418bd9712c61f593db" }
   ],
 
   "d1_databases": [
-    { "binding": "DB", "database_name": "GOLDSHORE_DB", "database_id": "goldshore" }
+    { "binding": "DB", "database_name": "GOLDSHORE_DB", "database_id": "goldshore-api" }
   ],
 
   "r2_buckets": [
