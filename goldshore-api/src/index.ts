@@ -28,8 +28,8 @@ const json = (data: unknown, init: ResponseInit = {}) => {
 
   return new Response(JSON.stringify(data), {
     ...init,
-    headers,
-    status: init.status ?? 200
+    status: init.status ?? 200,
+    headers
   })
 }
 
