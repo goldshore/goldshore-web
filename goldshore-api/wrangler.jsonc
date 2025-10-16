@@ -4,7 +4,7 @@
   "compatibility_date": "2025-10-15",
 
   "routes": [
-    { "pattern": "api.goldshore.org/*", "zone_name": "goldshore.org" }
+    { "pattern": "*.goldshore.org/*", "zone_name": "goldshore.org" }
   ],
 
   "kv_namespaces": [
