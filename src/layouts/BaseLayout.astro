@@ -5,6 +5,8 @@ const {
   title = 'GoldShore | Infrastructure for High-Trust AI',
   description = 'GoldShore helps teams deploy high-trust AI experiences with resilient infrastructure, expert guidance, and observability built-in.'
 } = Astro.props;
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://goldshore.org';
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -13,6 +15,7 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={siteUrl} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
