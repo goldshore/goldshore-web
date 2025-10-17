@@ -1,0 +1,69 @@
+---
+const defaultApiUrl = 'https://api.goldshore.org/v1';
+const apiUrl = import.meta.env.PUBLIC_API_URL || defaultApiUrl;
+const healthEndpoint = new URL('./health', apiUrl).toString();
+---
+<div
+  class="flex flex-col gap-2 rounded-2xl border border-border bg-background/80 p-4 text-sm text-muted"
+  data-api-status
+  data-api-url={healthEndpoint}
+>
+  <div class="flex items-center justify-between">
+    <span class="font-semibold text-slate-900">API health</span>
+    <span class="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em]" data-status-indicator>
+      <span class="h-2 w-2 rounded-full bg-slate-400" aria-hidden="true"></span>
+      <span data-status-text>Checking…</span>
+    </span>
+  </div>
+  <p class="text-xs leading-5" data-status-message>
+    We’re verifying connectivity with {new URL('.', apiUrl).origin}.
+  </p>
+</div>
+<script is:inline>
+  const container = document.currentScript.previousElementSibling;
+  const statusIndicator = container?.querySelector('[data-status-indicator]');
+  const dot = statusIndicator?.querySelector('span');
+  const statusText = statusIndicator?.querySelector('[data-status-text]');
+  const message = container?.querySelector('[data-status-message]');
+
+  const apiUrl = container?.dataset.apiUrl;
+  if (!apiUrl) {
+    console.warn('Missing API URL for status widget.');
+  } else {
+    fetch(apiUrl, {
+      mode: 'cors',
+      credentials: 'omit',
+      headers: {
+        Accept: 'application/json'
+      }
+    })
+      .then(async (response) => {
+        if (dot) {
+          dot.classList.remove('bg-slate-400');
+          dot.classList.add(response.ok ? 'bg-emerald-500' : 'bg-amber-500');
+        }
+        if (statusText) {
+          statusText.textContent = response.ok ? 'Online' : `Error ${response.status}`;
+        }
+        if (message) {
+          const corsHeader = response.headers.get('access-control-allow-origin');
+          const corsMessage = corsHeader ? ` CORS: ${corsHeader}` : '';
+          message.textContent = response.ok
+            ? `Health check succeeded (${response.status}).${corsMessage}`
+            : `Health check returned ${response.status}.${corsMessage}`;
+        }
+      })
+      .catch((error) => {
+        if (dot) {
+          dot.classList.remove('bg-slate-400');
+          dot.classList.add('bg-rose-500');
+        }
+        if (statusText) {
+          statusText.textContent = 'Offline';
+        }
+        if (message) {
+          message.textContent = `Unable to reach API. ${error instanceof Error ? error.message : ''}`.trim();
+        }
+      });
+  }
+</script>

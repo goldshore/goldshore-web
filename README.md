@@ -32,6 +32,9 @@ The compiled site is written to the `dist/` directory and is suitable for Cloudf
 
 ## Deployment notes
 
+Refer to [`docs/cloudflare-pages.md`](docs/cloudflare-pages.md) for the full Pages configuration, DNS requirements, and
+Zero Trust guidance. Key values:
+
 - Cloudflare Pages project name: `goldshore-web`
 - Publish directory: `dist`
 - Required environment variables:
