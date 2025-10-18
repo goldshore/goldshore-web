@@ -51,3 +51,18 @@ npm run build
    authenticate via Cloudflare Access, after which the endpoint should respond with `200`.
 5. Record the HTTP status codes, CORS headers, active deployment URL, DNS state, and Access policy details in the
    release notes.
+
+## Deployment summary template
+
+Capture the following details for every production publish. This log satisfies audit requirements and mirrors the
+Zero Trust expectations for the `/admin/*` path.
+
+| Field | Example |
+| --- | --- |
+| Deployment ID | `4f6c2a5e-6f66-4c61-bdf4-10f2012b52c9` |
+| Deployment URLs | `https://goldshore.org`, `https://goldshore-web.pages.dev` |
+| DNS state | `goldshore.org → goldshore-web.pages.dev (proxied)`, `web.goldshore.org → goldshore-web.pages.dev (proxied)` |
+| Access policy | `web.goldshore.org` protected at `/admin/*` only |
+| API checks | `/health → 200 OK (CORS: https://goldshore.org)`, `/v1 → 401 Unauthorized before Access login, 200 after` |
+
+Store the completed summary alongside the release notes in your change management system.
