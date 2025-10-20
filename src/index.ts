@@ -48,7 +48,7 @@ app.use('*', async (c, next) => {
   const corsHeaders = buildCorsHeaders(origin, allowedOrigins);
 
   if (c.req.method === 'OPTIONS') {
-    return c.json({ ok: true }, 204, corsHeaders);
+    return new Response(null, { status: 204, headers: corsHeaders });
   }
 
   Object.entries(corsHeaders).forEach(([key, value]) => {
