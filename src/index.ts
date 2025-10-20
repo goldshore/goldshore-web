@@ -46,24 +46,26 @@ function parseScopes(rawScopes?: string | null): string[] {
     return [];
   }
 
-  const trimmedScopes = rawScopes.trim();
-
-  if (!trimmedScopes) {
+  const trimmed = rawScopes.trim();
+  if (!trimmed) {
     return [];
   }
 
-  if (trimmedScopes.startsWith('[')) {
+  if (trimmed.startsWith('[')) {
     try {
-      const parsed = JSON.parse(trimmedScopes);
+      const parsed = JSON.parse(trimmed);
       if (Array.isArray(parsed)) {
-        return parsed.filter((scope): scope is string => typeof scope === 'string' && scope.trim()).map((scope) => scope.trim());
+        return parsed
+          .filter((scope): scope is string => typeof scope === 'string')
+          .map((scope) => scope.trim())
+          .filter(Boolean);
       }
     } catch (error) {
-      console.warn('Failed to parse Cf-Access-Authenticated-User-Scopes as JSON array', error);
+      // fall through to string parsing when JSON parsing fails
     }
   }
 
-  return trimmedScopes
+  return trimmed
     .split(/[,\s]+/)
     .map((scope) => scope.trim())
     .filter(Boolean);
