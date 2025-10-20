@@ -1,0 +1,32 @@
+name: Deploy Gold Shore API
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'wrangler.toml'
+      - 'src/index.ts'
+      - '.github/workflows/worker-deploy.yml'
+  workflow_dispatch:
+
+jobs:
+  deploy-worker:
+    name: Deploy Worker via Wrangler
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Wrangler
+        run: npm install --global wrangler@3
+
+      - name: Publish Worker
+        env:
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+        run: wrangler deploy --config wrangler.toml
