@@ -46,7 +46,26 @@ function parseScopes(rawScopes?: string | null): string[] {
     return [];
   }
 
-  return rawScopes
+  const trimmed = rawScopes.trim();
+  if (!trimmed) {
+    return [];
+  }
+
+  if (trimmed.startsWith('[')) {
+    try {
+      const parsed = JSON.parse(trimmed);
+      if (Array.isArray(parsed)) {
+        return parsed
+          .filter((scope): scope is string => typeof scope === 'string')
+          .map((scope) => scope.trim())
+          .filter(Boolean);
+      }
+    } catch (error) {
+      // fall through to string parsing when JSON parsing fails
+    }
+  }
+
+  return trimmed
     .split(/[,\s]+/)
     .map((scope) => scope.trim())
     .filter(Boolean);
