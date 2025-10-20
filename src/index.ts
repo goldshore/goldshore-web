@@ -1,13 +1,26 @@
 import { Hono } from 'hono';
 
-const ALLOWED_ORIGINS = (CORS_ORIGINS || '')
-  .split(',')
-  .map((origin) => origin.trim())
-  .filter(Boolean);
+type EnvBindings = {
+  CORS_ORIGINS?: string;
+};
 
-const app = new Hono();
+const app = new Hono<{ Bindings: EnvBindings }>();
 
-function buildCorsHeaders(origin: string | null): Record<string, string> {
+function parseAllowedOrigins(rawOrigins?: string): string[] {
+  if (!rawOrigins) {
+    return [];
+  }
+
+  return rawOrigins
+    .split(',')
+    .map((origin) => origin.trim())
+    .filter(Boolean);
+}
+
+function buildCorsHeaders(
+  origin: string | null,
+  allowedOrigins: string[],
+): Record<string, string> {
   const headers: Record<string, string> = {
     'Access-Control-Allow-Headers': 'Cf-Access-Jwt-Assertion, Content-Type',
     'Access-Control-Allow-Methods': 'GET,POST,PUT,DELETE,PATCH,OPTIONS',
@@ -15,7 +28,7 @@ function buildCorsHeaders(origin: string | null): Record<string, string> {
     Vary: 'Origin',
   };
 
-  if (origin && ALLOWED_ORIGINS.includes(origin)) {
+  if (origin && allowedOrigins.includes(origin)) {
     headers['Access-Control-Allow-Origin'] = origin;
   }
 
@@ -24,7 +37,8 @@ function buildCorsHeaders(origin: string | null): Record<string, string> {
 
 app.use('*', async (c, next) => {
   const origin = c.req.header('Origin') ?? null;
-  const corsHeaders = buildCorsHeaders(origin);
+  const allowedOrigins = parseAllowedOrigins(c.env.CORS_ORIGINS);
+  const corsHeaders = buildCorsHeaders(origin, allowedOrigins);
 
   if (c.req.method === 'OPTIONS') {
     return c.json({}, 204, corsHeaders);
@@ -56,5 +70,3 @@ app.onError((err, c) => {
 });
 
 export default app;
-
-declare const CORS_ORIGINS: string;
