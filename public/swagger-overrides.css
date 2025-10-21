@@ -1,0 +1,28 @@
+.swagger-ui .topbar {
+  display: none;
+}
+
+.swagger-ui,
+.swagger-ui .scheme-container,
+.swagger-ui .opblock-tag {
+  background: var(--surface);
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.swagger-ui .opblock {
+  background: var(--surface);
+  border-color: var(--border);
+}
+
+.swagger-ui .btn,
+.swagger-ui .authorize {
+  background: var(--brand) !important;
+  color: var(--brand-contrast) !important;
+  border: none;
+}
+
+.swagger-ui .opblock-summary-method {
+  background: var(--gs-slate);
+  color: var(--gs-bone);
+}
