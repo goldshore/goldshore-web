@@ -1,4 +1,29 @@
----
+<html lang="en">
+  <head>
+    <title>GoldShore Agent Console</title>
+    <style>
+      body { font-family: system-ui; margin:2rem; background:#0b0b0c; color:#e0e0e0; }
+      input,button { padding:0.5rem; border:none; border-radius:4px; }
+      button { background:#0070f3; color:#fff; margin-left:0.5rem; }
+      pre { background:#111; padding:1rem; border-radius:6px; overflow-x:auto; }
+    </style>
+  </head>
+  <body>
+    <h1>GoldShore Agent Console</h1>
+    <form id="agentForm">
+      <input id="goal" placeholder="Enter goal…" size="50" />
+      <button type="submit">Plan</button>
+    </form>
+    <pre id="result"></pre>
+    <script type="module">
+      const form = document.querySelector('#agentForm');
+      const input = document.querySelector('#goal');
+      const resultNode = document.querySelector('#result');
+
+      if (form instanceof HTMLFormElement && input instanceof HTMLInputElement && resultNode instanceof HTMLElement) {
+        form.addEventListener('submit', async (event) => {
+          event.preventDefault();
+          const goal = input.value;
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 <BaseLayout title="GoldShore Agent Console" description="Submit a goal to the GoldShore planning agent.">
@@ -49,6 +74,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
+            body: JSON.stringify({ goal }),
+          });
+          const payload = await response.json();
+          resultNode.textContent = JSON.stringify(payload, null, 2);
+        });
+      }
+    </script>
+  </body>
+</html>
             body: JSON.stringify({ goal })
           });
           const payload = await response.json();

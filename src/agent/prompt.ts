@@ -26,6 +26,7 @@ export async function loadSystemPrompt(
   }
 
   try {
+    const res = await bindings.ASSETS.fetch(new URL('/agent/prompt.md', 'http://assets'));
     const res = await bindings.ASSETS.fetch('http://assets/agent/prompt.md');
     if (res.ok) {
       return await res.text();
