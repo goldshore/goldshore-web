@@ -1,218 +1,112 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ApiStatus from '../components/ApiStatus.astro';
+import GSHeader from '../components/ui/GSHeader';
+import GSButton from '../components/ui/GSButton';
+import GSCard from '../components/ui/GSCard';
+import KPI from '../components/ui/KPI';
 
 const apiUrl = import.meta.env.PUBLIC_API_URL || 'https://api.goldshore.org/v1';
+const currentYear = new Date().getFullYear();
 ---
 <BaseLayout>
-  <header class="sticky top-0 z-50 border-b border-border/80 bg-surface/95 backdrop-blur">
-    <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-      <a class="text-lg font-semibold text-primary-dark" href="#">GoldShore</a>
-      <nav class="hidden gap-6 text-sm font-medium text-muted md:flex">
-        <a class="hover:text-primary" href="#platform">Platform</a>
-        <a class="hover:text-primary" href="#solutions">Solutions</a>
-        <a class="hover:text-primary" href="#insights">Insights</a>
-        <a
-          class="rounded-full border border-primary/30 bg-primary/10 px-4 py-2 text-primary transition hover:bg-primary/20"
-          href="#contact"
-        >
-          Talk to us
-        </a>
-      </nav>
-      <button
-        class="inline-flex items-center justify-center rounded-full border border-border px-4 py-2 text-sm font-medium text-muted md:hidden"
-        type="button"
-        aria-label="Open navigation"
-      >
-        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
-    </div>
-  </header>
-
-  <main>
-    <section id="platform" class="bg-gradient-to-br from-surface via-background to-indigo-50/60 py-24">
-      <div class="mx-auto grid max-w-6xl gap-12 px-6 md:grid-cols-2 md:items-center">
-        <div>
-          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-primary">Platform</p>
-          <h1 class="mt-4 text-4xl font-semibold leading-tight text-slate-900 md:text-5xl">
-            Infrastructure for high-trust AI
+  <GSHeader client:load />
+  <main class="bg-bg text-text">
+    <section class="relative overflow-hidden border-b border-border bg-surface/60">
+      <div class="pointer-events-none absolute inset-x-0 -top-48 z-0 h-96 bg-[radial-gradient(circle_at_top,var(--gs-gold)_0%,rgba(227,179,65,0)_70%)] opacity-40"></div>
+      <div class="relative z-10 mx-auto grid max-w-7xl gap-12 px-6 py-24 md:grid-cols-[1.1fr_0.9fr] md:items-center">
+        <div class="space-y-6">
+          <p class="text-sm font-medium uppercase tracking-[0.2em] text-muted">Investor-grade AI infrastructure</p>
+          <h1 class="font-display text-4xl tracking-[-0.02em] text-text md:text-5xl">
+            Ship accountable AI with production-grade guardrails.
           </h1>
-          <p class="mt-6 max-w-xl text-lg text-muted">
-            GoldShore gives data teams a resilient foundation for deploying AI products in regulated industries. Ship
-            faster with a platform that blends observability, model governance, and on-call support.
+          <p class="max-w-xl text-lg text-muted">
+            GoldShore brings observability, compliance, and capital-markets rigor to every deployment. Launch faster without compromising on control.
           </p>
-          <div class="mt-10 flex flex-wrap gap-4">
+          <div class="flex flex-wrap gap-4">
+            <GSButton client:idle>Book a briefing</GSButton>
             <a
-              class="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-primary to-indigo-600 px-6 py-3 font-semibold text-white shadow-lg shadow-indigo-500/30 transition hover:from-primary-dark hover:to-indigo-700"
-              href="#contact"
+              class="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm text-muted transition-colors hover:text-text"
+              style="transition-duration: var(--dur); transition-timing-function: var(--ease);"
+              href="#operations"
             >
-              Request a demo
-            </a>
-            <a
-              class="inline-flex items-center justify-center rounded-full border border-primary/30 bg-primary/10 px-6 py-3 font-semibold text-primary transition hover:bg-primary/20"
-              href="#insights"
-            >
-              Read the paper
+              View operations playbook
             </a>
           </div>
         </div>
-        <div class="rounded-3xl border border-border bg-surface p-6 shadow-[0_25px_60px_rgba(15,23,42,0.08)]">
-          <div class="text-sm font-semibold text-muted">Deployment health</div>
-          <ul class="mt-6 space-y-4">
-            <li class="flex items-center justify-between text-muted">
-              <span>Uptime</span>
-              <span class="text-lg font-semibold text-slate-900">99.99%</span>
+        <div class="space-y-6">
+          <GSCard client:idle title="Deployment observability">
+            <div class="space-y-4">
+              <ApiStatus />
+            </div>
+          </GSCard>
+        </div>
+      </div>
+    </section>
+
+    <section id="operations" class="border-b border-border/60 bg-bg py-20">
+      <div class="mx-auto flex max-w-7xl flex-col gap-10 px-6 lg:flex-row lg:items-start">
+        <div class="max-w-xl space-y-4">
+          <p class="text-sm font-medium uppercase tracking-[0.2em] text-muted">Operational confidence</p>
+          <h2 class="font-display text-3xl tracking-[-0.015em] md:text-4xl">Metrics executives can act on</h2>
+          <p class="text-base text-muted">
+            Monitoring across latency, compliance, and model quality ensures the desk stays within mandate. Alerts route to on-call specialists with clear runbooks.
+          </p>
+        </div>
+        <div class="grid flex-1 gap-4 md:grid-cols-3">
+          <KPI client:idle label="Net latency" value="143 ms" delta={-12} />
+          <KPI client:idle label="Trade approval SLA" value="99.98%" delta={0.8} />
+          <KPI client:idle label="Model drift" value="0.4%" delta={-0.2} />
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-surface/70 py-20">
+      <div class="mx-auto grid max-w-7xl gap-6 px-6 md:grid-cols-2">
+        <div class="rounded-lg border border-border bg-gradient-to-br from-[var(--gs-ink)] via-surface to-surface p-8 shadow-elev-2">
+          <h3 class="font-display text-2xl tracking-[-0.01em] text-[var(--gs-bone)]">Controls for regulated workflows</h3>
+          <p class="mt-4 text-sm text-[var(--gs-bone)] text-[color-mix(in_srgb,var(--gs-bone)_70%,var(--gs-ink))]">
+            GoldShore templates SOC2, FINRA, and OCC controls with sign-off trails. Every deployment enforces policy via Git-backed guardrails.
+          </p>
+          <ul class="mt-6 space-y-3 text-sm text-[var(--gs-bone)] text-[color-mix(in_srgb,var(--gs-bone)_70%,var(--gs-ink))]">
+            <li class="flex items-start gap-2">
+              <span class="mt-1 inline-flex h-2 w-2 rounded-full bg-[var(--gs-auric)]"></span>
+              Automated attestation packages ready for regulators.
             </li>
-            <li class="flex items-center justify-between text-muted">
-              <span>Latency</span>
-              <span class="text-lg font-semibold text-slate-900">143 ms</span>
+            <li class="flex items-start gap-2">
+              <span class="mt-1 inline-flex h-2 w-2 rounded-full bg-[var(--gs-auric)]"></span>
+              Immutable audit trails across prompts, outputs, and overrides.
             </li>
-            <li class="flex items-center justify-between text-muted">
-              <span>Model drift</span>
-              <span class="text-lg font-semibold text-emerald-500">0.4%</span>
+            <li class="flex items-start gap-2">
+              <span class="mt-1 inline-flex h-2 w-2 rounded-full bg-[var(--gs-auric)]"></span>
+              Executive dashboards map KPIs back to governance posture.
             </li>
           </ul>
-          <div class="mt-8 text-xs uppercase tracking-[0.2em] text-muted">Updated moments ago</div>
-          <div class="mt-6">
-            <ApiStatus />
+        </div>
+        <div class="grid gap-4">
+          <div class="rounded-lg border border-border bg-surface p-6 shadow-elev-1">
+            <h3 class="font-display text-xl text-text">Resilient execution fabric</h3>
+            <p class="mt-3 text-sm text-muted">
+              Isolation per desk, deterministic routing, and fallback models keep trading resilient when markets move.
+            </p>
+          </div>
+          <div class="rounded-lg border border-border bg-surface p-6 shadow-elev-1">
+            <h3 class="font-display text-xl text-text">Cross-team clarity</h3>
+            <p class="mt-3 text-sm text-muted">
+              Shared runbooks bring engineering, risk, and compliance into a single operating picture with Penrose-fast updates.
+            </p>
           </div>
         </div>
-      </div>
-    </section>
-
-    <section id="solutions" class="py-24">
-      <div class="mx-auto flex max-w-6xl flex-col gap-12 px-6 lg:flex-row lg:items-start">
-        <div class="max-w-xl">
-          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-primary">Solutions</p>
-          <h2 class="mt-4 text-3xl font-semibold text-slate-900 md:text-4xl">Purpose-built for regulated teams</h2>
-          <p class="mt-4 text-lg text-muted">
-            Our platform is purpose-built for security-first organizations and teams that answer to regulators. Every
-            deployment is isolated, continuously scanned, and auditable.
-          </p>
-        </div>
-        <div class="grid flex-1 gap-6 md:grid-cols-2">
-          <article class="rounded-2xl border border-border bg-surface p-6 shadow-sm shadow-slate-900/5">
-            <h3 class="text-xl font-semibold text-slate-900">Governed delivery</h3>
-            <p class="mt-3 text-muted">
-              Guardrails and policy templates make it simple to prove compliance. Exportable reports keep auditors
-              satisfied without slowing down your roadmap.
-            </p>
-          </article>
-          <article class="rounded-2xl border border-border bg-surface p-6 shadow-sm shadow-slate-900/5">
-            <h3 class="text-xl font-semibold text-slate-900">Integrated observability</h3>
-            <p class="mt-3 text-muted">
-              Streaming telemetry and explainability dashboards surface the signals that matter. Detect drift, bias, and
-              regressions before customers feel the impact.
-            </p>
-          </article>
-          <article class="rounded-2xl border border-border bg-surface p-6 shadow-sm shadow-slate-900/5 md:col-span-2">
-            <h3 class="text-xl font-semibold text-slate-900">Expert on-call support</h3>
-            <p class="mt-3 text-muted">
-              Our engineers partner with your team 24/7. From hardening pipelines to rehearsing incident response, we
-              keep you in control.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="insights" class="bg-surface py-24">
-      <div class="mx-auto max-w-6xl px-6">
-        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-primary">Insights</p>
-        <div class="mt-4 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
-          <h2 class="text-3xl font-semibold text-slate-900 md:text-4xl">Featured insights</h2>
-          <p class="max-w-xl text-muted">
-            Deep dives and guidance from the GoldShore team on building resilient, trustworthy AI systems that meet the
-            bar for regulators and customers alike.
-          </p>
-        </div>
-        <div class="mt-12 grid gap-6 md:grid-cols-3">
-          <article class="flex h-full flex-col rounded-2xl border border-border bg-background p-6">
-            <h3 class="text-xl font-semibold text-slate-900">Blueprint for resilient AI infrastructure</h3>
-            <p class="mt-3 flex-1 text-muted">
-              Learn how leading financial firms modernized model operations without compromising on governance.
-            </p>
-            <a class="mt-6 font-semibold text-primary hover:text-primary-dark" href="#contact">Download brief</a>
-          </article>
-          <article class="flex h-full flex-col rounded-2xl border border-border bg-background p-6">
-            <h3 class="text-xl font-semibold text-slate-900">Responsible AI in production</h3>
-            <p class="mt-3 flex-1 text-muted">
-              Explore a checklist for building trust with regulators, users, and internal stakeholders.
-            </p>
-            <a class="mt-6 font-semibold text-primary hover:text-primary-dark" href="#contact">Get the checklist</a>
-          </article>
-          <article class="flex h-full flex-col rounded-2xl border border-border bg-background p-6">
-            <h3 class="text-xl font-semibold text-slate-900">Incident response playbook</h3>
-            <p class="mt-3 flex-1 text-muted">
-              A step-by-step guide to managing AI incidents, from detection to postmortems.
-            </p>
-            <a class="mt-6 font-semibold text-primary hover:text-primary-dark" href="#contact">Read the playbook</a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="py-24">
-      <div class="mx-auto max-w-4xl rounded-3xl border border-primary/20 bg-gradient-to-br from-primary/5 via-background to-surface px-6 py-16 shadow-lg shadow-indigo-500/10 sm:px-12">
-        <div class="mx-auto max-w-2xl text-center">
-          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-primary">Contact</p>
-          <h2 class="mt-4 text-3xl font-semibold text-slate-900 md:text-4xl">Ready to earn trust in production?</h2>
-          <p class="mt-4 text-lg text-muted">
-            Tell us about your deployment goals and we'll tailor a pilot plan in under 48 hours.
-          </p>
-        </div>
-        <form class="mx-auto mt-10 grid max-w-2xl gap-6 md:grid-cols-2">
-          <label class="flex flex-col text-left text-sm font-medium text-slate-900">
-            Work email
-            <input
-              class="mt-2 rounded-xl border border-border bg-white px-4 py-3 text-base text-slate-900 shadow-inner shadow-slate-900/5 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-              type="email"
-              name="email"
-              placeholder="you@company.com"
-              required
-            />
-          </label>
-          <label class="flex flex-col text-left text-sm font-medium text-slate-900">
-            Team size
-            <select
-              class="mt-2 rounded-xl border border-border bg-white px-4 py-3 text-base text-slate-900 shadow-inner shadow-slate-900/5 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-              name="team-size"
-            >
-              <option value="1-10">1-10</option>
-              <option value="11-50">11-50</option>
-              <option value="51-200">51-200</option>
-              <option value="201+">201+</option>
-            </select>
-          </label>
-          <label class="md:col-span-2 flex flex-col text-left text-sm font-medium text-slate-900">
-            What are you building?
-            <textarea
-              class="mt-2 h-32 rounded-xl border border-border bg-white px-4 py-3 text-base text-slate-900 shadow-inner shadow-slate-900/5 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-              name="notes"
-              placeholder="Share details about your AI initiatives"
-            ></textarea>
-          </label>
-          <div class="md:col-span-2 text-left">
-            <button
-              class="inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-primary to-indigo-600 px-8 py-3 text-base font-semibold text-white shadow-lg shadow-indigo-500/30 transition hover:from-primary-dark hover:to-indigo-700 md:w-auto"
-              type="submit"
-            >
-              Submit
-            </button>
-          </div>
-        </form>
       </div>
     </section>
   </main>
 
-  <footer class="border-t border-border/70 bg-surface py-10">
-    <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-6 text-center text-sm text-muted md:flex-row md:text-left">
-      <p>&copy; {new Date().getFullYear()} GoldShore. All rights reserved.</p>
-      <div class="flex gap-4">
-        <a class="hover:text-primary" href="mailto:hello@goldshore.org">Contact</a>
-        <a class="hover:text-primary" href={apiUrl} rel="noreferrer">API status</a>
+  <footer class="border-t border-border/60 bg-surface py-8">
+    <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 text-center text-sm text-muted md:flex-row md:text-left">
+      <p>&copy; {currentYear} GoldShore. All rights reserved.</p>
+      <div class="flex items-center gap-4">
+        <a class="hover:text-text" href="mailto:hello@goldshore.org">Contact</a>
+        <a class="hover:text-text" href={apiUrl} rel="noreferrer">API status</a>
       </div>
     </div>
   </footer>

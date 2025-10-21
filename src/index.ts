@@ -12,6 +12,33 @@ type Variables = {
 
 const app = new Hono<{ Bindings: Bindings; Variables: Variables }>();
 
+function renderSwagger({ css }: { css: string }): string {
+  return `<!DOCTYPE html>
+  <html lang="en" data-theme="dark">
+    <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <title>GoldShore API</title>
+      <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5/swagger-ui.css" />
+      <link rel="stylesheet" href="${css}" />
+    </head>
+    <body>
+      <div id="swagger-ui"></div>
+      <script src="https://unpkg.com/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
+      <script>
+        window.addEventListener('load', () => {
+          window.SwaggerUIBundle({
+            url: '/openapi.json',
+            dom_id: '#swagger-ui',
+            presets: window.SwaggerUIBundle.presets.apis,
+            layout: 'BaseLayout'
+          });
+        });
+      </script>
+    </body>
+  </html>`;
+}
+
 function parseAllowedOrigins(rawOrigins?: string): string[] {
   if (!rawOrigins) {
     return [];
@@ -73,6 +100,12 @@ app.use('*', async (c, next) => {
 
   await next();
 });
+
+app.get('/docs', (c) =>
+  c.html(
+    renderSwagger({ css: '/swagger-overrides.css' }),
+  ),
+);
 
 app.get('/v1/health', (c) => {
   return c.json({ ok: true, data: { service: 'healthy' }, hint: 'Static health; deps not probed.' });
