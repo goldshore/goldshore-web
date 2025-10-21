@@ -1,27 +1,31 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import AdminLayout from '../../components/admin/AdminLayout.astro';
 ---
-<BaseLayout title="GoldShore Admin Access" description="Authenticate with GitHub to enter the GoldShore admin console.">
-  <section class="grid min-h-screen bg-bg md:grid-cols-2">
-    <div class="relative hidden overflow-hidden bg-[var(--gs-ink)] md:block">
-      <div class="penrose-cut absolute inset-0 bg-[conic-gradient(from_120deg_at_50%_20%,rgba(227,179,65,0.4),transparent)]"></div>
-      <img src="/penrose.svg" alt="Penrose motif" class="absolute inset-0 m-auto w-72 opacity-10" />
-    </div>
-    <div class="flex items-center justify-center bg-bg p-8">
-      <form class="w-full max-w-sm space-y-4 rounded-lg border border-border bg-surface/90 p-6 shadow-elev-1">
-        <img src="/logo.svg" class="h-10" alt="GoldShore" />
-        <h1 class="font-display text-2xl text-text">Sign in</h1>
-        <p class="text-sm text-muted">Use your GitHub identity (Cloudflare Access).</p>
-        <a
-          href="/__access/login"
-          class="block rounded-lg bg-[var(--brand)] px-4 py-2 text-center text-[var(--brand-contrast)] transition hover:brightness-105 focus-visible:ring-2 focus-visible:ring-brand/40"
-        >
-          Continue with GitHub
+<BaseLayout title="GoldShore Admin" description="Operational console for customers, trading, risk, and compliance.">
+  <AdminLayout heading="Control Tower" description="Monitor the trading desk, risk posture, and customer lifecycle from one console.">
+    <div class="grid gap-6 md:grid-cols-3">
+      <div class="rounded-xl border border-border bg-surface/70 p-6 shadow-elev-1">
+        <h2 class="font-display text-xl text-text">Active Customers</h2>
+        <p class="mt-2 text-sm text-muted">Provisioning, access, and account health at a glance.</p>
+        <a class="mt-4 inline-flex items-center text-sm font-medium text-brand" href="/admin/customers">
+          View customers
         </a>
-        <p class="text-[11px] leading-relaxed text-muted">
-          By continuing you agree to the Acceptable Use &amp; Security Policy.
-        </p>
-      </form>
+      </div>
+      <div class="rounded-xl border border-border bg-surface/70 p-6 shadow-elev-1">
+        <h2 class="font-display text-xl text-text">Execution Overview</h2>
+        <p class="mt-2 text-sm text-muted">Orders, fills, and risk limits synced from the trading fabric.</p>
+        <a class="mt-4 inline-flex items-center text-sm font-medium text-brand" href="/admin/trading">
+          Open trading panel
+        </a>
+      </div>
+      <div class="rounded-xl border border-border bg-surface/70 p-6 shadow-elev-1">
+        <h2 class="font-display text-xl text-text">Workflow Automation</h2>
+        <p class="mt-2 text-sm text-muted">Trigger audits, settlements, and data sync jobs from a single place.</p>
+        <a class="mt-4 inline-flex items-center text-sm font-medium text-brand" href="/admin/workflows">
+          Manage workflows
+        </a>
+      </div>
     </div>
-  </section>
+  </AdminLayout>
 </BaseLayout>
