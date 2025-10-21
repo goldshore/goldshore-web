@@ -1,0 +1,16 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="penrosePrimary" x1="24" y1="20" x2="108" y2="108" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#E3B341" />
+      <stop offset="1" stop-color="#F7C84E" />
+    </linearGradient>
+    <linearGradient id="penroseSecondary" x1="20" y1="100" x2="92" y2="28" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2CC6B8" />
+      <stop offset="1" stop-color="#93F2E9" />
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="28" fill="#0B0C10" />
+  <path d="M64 18L108 104H20L64 18Z" fill="url(#penrosePrimary)" />
+  <path d="M32 110L20 88L76 24L96 60L32 110Z" fill="url(#penroseSecondary)" opacity="0.75" />
+  <path d="M56 72L72 48L92 88H44L56 72Z" fill="#121318" opacity="0.65" />
+</svg>

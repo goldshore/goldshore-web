@@ -1,21 +1,15 @@
-<svg width="512" height="512" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="512" height="512" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="icon512Sun" x1="10" y1="8" x2="40" y2="38" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#2152ff" />
-      <stop offset="1" stop-color="#4f46e5" />
+    <linearGradient id="icon512Primary" x1="40" y1="32" x2="224" y2="224" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#E3B341" />
+      <stop offset="1" stop-color="#F7C84E" />
     </linearGradient>
-    <linearGradient id="icon512Wave" x1="0" y1="40" x2="64" y2="64" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#0d1c5a" />
-      <stop offset="1" stop-color="#2152ff" />
+    <linearGradient id="icon512Teal" x1="32" y1="228" x2="212" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2CC6B8" />
+      <stop offset="1" stop-color="#93F2E9" />
     </linearGradient>
   </defs>
-  <rect width="64" height="64" rx="16" fill="#ffffff" />
-  <circle cx="28" cy="24" r="16" fill="url(#icon512Sun)" />
-  <path d="M0 40c12-6 20-6 32 0s20 6 32 0v24H0V40z" fill="url(#icon512Wave)" opacity="0.8" />
-  <path d="M0 44c12-5 20-5 32 0s20 5 32 0v20H0V44z" fill="#0d1c5a" opacity="0.85" />
-  <path
-    d="M32 16c-7.18 0-13 5.82-13 13s5.82 13 13 13c4.7 0 8.8-2.6 10.9-6.7h-6.7c-1.4 1.6-3.5 2.6-5.9 2.6-4.1 0-7.4-3.3-7.4-7.4 0-4.1 3.3-7.4 7.4-7.4 2.4 0 4.6 1.2 5.9 3.2h-7.4v5.1h12.5c0.2-0.9 0.3-1.8 0.3-2.8C41.5 20.2 37.2 16 32 16z"
-    fill="#ffffff"
-    opacity="0.92"
-  />
+  <rect width="256" height="256" rx="60" fill="#0B0C10" />
+  <path d="M128 32L224 224H32L128 32Z" fill="url(#icon512Primary)" />
+  <path d="M56 228L32 176L156 48L200 128L56 228Z" fill="url(#icon512Teal)" opacity="0.78" />
 </svg>

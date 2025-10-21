@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+<BaseLayout title="GoldShore Admin Access" description="Authenticate with GitHub to enter the GoldShore admin console.">
+  <section class="grid min-h-screen bg-bg md:grid-cols-2">
+    <div class="relative hidden overflow-hidden bg-[var(--gs-ink)] md:block">
+      <div class="penrose-cut absolute inset-0 bg-[conic-gradient(from_120deg_at_50%_20%,rgba(227,179,65,0.4),transparent)]"></div>
+      <img src="/penrose.svg" alt="Penrose motif" class="absolute inset-0 m-auto w-72 opacity-10" />
+    </div>
+    <div class="flex items-center justify-center bg-bg p-8">
+      <form class="w-full max-w-sm space-y-4 rounded-lg border border-border bg-surface/90 p-6 shadow-elev-1">
+        <img src="/logo.svg" class="h-10" alt="GoldShore" />
+        <h1 class="font-display text-2xl text-text">Sign in</h1>
+        <p class="text-sm text-muted">Use your GitHub identity (Cloudflare Access).</p>
+        <a
+          href="/__access/login"
+          class="block rounded-lg bg-[var(--brand)] px-4 py-2 text-center text-[var(--brand-contrast)] transition hover:brightness-105 focus-visible:ring-2 focus-visible:ring-brand/40"
+        >
+          Continue with GitHub
+        </a>
+        <p class="text-[11px] leading-relaxed text-muted">
+          By continuing you agree to the Acceptable Use &amp; Security Policy.
+        </p>
+      </form>
+    </div>
+  </section>
+</BaseLayout>

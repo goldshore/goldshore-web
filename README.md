@@ -52,18 +52,21 @@ when deploying via CI.
 
 ## Cloudflare deployment workflow
 
-1. **Pages:** Deploy the `dist/` directory to the `goldshore-web` project from the `main` branch. Custom domains should be
-   `goldshore.org`, `www.goldshore.org`, and `web.goldshore.org` with the Cloudflare Zero Trust Access policy enforcing
-   the OIDC issuer at `https://goldshore.cloudflareaccess.com/...` and redirecting unauthorised users to
-   `/access-denied.html`.
+1. **Pages:** Deploy the `dist/` directory to the `goldshore-web` project from the `main` branch. Custom domains should
+   include `goldshore.org`, `www.goldshore.org`, `web.goldshore.org`, `admin.goldshore.org`,
+   `security.goldshore.org`, `settings.goldshore.org`, `themes.goldshore.org`, and
+   `subscriptions.goldshore.org`, all pointing to the Pages project. Apply a Cloudflare Zero Trust Access policy that
+   enforces the OIDC issuer at `https://goldshore.cloudflareaccess.com/...` and redirects unauthorised users to
+   `/access-denied.html`. Reserve `dev.goldshore.org` as a DNS-only CNAME to the Pages project for preview builds.
 2. **Worker:** Use `wrangler deploy` (or the provided GitHub Actions workflow) to publish the `goldshore-api` Worker. The
    primary route is `https://api.goldshore.org/*` with Workers.dev enabled for smoke testing.
 3. **Zero Trust Access:** Maintain two applications—"Gold Shore Web (Prod)" and "Gold Shore API (Prod)"—each with an allow
    policy for `marstonr6@gmail.com` and the `goldshore.org` domain, followed by a default deny rule. Session duration is
    1 day for web and 12 hours for API. Set the organisation branding to Gold Shore colours and point the identity failure
    redirect to `https://goldshore-web.pages.dev/access-denied`.
-4. **DNS:** Configure flattened CNAMEs so the apex, `www`, and `web` hostnames resolve to `goldshore-web.pages.dev`, and
-   `api` resolves to `goldshore-api.gslabs.workers.dev`, all proxied through Cloudflare.
+4. **DNS:** Configure flattened CNAMEs so the apex, `www`, `web`, `admin`, `security`, `settings`, `themes`, and
+   `subscriptions` hostnames resolve to `goldshore-web.pages.dev` (proxied), while `dev` remains a DNS-only CNAME for
+   previews. Point `api` to `goldshore-api.gslabs.workers.dev`, proxied through Cloudflare.
 
 ## GitHub Actions
 
