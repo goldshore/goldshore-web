@@ -1,39 +1,14 @@
-<html lang="en">
-  <head>
-    <title>GoldShore Agent Console</title>
-    <style>
-      body { font-family: system-ui; margin:2rem; background:#0b0b0c; color:#e0e0e0; }
-      input,button { padding:0.5rem; border:none; border-radius:4px; }
-      button { background:#0070f3; color:#fff; margin-left:0.5rem; }
-      pre { background:#111; padding:1rem; border-radius:6px; overflow-x:auto; }
-    </style>
-  </head>
-  <body>
-    <h1>GoldShore Agent Console</h1>
-    <form id="agentForm">
-      <input id="goal" placeholder="Enter goal…" size="50" />
-      <button type="submit">Plan</button>
-    </form>
-    <pre id="result"></pre>
-    <script type="module">
-      const form = document.querySelector('#agentForm');
-      const input = document.querySelector('#goal');
-      const resultNode = document.querySelector('#result');
-
-      if (form instanceof HTMLFormElement && input instanceof HTMLInputElement && resultNode instanceof HTMLElement) {
-        form.addEventListener('submit', async (event) => {
-          event.preventDefault();
-          const goal = input.value;
+---
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
-<BaseLayout title="GoldShore Agent Console" description="Submit a goal to the GoldShore planning agent.">
+<BaseLayout title="GoldShore Agent Console" description="Submit goals to the GoldShore planning agent.">
   <main class="mx-auto flex min-h-screen max-w-3xl flex-col gap-8 px-6 py-16">
     <header class="space-y-2">
       <p class="text-sm font-medium uppercase tracking-[0.2em] text-muted">Internal console</p>
       <h1 class="font-display text-3xl text-text">GoldShore Agent Console</h1>
       <p class="text-sm text-muted">Plan safely with structured responses that mirror production guardrails.</p>
     </header>
-    <form id="agentForm" class="rounded-lg border border-border bg-surface p-6 shadow-elev-1">
+    <form id="agentForm" class="rounded-lg border border-border bg-surface p-6 shadow-elev-1" method="post">
       <label class="flex flex-col gap-2 text-sm text-text">
         Goal
         <input
@@ -74,20 +49,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
-            body: JSON.stringify({ goal }),
-          });
-          const payload = await response.json();
-          resultNode.textContent = JSON.stringify(payload, null, 2);
-        });
-      }
-    </script>
-  </body>
-</html>
             body: JSON.stringify({ goal })
           });
           const payload = await response.json();
           resultNode.textContent = JSON.stringify(payload, null, 2);
         } catch (error) {
+          console.error(error);
           resultNode.textContent = `Request failed: ${error instanceof Error ? error.message : String(error)}`;
         }
       });
