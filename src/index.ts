@@ -51,9 +51,30 @@ function parseScopes(rawScopes?: string | null): string[] {
     return [];
   }
 
-  if (trimmed.startsWith('[')) {
+  const unwrapMatchingQuotes = (value: string) => {
+    if (value.length < 2) {
+      return value;
+    }
+
+    const first = value[0];
+    const last = value[value.length - 1];
+    if (first === last && (first === '"' || first === "'")) {
+      return value.slice(1, -1);
+    }
+
+    return value;
+  };
+
+  const unwrapped = unwrapMatchingQuotes(trimmed);
+  const candidates = unwrapped === trimmed ? [trimmed] : [unwrapped, trimmed];
+
+  for (const candidate of candidates) {
+    if (!candidate.startsWith('[')) {
+      continue;
+    }
+
     try {
-      const parsed = JSON.parse(trimmed);
+      const parsed = JSON.parse(candidate);
       if (Array.isArray(parsed)) {
         return parsed
           .filter((scope): scope is string => typeof scope === 'string')
@@ -65,8 +86,8 @@ function parseScopes(rawScopes?: string | null): string[] {
     }
   }
 
-  return trimmed
-    .split(/[,\s]+/)
+  return unwrapped
+    .split(/[\s,]+/)
     .map((scope) => scope.trim())
     .filter(Boolean);
 }
