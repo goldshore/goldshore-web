@@ -1,16 +1,33 @@
-<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="256" height="256" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Gold Shore Labs Penrose logo</title>
+  <desc id="desc">Blue Penrose triangle with the words Gold, Shore, and Labs set along each face.</desc>
   <defs>
-    <linearGradient id="penrosePrimary" x1="24" y1="20" x2="108" y2="108" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#E3B341" />
-      <stop offset="1" stop-color="#F7C84E" />
+    <linearGradient id="grad-frame" x1="120" y1="64" x2="420" y2="420" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2F6BD2" />
+      <stop offset="1" stop-color="#0F3C82" />
     </linearGradient>
-    <linearGradient id="penroseSecondary" x1="20" y1="100" x2="92" y2="28" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#2CC6B8" />
-      <stop offset="1" stop-color="#93F2E9" />
+    <linearGradient id="grad-top" x1="250" y1="40" x2="388" y2="320" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3A7AEE" />
+      <stop offset="1" stop-color="#14448E" />
+    </linearGradient>
+    <linearGradient id="grad-right" x1="300" y1="320" x2="444" y2="440" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1B4E9F" />
+      <stop offset="1" stop-color="#0A2C63" />
+    </linearGradient>
+    <linearGradient id="grad-left" x1="80" y1="280" x2="260" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4A86F0" />
+      <stop offset="1" stop-color="#174A94" />
     </linearGradient>
   </defs>
-  <rect width="128" height="128" rx="28" fill="#0B0C10" />
-  <path d="M64 18L108 104H20L64 18Z" fill="url(#penrosePrimary)" />
-  <path d="M32 110L20 88L76 24L96 60L32 110Z" fill="url(#penroseSecondary)" opacity="0.75" />
-  <path d="M56 72L72 48L92 88H44L56 72Z" fill="#121318" opacity="0.65" />
+  <g>
+    <path fill="url(#grad-frame)" fill-rule="evenodd" d="M256 24L472 404H40L256 24ZM256 103.92L119.92 343.32H392.08L256 103.92Z" />
+    <path d="M256 24L472 404H392.08L256 103.92V24Z" fill="url(#grad-top)" opacity="0.95" />
+    <path d="M472 404H40L119.92 343.32H392.08L472 404Z" fill="url(#grad-right)" opacity="0.9" />
+    <path d="M40 404L256 24V103.92L119.92 343.32L40 404Z" fill="url(#grad-left)" opacity="0.9" />
+  </g>
+  <g fill="#FFFFFF" stroke="#0B2E6B" stroke-width="6" stroke-linejoin="round" paint-order="stroke fill">
+    <text x="148" y="214" text-anchor="middle" dominant-baseline="middle" transform="rotate(-60 148 214)" font-family="'Inter Tight', 'Inter', 'Helvetica Neue', Arial, sans-serif" font-weight="700" font-size="72" letter-spacing="0.08em">GOLD</text>
+    <text x="364" y="214" text-anchor="middle" dominant-baseline="middle" transform="rotate(60 364 214)" font-family="'Inter Tight', 'Inter', 'Helvetica Neue', Arial, sans-serif" font-weight="700" font-size="72" letter-spacing="0.08em">SHORE</text>
+    <text x="256" y="380" text-anchor="middle" dominant-baseline="middle" transform="rotate(0 256 380)" font-family="'Inter Tight', 'Inter', 'Helvetica Neue', Arial, sans-serif" font-weight="700" font-size="72" letter-spacing="0.12em">LABS</text>
+  </g>
 </svg>
