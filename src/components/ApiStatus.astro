@@ -57,20 +57,21 @@ const endpoints = [
     ))}
   </div>
 </div>
-<script is:inline>
-  const container = document.currentScript.previousElementSibling;
+<script is:module>
+  const currentScript = document.currentScript as HTMLScriptElement | null;
+  const container = currentScript?.previousElementSibling;
   const rows = container?.querySelectorAll('[data-endpoint-row]');
 
   if (!rows?.length) {
     console.warn('Missing endpoint rows for API status widget.');
   } else {
     rows.forEach((row) => {
-      const endpoint = row.dataset.endpoint;
+      const endpoint = row.getAttribute('data-endpoint');
       if (!endpoint) {
         return;
       }
 
-      const expected = (row.dataset.expectedStatuses || '')
+      const expected = (row.getAttribute('data-expected-statuses') || '')
         .split(',')
         .map((value) => value.trim())
         .filter(Boolean);
