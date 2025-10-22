@@ -12,7 +12,12 @@ type Variables = {
   scopes: string[];
 };
 
-const app = new Hono<{ Bindings: Bindings; Variables: Variables }>();
+type AppEnv = {
+  Bindings: Bindings;
+  Variables: Variables;
+};
+
+const app = new Hono<AppEnv>();
 
 function renderSwagger({ css }: { css: string }): string {
   return `<!DOCTYPE html>
