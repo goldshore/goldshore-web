@@ -4,7 +4,18 @@ import AdminLayout from '../../../components/admin/AdminLayout.astro';
 ---
 <BaseLayout title="Admin | New Customer" description="Create a customer profile and provision access.">
   <AdminLayout heading="New Customer" description="Generate credentials and invite new desks to the platform.">
-    <form id="customer-new-form" class="mx-auto max-w-3xl space-y-6 rounded-xl border border-border/60 bg-bg p-6 shadow-elev-1" method="post">
+    <form
+      id="customer-new-form"
+      class="mx-auto max-w-3xl space-y-6 rounded-xl border border-border/60 bg-bg p-6 shadow-elev-1"
+      method="post"
+      data-api-form
+      data-endpoint="https://api.goldshore.org/v1/admin/customers"
+      data-method="POST"
+      data-status-target="#customer-new-status"
+      data-success-message="Customer created successfully."
+      data-pending-message="Submitting customer…"
+      data-reset-on-success
+    >
       <div class="space-y-2">
         <h2 class="font-display text-2xl text-text">Customer details</h2>
         <p class="text-sm text-muted">Submitting the form POSTs JSON to <code>/v1/admin/customers</code>.</p>

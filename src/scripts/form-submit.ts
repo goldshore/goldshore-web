@@ -1,0 +1,61 @@
+document.addEventListener('DOMContentLoaded', () => {
+  const forms = document.querySelectorAll<HTMLFormElement>('form[data-api-form]');
+
+  forms.forEach((form) => {
+    const endpoint = form.getAttribute('data-endpoint');
+    const method = (form.getAttribute('data-method') || 'POST').toUpperCase();
+    const statusSelector = form.getAttribute('data-status-target');
+    const successMessage = form.getAttribute('data-success-message') || 'Request completed successfully.';
+    const pendingMessage = form.getAttribute('data-pending-message') || 'Submitting…';
+    const errorMessage = form.getAttribute('data-error-message');
+    const resetOnSuccess = form.hasAttribute('data-reset-on-success');
+    const status = statusSelector ? document.querySelector<HTMLElement>(statusSelector) : null;
+
+    if (!endpoint) {
+      console.warn('Missing data-endpoint on API form', form);
+      return;
+    }
+
+    if (!status) {
+      console.warn('Missing status target for API form', form);
+      return;
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      status.textContent = pendingMessage;
+
+      const formData = new FormData(form);
+      const payload: Record<string, FormDataEntryValue> = {};
+
+      formData.forEach((value, key) => {
+        payload[key] = value;
+      });
+
+      try {
+        const response = await fetch(endpoint, {
+          method,
+          credentials: 'include',
+          headers: method === 'GET' ? undefined : { 'Content-Type': 'application/json' },
+          body: method === 'GET' ? undefined : JSON.stringify(payload)
+        });
+
+        const detail = await response.text();
+
+        if (!response.ok) {
+          status.textContent = errorMessage || `API error ${response.status}: ${detail || response.statusText}`;
+          return;
+        }
+
+        status.textContent = successMessage;
+
+        if (resetOnSuccess) {
+          form.reset();
+        }
+      } catch (error) {
+        console.error(error);
+        status.textContent = errorMessage || 'Request failed. Verify connectivity and try again.';
+      }
+    });
+  });
+});

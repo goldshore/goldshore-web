@@ -34,7 +34,18 @@ const customers = [
         </table>
       </div>
 
-      <form id="customer-create" class="gs-panel gs-form grid gap-4 p-6" method="post">
+      <form
+        id="customer-create"
+        class="gs-panel gs-form grid gap-4 p-6"
+        method="post"
+        data-api-form
+        data-endpoint="https://api.goldshore.org/v1/admin/customers"
+        data-method="POST"
+        data-status-target="#customer-create-status"
+        data-success-message="Customer submitted to API."
+        data-pending-message="Creating customer…"
+        data-reset-on-success
+      >
         <div>
           <h2 class="font-display text-xl text-text">Create customer</h2>
           <p class="text-sm text-muted">Submit a customer profile to <code>/v1/admin/customers</code>.</p>

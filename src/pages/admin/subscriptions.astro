@@ -34,7 +34,18 @@ const subscriptions = [
         </table>
       </div>
 
-      <form id="subscription-create" class="grid gap-4 rounded-xl border border-border/60 bg-bg p-6 shadow-elev-1" method="post">
+      <form
+        id="subscription-create"
+        class="grid gap-4 rounded-xl border border-border/60 bg-bg p-6 shadow-elev-1"
+        method="post"
+        data-api-form
+        data-endpoint="https://api.goldshore.org/v1/admin/subscriptions"
+        data-method="POST"
+        data-status-target="#subscription-create-status"
+        data-success-message="Subscription submitted to API."
+        data-pending-message="Creating subscription…"
+        data-reset-on-success
+      >
         <div>
           <h2 class="font-display text-xl text-text">Create subscription</h2>
           <p class="text-sm text-muted">Posts to <code>/v1/admin/subscriptions</code> with the plan details below.</p>
