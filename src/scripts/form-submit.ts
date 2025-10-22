@@ -23,6 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     })();
     const status = statusSelector ? document.querySelector<HTMLElement>(statusSelector) : null;
+    const credentialAttr = form.getAttribute('data-credentials');
+    const credentials: RequestCredentials =
+      credentialAttr === 'include' || credentialAttr === 'same-origin' || credentialAttr === 'omit'
+        ? credentialAttr
+        : 'omit';
 
     if (!endpoint) {
       console.warn('Missing data-endpoint on API form', form);
@@ -92,7 +97,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const requestInit: RequestInit = {
           method,
-          credentials: 'include',
           credentials,
           headers: method === 'GET' ? undefined : { 'Content-Type': 'application/json' },
           body: method === 'GET' ? undefined : JSON.stringify(payload)

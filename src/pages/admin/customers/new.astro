@@ -16,6 +16,7 @@ const createCustomerEndpoint = new URL('./admin/customers', apiUrl).toString();
       data-api-form
       data-endpoint={createCustomerEndpoint}
       data-method="POST"
+      data-credentials="include"
       data-status-target="#customer-new-status"
       data-success-message="Customer created successfully."
       data-pending-message="Submitting customer…"
