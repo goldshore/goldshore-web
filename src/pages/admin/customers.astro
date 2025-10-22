@@ -2,6 +2,10 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AdminLayout from '../../components/admin/AdminLayout.astro';
 
+const defaultApiUrl = 'https://api.goldshore.org/v1';
+const apiUrl = import.meta.env.PUBLIC_API_URL || defaultApiUrl;
+const createCustomerEndpoint = new URL('./admin/customers', apiUrl).toString();
+
 const customers = [
   { name: 'Falcon Ridge Capital', status: 'Active', plan: 'Pro', created: '2024-04-18' },
   { name: 'Northwind Markets', status: 'Invited', plan: 'Free', created: '2024-05-02' },
@@ -39,12 +43,13 @@ const customers = [
         class="gs-panel gs-form grid gap-4 p-6"
         method="post"
         data-api-form
-        data-endpoint="https://api.goldshore.org/v1/admin/customers"
+        data-endpoint={createCustomerEndpoint}
         data-method="POST"
         data-status-target="#customer-create-status"
         data-success-message="Customer submitted to API."
         data-pending-message="Creating customer…"
         data-reset-on-success
+        data-include-credentials
       >
         <div>
           <h2 class="font-display text-xl text-text">Create customer</h2>

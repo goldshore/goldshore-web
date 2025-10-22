@@ -2,6 +2,11 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AdminLayout from '../../components/admin/AdminLayout.astro';
 
+const defaultApiUrl = 'https://api.goldshore.org/v1';
+const apiUrl = import.meta.env.PUBLIC_API_URL || defaultApiUrl;
+const killSwitchEndpoint = new URL('./admin/risk/kill-switch', apiUrl).toString();
+const circuitBreakerEndpoint = new URL('./admin/risk/circuit-breaker', apiUrl).toString();
+
 const limits = [
   { desk: 'Falcon Ridge Capital', net: '$12M', intraday: '$4M', status: 'Within limits' },
   { desk: 'Northwind Markets', net: '$3M', intraday: '$1M', status: 'Warning' },
@@ -17,7 +22,7 @@ const limits = [
           <p class="mt-3 text-sm text-muted">Immediately halt routing if limits breach or counterparties fail.</p>
           <button
             class="mt-4 inline-flex items-center rounded-lg bg-[var(--brand)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--brand-contrast)] shadow-elev-1 transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40"
-            data-endpoint="https://api.goldshore.org/v1/admin/risk/kill-switch"
+            data-endpoint={killSwitchEndpoint}
             data-method="POST"
           >
             Activate kill switch
@@ -28,7 +33,7 @@ const limits = [
           <p class="mt-3 text-sm text-muted">Temporary pause for price dislocations.</p>
           <button
             class="mt-4 inline-flex items-center rounded-lg border border-border px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-muted transition hover:text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border/60"
-            data-endpoint="https://api.goldshore.org/v1/admin/risk/circuit-breaker"
+            data-endpoint={circuitBreakerEndpoint}
             data-method="POST"
           >
             Trigger breaker

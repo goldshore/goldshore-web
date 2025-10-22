@@ -2,21 +2,24 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AdminLayout from '../../components/admin/AdminLayout.astro';
 
+const defaultApiUrl = 'https://api.goldshore.org/v1';
+const apiUrl = import.meta.env.PUBLIC_API_URL || defaultApiUrl;
+
 const workflows = [
   {
     name: 'End-of-day settlement',
     description: 'Push intraday fills into the settlement queue and notify operations.',
-    endpoint: 'https://api.goldshore.org/v1/admin/workflow/settlement'
+    endpoint: new URL('./admin/workflow/settlement', apiUrl).toString()
   },
   {
     name: 'Risk recalibration',
     description: 'Recompute risk limits and propagate guardrails to the execution fabric.',
-    endpoint: 'https://api.goldshore.org/v1/admin/workflow/risk-refresh'
+    endpoint: new URL('./admin/workflow/risk-refresh', apiUrl).toString()
   },
   {
     name: 'Customer onboarding sync',
     description: 'Sync CRM records, D1 entries, and Access seats for new customers.',
-    endpoint: 'https://api.goldshore.org/v1/admin/workflow/onboarding'
+    endpoint: new URL('./admin/workflow/onboarding', apiUrl).toString()
   }
 ];
 ---

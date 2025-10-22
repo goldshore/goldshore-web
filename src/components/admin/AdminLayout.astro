@@ -7,6 +7,11 @@ const {
   description = 'Monitor execution, risk, and customer activity in real time.'
 } = Astro.props;
 
+const defaultApiUrl = 'https://api.goldshore.org/v1';
+const apiUrl = import.meta.env.PUBLIC_API_URL || defaultApiUrl;
+const auditEndpoint = new URL('./admin/workflow/audit', apiUrl).toString();
+const whoamiEndpoint = new URL('./whoami', apiUrl).toString();
+
 const navLinks = [
   { href: '/admin', label: 'Dashboard' },
   { href: '/admin/customers', label: 'Customers' },
@@ -47,10 +52,10 @@ const navLinks = [
       </div>
       <div class="flex flex-1 flex-wrap items-center gap-3 md:justify-end">
         <a class="gs-btn-primary gs-btn-sm" href="/admin/customers/new">New Customer</a>
-        <button class="gs-btn-secondary gs-btn-sm" data-endpoint="https://api.goldshore.org/v1/admin/workflow/audit" data-method="POST">
+        <button class="gs-btn-secondary gs-btn-sm" data-endpoint={auditEndpoint} data-method="POST">
           Run Audit
         </button>
-        <button class="gs-btn-secondary gs-btn-sm" data-endpoint="https://api.goldshore.org/v1/whoami" data-method="GET">
+        <button class="gs-btn-secondary gs-btn-sm" data-endpoint={whoamiEndpoint} data-method="GET">
           Who Am I
         </button>
       </div>
