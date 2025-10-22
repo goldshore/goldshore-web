@@ -1,0 +1,25 @@
+<svg width="192" height="192" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title">
+  <title id="title">Gold Shore Labs Penrose mark</title>
+  <defs>
+    <linearGradient id="icon-frame" x1="120" y1="64" x2="420" y2="420" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3773E5" />
+      <stop offset="1" stop-color="#0E3674" />
+    </linearGradient>
+    <linearGradient id="icon-top" x1="252" y1="48" x2="392" y2="320" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4B88FF" />
+      <stop offset="1" stop-color="#153F89" />
+    </linearGradient>
+    <linearGradient id="icon-right" x1="320" y1="320" x2="460" y2="452" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1B4D9D" />
+      <stop offset="1" stop-color="#0A2D64" />
+    </linearGradient>
+    <linearGradient id="icon-left" x1="72" y1="296" x2="244" y2="80" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#5B95FF" />
+      <stop offset="1" stop-color="#174A94" />
+    </linearGradient>
+  </defs>
+  <path fill="url(#icon-frame)" fill-rule="evenodd" d="M256 24L472 404H40L256 24ZM256 103.92L119.92 343.32H392.08L256 103.92Z" />
+  <path d="M256 24L472 404H392.08L256 103.92V24Z" fill="url(#icon-top)" opacity="0.95" />
+  <path d="M472 404H40L119.92 343.32H392.08L472 404Z" fill="url(#icon-right)" opacity="0.92" />
+  <path d="M40 404L256 24V103.92L119.92 343.32L40 404Z" fill="url(#icon-left)" opacity="0.92" />
+</svg>

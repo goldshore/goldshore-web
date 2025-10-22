@@ -1,0 +1,22 @@
+name = "goldshore-api"
+main = "src/index.ts"
+compatibility_date = "2024-06-20"
+workers_dev = true
+
+[assets]
+directory = "public"
+binding = "ASSETS"
+
+routes = [
+  { pattern = "api.goldshore.org/*", zone_name = "goldshore.org" }
+]
+
+[vars]
+AGENT_SYSTEM_PROMPT = ""
+CORS_ORIGINS = "https://goldshore.org,https://web.goldshore.org"
+ACCESS_ISSUER = "https://goldshore.cloudflareaccess.com/cdn-cgi/access/sso/oidc/07665be501c60fa585bd8c697d77ebf86ce14f993fa7745ab52f54ad93f523fc"
+ACCESS_JWKS_URL = "https://goldshore.cloudflareaccess.com/cdn-cgi/access/sso/oidc/07665be501c60fa585bd8c697d77ebf86ce14f993fa7745ab52f54ad93f523fc/jwks"
+
+[[env.preview.routes]]
+pattern = "*.goldshore-api.workers.dev/*"
+custom_domain = false
