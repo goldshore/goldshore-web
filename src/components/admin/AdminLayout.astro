@@ -1,0 +1,66 @@
+---
+import adminActionsScript from '../../scripts/admin-actions.ts?url';
+import formSubmitScript from '../../scripts/form-submit.ts?url';
+
+const {
+  heading = 'Dashboard',
+  description = 'Monitor execution, risk, and customer activity in real time.'
+} = Astro.props;
+
+const navLinks = [
+  { href: '/admin', label: 'Dashboard' },
+  { href: '/admin/customers', label: 'Customers' },
+  { href: '/admin/subscriptions', label: 'Subscriptions' },
+  { href: '/admin/workflows', label: 'Workflows' },
+  { href: '/admin/trading', label: 'Trading' },
+  { href: '/admin/orders', label: 'Orders' },
+  { href: '/admin/risk', label: 'Risk' },
+  { href: '/admin/reports', label: 'Reports' },
+  { href: '/admin/settings', label: 'Settings' }
+];
+---
+<div class="flex min-h-screen bg-bg text-text">
+  <aside class="hidden w-64 flex-col border-r border-border/60 bg-surface/70 px-4 py-6 md:flex">
+    <a href="/admin" class="flex items-center gap-3 px-2 text-sm font-semibold text-text transition hover:opacity-90">
+      <img src="/brand/logo-wordmark-on-light.svg" alt="GoldShore" class="h-6" loading="lazy" />
+    </a>
+    <nav class="mt-8 space-y-1 text-sm text-muted">
+      {navLinks.map((item) => (
+        <a
+          href={item.href}
+          class="flex items-center justify-between rounded-lg px-3 py-2 transition hover:bg-surface/60 hover:text-text"
+          aria-label={item.label}
+        >
+          <span>{item.label}</span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="h-4 w-4">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" />
+          </svg>
+        </a>
+      ))}
+    </nav>
+  </aside>
+  <div class="flex min-h-screen flex-1 flex-col">
+    <header class="flex flex-col gap-4 border-b border-border/60 bg-surface/80 px-4 py-6 backdrop-blur md:flex-row md:items-center md:gap-6 md:px-8">
+      <div>
+        <h1 class="font-display text-3xl tracking-[-0.015em] text-text">{heading}</h1>
+        <p class="mt-2 text-sm text-muted">{description}</p>
+      </div>
+      <div class="flex flex-1 flex-wrap items-center gap-3 md:justify-end">
+        <a class="gs-btn-primary gs-btn-sm" href="/admin/customers/new">New Customer</a>
+        <button class="gs-btn-secondary gs-btn-sm" data-endpoint="https://api.goldshore.org/v1/admin/workflow/audit" data-method="POST">
+          Run Audit
+        </button>
+        <button class="gs-btn-secondary gs-btn-sm" data-endpoint="https://api.goldshore.org/v1/whoami" data-method="GET">
+          Who Am I
+        </button>
+      </div>
+    </header>
+    <div id="admin-status" class="border-b border-border/60 bg-[var(--gs-ink)] px-4 py-2 text-xs text-[color-mix(in_srgb,var(--gs-bone)_70%,transparent)] md:px-8"></div>
+    <main class="flex-1 px-4 py-8 md:px-8">
+      <slot />
+    </main>
+  </div>
+</div>
+
+<script type="module" src={adminActionsScript}></script>
+<script type="module" src={formSubmitScript}></script>

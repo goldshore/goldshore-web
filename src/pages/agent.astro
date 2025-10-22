@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import agentConsoleScript from '../scripts/agent-console.ts?url';
+---
+
+<BaseLayout title="GoldShore Agent Console" description="Submit goals to the GoldShore planning agent.">
+  <main class="mx-auto flex min-h-screen max-w-3xl flex-col gap-8 px-6 py-16">
+    <header class="space-y-2">
+      <p class="text-sm font-medium uppercase tracking-[0.2em] text-muted">Internal console</p>
+      <h1 class="font-display text-3xl text-text">GoldShore Agent Console</h1>
+      <p class="text-sm text-muted">Plan safely with structured responses that mirror production guardrails.</p>
+    </header>
+    <form id="agentForm" class="rounded-lg border border-border bg-surface p-6 shadow-elev-1" method="post">
+      <label class="flex flex-col gap-2 text-sm text-text">
+        Goal
+        <input
+          id="goal"
+          name="goal"
+          type="text"
+          required
+          placeholder="Enter a trading or compliance objective"
+          class="rounded-lg border border-border bg-bg px-4 py-3 text-base text-text shadow-inner focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40"
+        />
+      </label>
+      <button
+        type="submit"
+        class="mt-4 inline-flex items-center gap-2 rounded-lg bg-[var(--brand)] px-4 py-2 text-sm font-medium text-[var(--brand-contrast)] shadow-elev-1 transition-[filter,transform] hover:brightness-105 active:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 gs-action-transition"
+      >
+        Generate plan
+      </button>
+    </form>
+    <pre
+      id="result"
+      class="min-h-[200px] rounded-lg border border-border bg-surface p-4 font-mono text-sm text-muted shadow-elev-1"
+      aria-live="polite"
+    ></pre>
+  </main>
+  <script type="module" src={agentConsoleScript}></script>
+</BaseLayout>

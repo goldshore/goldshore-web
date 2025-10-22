@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AdminLayout from '../../components/admin/AdminLayout.astro';
+
+const reports = [
+  { name: 'Daily execution report', href: 'https://api.goldshore.org/v1/admin/reports/daily', description: 'Venue fills, slippage, and latency metrics.' },
+  { name: 'Monthly compliance archive', href: 'https://api.goldshore.org/v1/admin/reports/compliance', description: 'Audit-ready exports for regulators.' },
+  { name: 'Customer usage summary', href: 'https://api.goldshore.org/v1/admin/reports/usage', description: 'Seats, API calls, and workflow triggers by account.' }
+];
+---
+<BaseLayout title="Admin | Reports" description="Download trading, risk, and compliance reports.">
+  <AdminLayout heading="Reports" description="One-click exports for trading, compliance, and customer success teams.">
+    <div class="space-y-8">
+      <div class="grid gap-6 md:grid-cols-2">
+        {reports.map((report) => (
+          <div class="flex flex-col rounded-xl border border-border/60 bg-bg p-6 shadow-elev-1">
+            <h2 class="font-display text-xl text-text">{report.name}</h2>
+            <p class="mt-2 text-sm text-muted">{report.description}</p>
+            <a class="mt-4 inline-flex items-center rounded-lg bg-[var(--brand)] px-4 py-2 text-sm font-medium text-[var(--brand-contrast)] shadow-elev-1 transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40" href={report.href} rel="noreferrer">
+              Download
+            </a>
+          </div>
+        ))}
+      </div>
+      <div class="rounded-xl border border-border/60 bg-surface/70 p-6 shadow-elev-1">
+        <h2 class="font-display text-xl text-text">Automated delivery</h2>
+        <p class="mt-2 text-sm text-muted">Send reports to S3, D1, or Slack via workflow automation. Use the workflow triggers to schedule exports.</p>
+        <a class="mt-4 inline-flex items-center text-sm font-medium text-brand" href="/admin/workflows">Configure workflows</a>
+      </div>
+    </div>
+  </AdminLayout>
+</BaseLayout>

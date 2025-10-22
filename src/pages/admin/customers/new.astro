@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import AdminLayout from '../../../components/admin/AdminLayout.astro';
+---
+<BaseLayout title="Admin | New Customer" description="Create a customer profile and provision access.">
+  <AdminLayout heading="New Customer" description="Generate credentials and invite new desks to the platform.">
+    <form
+      id="customer-new-form"
+      class="mx-auto max-w-3xl space-y-6 rounded-xl border border-border/60 bg-bg p-6 shadow-elev-1"
+      method="post"
+      data-api-form
+      data-credentials="include"
+      data-endpoint="https://api.goldshore.org/v1/admin/customers"
+      data-method="POST"
+      data-status-target="#customer-new-status"
+      data-success-message="Customer created successfully."
+      data-pending-message="Submitting customer…"
+      data-reset-on-success
+    >
+      <div class="space-y-2">
+        <h2 class="font-display text-2xl text-text">Customer details</h2>
+        <p class="text-sm text-muted">Submitting the form POSTs JSON to <code>/v1/admin/customers</code>.</p>
+      </div>
+      <div class="grid gap-4 md:grid-cols-2">
+        <label class="flex flex-col gap-1 text-sm">
+          <span class="font-medium text-text">Company name</span>
+          <input class="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text focus:border-[var(--brand)] focus:outline-none" name="name" required />
+        </label>
+        <label class="flex flex-col gap-1 text-sm">
+          <span class="font-medium text-text">Primary contact email</span>
+          <input class="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text focus:border-[var(--brand)] focus:outline-none" type="email" name="email" required />
+        </label>
+      </div>
+      <div class="grid gap-4 md:grid-cols-3">
+        <label class="flex flex-col gap-1 text-sm">
+          <span class="font-medium text-text">Plan</span>
+          <select class="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text focus:border-[var(--brand)] focus:outline-none" name="plan" required>
+            <option value="free">Free</option>
+            <option value="pro">Pro</option>
+            <option value="enterprise">Enterprise</option>
+          </select>
+        </label>
+        <label class="flex flex-col gap-1 text-sm">
+          <span class="font-medium text-text">Ops contact</span>
+          <input class="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text focus:border-[var(--brand)] focus:outline-none" name="opsContact" />
+        </label>
+        <label class="flex flex-col gap-1 text-sm">
+          <span class="font-medium text-text">Region</span>
+          <input class="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text focus:border-[var(--brand)] focus:outline-none" name="region" placeholder="US, EU, APAC" />
+        </label>
+      </div>
+      <label class="flex flex-col gap-1 text-sm">
+        <span class="font-medium text-text">Implementation notes</span>
+        <textarea class="h-32 rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text focus:border-[var(--brand)] focus:outline-none" name="notes"></textarea>
+      </label>
+      <div class="flex items-center gap-4">
+        <button class="rounded-lg bg-[var(--brand)] px-4 py-2 text-sm font-medium text-[var(--brand-contrast)] shadow-elev-1 transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40" type="submit">
+          Create customer
+        </button>
+        <a class="text-sm font-medium text-brand" href="/admin/customers">Cancel</a>
+        <p id="customer-new-status" class="text-xs text-muted"></p>
+      </div>
+    </form>
+  </AdminLayout>
+</BaseLayout>
+
