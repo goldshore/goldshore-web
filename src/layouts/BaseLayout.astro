@@ -26,27 +26,7 @@ const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://goldshore.org';
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/svg+xml" sizes="128x128" href="/icon-128.svg" />
     <link rel="manifest" href="/site.webmanifest" />
-    <script is:inline>
-      {
-        `(function () {
-          try {
-            const storageKey = 'gs-theme';
-            const stored = localStorage.getItem(storageKey);
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const theme = stored || (prefersDark ? 'dark' : 'light');
-            const root = document.documentElement;
-            if (theme === 'dark') {
-              root.dataset.theme = 'dark';
-            } else {
-              root.dataset.theme = '';
-              root.removeAttribute('data-theme');
-            }
-          } catch (error) {
-            console.warn('Theme hydration failed', error);
-          }
-        })();`
-      }
-    </script>
+    <script src="/scripts/theme.js" is:inline></script>
   </head>
   <body class="min-h-screen bg-bg text-text antialiased">
     <slot />
