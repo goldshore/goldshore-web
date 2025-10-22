@@ -64,6 +64,16 @@ const navLinks = [
           Run Audit
         </button>
         <button class="gs-btn-secondary gs-btn-sm" data-endpoint={whoamiEndpoint} data-method="GET">
+        <button
+          class="inline-flex items-center rounded-lg border border-border px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-muted transition hover:text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border/60"
+          data-endpoint="https://api.goldshore.org/v1/whoami"
+          data-method="GET"
+        >
+        <a class="gs-btn-primary gs-btn-sm" href="/admin/customers/new">New Customer</a>
+        <button class="gs-btn-secondary gs-btn-sm" data-endpoint="https://api.goldshore.org/v1/admin/workflow/audit" data-method="POST">
+          Run Audit
+        </button>
+        <button class="gs-btn-secondary gs-btn-sm" data-endpoint="https://api.goldshore.org/v1/whoami" data-method="GET">
           Who Am I
         </button>
       </div>
@@ -77,3 +87,5 @@ const navLinks = [
 
 <script type="module" src={adminActionsScript}></script>
 <script type="module" src={formSubmitScript}></script>
+<script src="/scripts/admin-actions.js" defer is:inline></script>
+<script src="/scripts/admin-forms.js" defer is:inline></script>
