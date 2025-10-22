@@ -20,6 +20,7 @@ export function GSHeader() {
             className="inline-flex items-center rounded-lg bg-[var(--brand)] px-4 py-2 text-[var(--brand-contrast)] shadow-elev-1 transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40"
             href="/signup"
           >
+          <a className="gs-btn-primary gs-btn-sm" href="/signup">
             Get Started
           </a>
         </nav>

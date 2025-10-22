@@ -1,4 +1,7 @@
 ---
+import adminActionsScript from '../../scripts/admin-actions.ts?url';
+import formSubmitScript from '../../scripts/form-submit.ts?url';
+
 const {
   heading = 'Dashboard',
   description = 'Monitor execution, risk, and customer activity in real time.'
@@ -61,6 +64,11 @@ const navLinks = [
           data-endpoint="https://api.goldshore.org/v1/whoami"
           data-method="GET"
         >
+        <a class="gs-btn-primary gs-btn-sm" href="/admin/customers/new">New Customer</a>
+        <button class="gs-btn-secondary gs-btn-sm" data-endpoint="https://api.goldshore.org/v1/admin/workflow/audit" data-method="POST">
+          Run Audit
+        </button>
+        <button class="gs-btn-secondary gs-btn-sm" data-endpoint="https://api.goldshore.org/v1/whoami" data-method="GET">
           Who Am I
         </button>
       </div>
@@ -103,3 +111,37 @@ const navLinks = [
     });
   `}
 </script>
+<script type="module" src={adminActionsScript}></script>
+<script type="module" src={formSubmitScript}></script>
+<script is:module>
+  document.addEventListener('DOMContentLoaded', () => {
+    const status = document.getElementById('admin-status');
+    const actionable = document.querySelectorAll('[data-endpoint][data-method]');
+    actionable.forEach((element) => {
+      element.addEventListener('click', async () => {
+        if (!status) return;
+        const endpoint = element.getAttribute('data-endpoint');
+        const method = element.getAttribute('data-method') || 'GET';
+        status.textContent = `Running ${method} request to ${endpoint}…`;
+        try {
+          const response = await fetch(endpoint ?? '', {
+            method,
+            credentials: 'include',
+            headers: method === 'POST' ? { 'Content-Type': 'application/json' } : undefined,
+            body: method === 'POST' ? JSON.stringify({}) : undefined
+          });
+          const text = await response.text();
+          const detail = text ? text.slice(0, 140) : response.statusText;
+          status.textContent = response.ok
+            ? `Success [${response.status}]: ${detail}`
+            : `Failed [${response.status}]: ${detail}`;
+        } catch (error) {
+          console.error(error);
+          status.textContent = 'Request failed. Check network access and API availability.';
+        }
+      });
+    });
+  });
+</script>
+<script src="/scripts/admin-actions.js" defer is:inline></script>
+<script src="/scripts/admin-forms.js" defer is:inline></script>

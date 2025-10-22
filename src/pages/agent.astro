@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import agentConsoleScript from '../scripts/agent-console.ts?url';
 ---
+
 <BaseLayout title="GoldShore Agent Console" description="Submit goals to the GoldShore planning agent.">
   <main class="mx-auto flex min-h-screen max-w-3xl flex-col gap-8 px-6 py-16">
     <header class="space-y-2">
@@ -22,8 +24,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </label>
       <button
         type="submit"
-        class="mt-4 inline-flex items-center gap-2 rounded-lg bg-[var(--brand)] px-4 py-2 text-sm font-medium text-[var(--brand-contrast)] shadow-elev-1 transition-[filter,transform] hover:brightness-105 active:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40"
-        style="transition-duration: var(--dur); transition-timing-function: var(--ease);"
+        class="mt-4 inline-flex items-center gap-2 rounded-lg bg-[var(--brand)] px-4 py-2 text-sm font-medium text-[var(--brand-contrast)] shadow-elev-1 transition-[filter,transform] hover:brightness-105 active:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 gs-action-transition"
       >
         Generate plan
       </button>
@@ -34,7 +35,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       aria-live="polite"
     ></pre>
   </main>
-  <script type="module" is:inline>
+  <script type="module" src={agentConsoleScript}></script>
+  <script is:module>
     const form = document.querySelector('#agentForm');
     const input = document.querySelector('#goal');
     const resultNode = document.querySelector('#result');
@@ -60,4 +62,5 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       });
     }
   </script>
+  <script src="/scripts/agent-console.js" defer is:inline></script>
 </BaseLayout>
