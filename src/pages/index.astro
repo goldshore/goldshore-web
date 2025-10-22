@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ApiStatus from '../components/ApiStatus.astro';
 import GSHeader from '../components/ui/GSHeader';
 import GSCard from '../components/ui/GSCard';
+import formSubmitScript from '../scripts/form-submit.ts?url';
 
 const apiUrl = import.meta.env.PUBLIC_API_URL || 'https://api.goldshore.org/v1';
 const currentYear = new Date().getFullYear();
@@ -70,9 +71,31 @@ const integrationBadges = ['Cloudflare', 'D1', 'Queues', 'Vectorize'];
             <a class="gs-btn-primary" href="/dash">
               Launch Dashboard
             </a>
+          <p class="gs-eyebrow">Capital-markets grade infrastructure</p>
+          <h1 class="font-display text-4xl tracking-[-0.02em] text-text md:text-6xl">GoldShore — trading infrastructure &amp; insights</h1>
+          <p class="gs-section-lead max-w-xl">
+            Launch the trading stack your desk deserves: streaming data, supervised automation, and risk guardrails wired into every workflow.
+          </p>
+          <div class="flex flex-wrap items-center gap-4">
+            <a class="gs-btn-primary" href="/dash">
+              Launch Dashboard
+            </a>
             <a class="gs-btn-secondary" href="https://api.goldshore.org/v1/docs" rel="noreferrer">
               View API Docs
             </a>
+            <a
+              class="inline-flex items-center gap-2 rounded-lg border border-border px-6 py-3 text-base font-medium text-muted transition hover:text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border/60"
+              href="https://api.goldshore.org/v1/docs"
+              rel="noreferrer"
+            >
+            <a class="gs-btn-secondary" href="https://api.goldshore.org/v1/docs" rel="noreferrer">
+              View API Docs
+            </a>
+          </div>
+          <div class="flex flex-wrap gap-4 text-sm text-muted">
+            <a class="gs-inline-link" href="/dash">Open Trading</a>
+            <a class="gs-inline-link" href="https://admin.goldshore.org">Admin</a>
+            <a class="gs-inline-link" href="https://api.goldshore.org/v1/docs">API Docs</a>
           </div>
           <div class="flex flex-wrap gap-4 text-sm text-muted">
             <a class="gs-inline-link" href="/dash">Open Trading</a>
@@ -96,6 +119,12 @@ const integrationBadges = ['Cloudflare', 'D1', 'Queues', 'Vectorize'];
         <div class="mb-12 gs-section-header">
           <p class="gs-eyebrow">Products</p>
           <h2 class="font-display text-3xl tracking-[-0.015em] md:text-4xl">Execution, oversight, and CRM in one stack</h2>
+          <p class="text-base text-muted">
+    <section id="products" class="gs-section border-b border-border/60 bg-bg">
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="mb-12 gs-section-header">
+          <p class="gs-eyebrow">Products</p>
+          <h2 class="font-display text-3xl tracking-[-0.015em] md:text-4xl">Execution, oversight, and CRM in one stack</h2>
           <p class="gs-section-lead">
             GoldShore wraps trading automation with the controls front-office, risk, and operations teams expect. Explore each service below.
           </p>
@@ -103,6 +132,7 @@ const integrationBadges = ['Cloudflare', 'D1', 'Queues', 'Vectorize'];
         <div class="grid gap-6 md:grid-cols-3">
           {productFeatures.map((feature) => (
             <a
+              class="group flex flex-col rounded-xl border border-border bg-surface/80 p-6 shadow-elev-1 transition hover:-translate-y-1 hover:border-[var(--brand)] hover:shadow-elev-2"
               class="gs-feature-card"
               href={feature.href}
               target={feature.href.startsWith('http') ? '_blank' : undefined}
@@ -110,6 +140,12 @@ const integrationBadges = ['Cloudflare', 'D1', 'Queues', 'Vectorize'];
             >
               <h3 class="font-display text-xl text-text">{feature.title}</h3>
               <p class="mt-3 flex-1 text-sm text-muted">{feature.description}</p>
+              <div class="mt-4 flex items-center gap-2 text-sm font-medium">
+                <span class="gs-inline-link">{feature.cta}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 12h14m0 0-6-6m6 6-6 6" />
+                </svg>
+              </span>
               <div class="mt-4 flex items-center gap-2 text-sm font-medium">
                 <span class="gs-inline-link">{feature.cta}</span>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -127,18 +163,26 @@ const integrationBadges = ['Cloudflare', 'D1', 'Queues', 'Vectorize'];
         <div class="mb-12 gs-section-header">
           <p class="gs-eyebrow">Pricing</p>
           <h2 class="font-display text-3xl tracking-[-0.015em] md:text-4xl">Plans tuned for every desk</h2>
+          <p class="text-base text-muted">
+    <section id="pricing" class="gs-section border-b border-border/60 bg-surface/70">
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="mb-12 gs-section-header">
+          <p class="gs-eyebrow">Pricing</p>
+          <h2 class="font-display text-3xl tracking-[-0.015em] md:text-4xl">Plans tuned for every desk</h2>
           <p class="gs-section-lead">
             Start with the free sandbox and graduate to production-ready execution, governance, and connectivity when you are ready.
           </p>
         </div>
         <div class="grid gap-6 md:grid-cols-3">
           {pricingPlans.map((plan) => (
+            <div class="flex h-full flex-col rounded-xl border border-border bg-bg p-6 shadow-elev-1">
             <div class="gs-panel gs-plan-card h-full">
               <div class="space-y-2">
                 <h3 class="font-display text-2xl text-text">{plan.name}</h3>
                 <p class="text-sm text-muted">{plan.description}</p>
               </div>
               <p class="mt-6 text-3xl font-semibold text-text">{plan.price}</p>
+              <ul class="mt-6 space-y-2 text-sm text-muted">
               <ul class="mt-6">
                 {plan.features.map((feature) => (
                   <li class="flex items-center gap-2">
@@ -147,6 +191,10 @@ const integrationBadges = ['Cloudflare', 'D1', 'Queues', 'Vectorize'];
                   </li>
                 ))}
               </ul>
+              <a
+                class="mt-8 inline-flex items-center justify-center rounded-lg bg-[var(--brand)] px-4 py-2 text-sm font-medium text-[var(--brand-contrast)] shadow-elev-1 transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40"
+                href={`/signup?plan=${plan.planId}`}
+              >
               <a class="gs-btn-primary gs-btn-sm mt-auto self-start" href={`/signup?plan=${plan.planId}`}>
                 Choose Plan
               </a>
@@ -157,6 +205,80 @@ const integrationBadges = ['Cloudflare', 'D1', 'Queues', 'Vectorize'];
     </section>
 
     <section id="integrations" class="gs-section border-b border-border/60 bg-bg">
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="mb-8 gs-section-header">
+          <p class="gs-eyebrow">Integrations</p>
+          <h2 class="font-display text-3xl tracking-[-0.015em] md:text-4xl">Deploy on trusted market infrastructure</h2>
+          <p class="gs-section-lead">
+            Build on top of Cloudflare primitives with durable storage, queues, and inference ready to go. Each badge jumps straight into the documentation.
+          </p>
+        </div>
+        <div class="flex flex-wrap items-center gap-4">
+          {integrationBadges.map((badge) => (
+            <a
+              class="gs-integration-badge"
+              href="https://api.goldshore.org/v1/docs"
+              rel="noreferrer"
+            >
+              <span class="inline-flex h-2 w-2 rounded-full bg-[var(--brand)]"></span>
+              {badge}
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="gs-section bg-surface/70">
+      <div class="mx-auto grid max-w-5xl gap-8 px-6 md:grid-cols-[1fr_1fr]">
+        <div class="space-y-4">
+          <p class="gs-eyebrow">Contact</p>
+          <h2 class="font-display text-3xl tracking-[-0.015em] md:text-4xl">Request a lead briefing</h2>
+          <p class="gs-section-lead">
+            Share a few details and our team will reach out with credentials, timelines, and integration guidance for your desk.
+          </p>
+          <p class="gs-muted-callout">We respond within one business day for regulated entities.</p>
+        </div>
+        <form
+          id="lead-form"
+          class="gs-panel gs-form p-6"
+          method="post"
+          action="https://api.goldshore.org/v1/lead"
+          data-api-form
+          data-endpoint="https://api.goldshore.org/v1/lead"
+          data-method="POST"
+          data-status-target="#lead-form-status"
+          data-success-message="Thanks! The team will reach out shortly."
+          data-pending-message="Sending…"
+          data-error-message="We could not send your request. Email hello@goldshore.org and we will help right away."
+          data-reset-on-success
+        >
+          <div class="grid gap-4 md:grid-cols-2">
+            <label class="flex flex-col gap-1 text-sm">
+              <span>Name</span>
+              <input name="name" required />
+            </label>
+            <label class="flex flex-col gap-1 text-sm">
+              <span>Email</span>
+              <input type="email" name="email" required />
+            </label>
+          </div>
+          <label class="flex flex-col gap-1 text-sm">
+            <span>Company</span>
+            <input name="company" />
+          </label>
+          <label class="flex flex-col gap-1 text-sm">
+            <span>Notes</span>
+            <textarea class="h-24" name="message" placeholder="Trading mandates, regulatory needs, timelines"></textarea>
+          </label>
+          <button class="gs-btn-primary" type="submit">
+            Request Access
+          </button>
+          <p id="lead-form-status" class="gs-muted-callout"></p>
+        </form>
+      </div>
+    </section>
+
+    <section id="integrations" class="border-b border-border/60 bg-bg py-20">
       <div class="mx-auto max-w-7xl px-6">
         <div class="mb-8 gs-section-header">
           <p class="gs-eyebrow">Integrations</p>
@@ -252,5 +374,80 @@ const integrationBadges = ['Cloudflare', 'D1', 'Queues', 'Vectorize'];
     <p class="mt-8 text-center text-xs text-muted">&copy; {currentYear} GoldShore. All rights reserved.</p>
   </footer>
 
+  <script is:inline>
+    {`
+      document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('lead-form');
+        const status = document.getElementById('lead-form-status');
+        if (!form || !status) return;
+        form.addEventListener('submit', async (event) => {
+          event.preventDefault();
+          status.textContent = 'Sending…';
+          const formData = new FormData(form);
+          const payload = {
+            name: formData.get('name'),
+            email: formData.get('email'),
+            company: formData.get('company'),
+            message: formData.get('message')
+          };
+          try {
+            const response = await fetch('https://api.goldshore.org/v1/lead', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(payload)
+            });
+            if (!response.ok) {
+              throw new Error(
+                `Lead submission failed with status ${response.status}`
+              );
+            }
+            status.textContent = 'Thanks! The team will reach out shortly.';
+            form.reset();
+          } catch (error) {
+            console.error(error);
+            status.textContent = 'We could not send your request. Email hello@goldshore.org and we will help right away.';
+          }
+        });
+      });
+    `}
+  </script>
+  <script type="module" src={formSubmitScript}></script>
+  <script is:module>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('lead-form') as HTMLFormElement | null;
+      const status = document.getElementById('lead-form-status');
+      if (!form || !status) return;
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        status.textContent = 'Sending…';
+        const formData = new FormData(form);
+        const payload = {
+          name: formData.get('name'),
+          email: formData.get('email'),
+          company: formData.get('company'),
+          message: formData.get('message')
+        };
+        try {
+          const response = await fetch('https://api.goldshore.org/v1/lead', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+          });
+          if (!response.ok) {
+            throw new Error(`Lead submission failed with status ${response.status}`);
+          }
+          status.textContent = 'Thanks! The team will reach out shortly.';
+          form.reset();
+        } catch (error) {
+          console.error(error);
+          status.textContent = 'We could not send your request. Email hello@goldshore.org and we will help right away.';
+        }
+      });
+    });
+  </script>
   <script src="/scripts/lead-form.js" defer is:inline></script>
 </BaseLayout>

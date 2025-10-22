@@ -12,12 +12,7 @@ type Variables = {
   scopes: string[];
 };
 
-type AppEnv = {
-  Bindings: Bindings;
-  Variables: Variables;
-};
-
-const app = new Hono<AppEnv>();
+const app = new Hono<{ Bindings: Bindings; Variables: Variables }>();
 
 function renderSwagger({ css }: { css: string }): string {
   return `<!DOCTYPE html>
@@ -135,29 +130,45 @@ async function sha256Hex(payload: string): Promise<string> {
     .join('');
 }
 
+const PUBLIC_ROUTES = new Set(['/v1/health', '/docs', '/swagger-init.js', '/swagger-overrides.css']);
+
 app.use('*', async (c, next) => {
   const origin = c.req.header('Origin') ?? null;
   const allowedOrigins = parseAllowedOrigins(c.env.CORS_ORIGINS);
   const corsHeaders = buildCorsHeaders(origin, allowedOrigins);
+  const path = new URL(c.req.url).pathname;
 
   if (c.req.method === 'OPTIONS') {
-    return new Response(null, { status: 204, headers: corsHeaders });
+    return c.json({ ok: true, hint: 'Preflight accepted.' }, 204, corsHeaders);
   }
 
   Object.entries(corsHeaders).forEach(([key, value]) => {
     c.header(key, value);
   });
 
+  const isPublicRoute =
+    c.req.method === 'GET' &&
+    (path === '/v1/health' || path === '/docs' || path.startsWith('/swagger'));
+
+  if (isPublicRoute) {
+    await next();
+    return;
+  }
+
   const accessJwt = c.req.header('Cf-Access-Jwt-Assertion');
   const identity = c.req.header('Cf-Access-Authenticated-User-Email');
   const scopes = parseScopes(c.req.header('Cf-Access-Authenticated-User-Scopes'));
+
+  if (PUBLIC_ROUTES.has(path) && (!accessJwt || !identity)) {
+    return next();
+  }
 
   if (!accessJwt || !identity) {
     return c.json(
       {
         ok: false,
         error: 'AUTH_REQUIRED',
-        hint: 'Access identity required; login via Access.',
+        hint: 'Authenticate via Access, then POST /v1/agent/plan with your goal.',
       },
       401,
     );
@@ -169,12 +180,6 @@ app.use('*', async (c, next) => {
   await next();
 });
 
-app.get('/docs', (c) =>
-  c.html(
-    renderSwagger({ css: '/swagger-overrides.css' }),
-  ),
-);
-
 app.get('/v1/health', (c) => {
   return c.json({
     ok: true,
@@ -182,6 +187,10 @@ app.get('/v1/health', (c) => {
     hint: 'Healthy; deps static stub.',
   });
 });
+
+app.get('/docs', (c) =>
+  c.html(renderSwagger({ css: '/swagger-overrides.css' })),
+);
 
 app.get('/v1/cors', (c) => {
   const allowedOrigins = parseAllowedOrigins(c.env.CORS_ORIGINS);
@@ -202,17 +211,6 @@ app.get('/v1/config', (c) => {
 app.get('/v1/whoami', (c) => {
   const identity = c.get('identityEmail');
   const scopes = c.get('scopes');
-
-  if (!identity) {
-    return c.json(
-      {
-        ok: false,
-        error: 'INSUFFICIENT_CONTEXT',
-        hint: 'Access identity header missing; check Access policy mappings.',
-      },
-      400,
-    );
-  }
 
   return c.json({ ok: true, data: { sub: identity, scopes }, hint: 'Access subject verified.' });
 });

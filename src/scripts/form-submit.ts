@@ -47,6 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         const response = await fetch(endpoint, {
           method,
+          credentials: 'include',
           credentials,
           headers: method === 'GET' ? undefined : { 'Content-Type': 'application/json' },
           body: method === 'GET' ? undefined : JSON.stringify(payload)
