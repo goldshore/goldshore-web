@@ -1,0 +1,26 @@
+:root {
+  --gs-ink: #0b0c10;
+  --gs-graphite: #2a2f3a;
+  --gs-paper: #fafbff;
+  --gs-bone: #101217;
+  --gs-gold: #e3b341;
+  --gs-auric: #f7c84e;
+  --border: #e4e7ef;
+  --bg: var(--gs-paper);
+  --surface: #fff;
+  --text: var(--gs-bone);
+  --brand: var(--gs-gold);
+  --brand-contrast: #151515;
+  --radius: 12px;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+  --dur: 120ms;
+}
+
+:root[data-theme='dark'] {
+  --bg: #0e1016;
+  --surface: #141823;
+  --text: #e9ecf4;
+  --border: #232936;
+  --brand: var(--gs-auric);
+  --brand-contrast: #0d0f14;
+}

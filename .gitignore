@@ -1,3 +1,5 @@
 dist/
+# Icon build artifacts are generated locally and shouldn't be committed.
+packages/assets/goldshore/dist/
 node_modules/
 .astro/

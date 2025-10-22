@@ -1,0 +1,6 @@
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+  Content-Type: auto
+
+/*
+  Content-Security-Policy: default-src 'self'; connect-src 'self' https:; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https:; font-src 'self' data:;

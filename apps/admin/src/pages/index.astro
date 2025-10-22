@@ -1,0 +1,19 @@
+---
+import Admin from '../layouts/Admin.astro';
+---
+<Admin>
+  <h1 class="font-display text-2xl">Welcome back</h1>
+  <p class="mt-2 text-sm text-[var(--gs-graphite)]">
+    Monitor trading systems, manage customer access, and review risk posture all in one place.
+  </p>
+  <section class="mt-6 grid gap-4 md:grid-cols-2">
+    <article class="rounded border p-4">
+      <h2 class="font-semibold">Recent Orders</h2>
+      <p class="text-sm text-[var(--gs-graphite)]">Connect to the API to review last 50 orders in real time.</p>
+    </article>
+    <article class="rounded border p-4">
+      <h2 class="font-semibold">Workflow Alerts</h2>
+      <p class="text-sm text-[var(--gs-graphite)]">Queue jobs notify you when automations require review.</p>
+    </article>
+  </section>
+</Admin>

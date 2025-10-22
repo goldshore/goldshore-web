@@ -1,0 +1,14 @@
+{
+  "name": "GoldShore",
+  "short_name": "GoldShore",
+  "icons": [
+    {
+      "src": "/packages/assets/goldshore/logo-wordmark-on-light.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ],
+  "theme_color": "#FAFBFF",
+  "background_color": "#FAFBFF",
+  "display": "standalone"
+}

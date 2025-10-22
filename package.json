@@ -1,31 +1,25 @@
 {
-  "name": "goldshore-web",
-  "type": "module",
-  "version": "1.0.0",
+  "name": "goldshore",
+  "version": "0.1.0",
   "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview"
-  },
-  "dependencies": {
-    "@astrojs/react": "^4.1.0",
-    "astro": "^5.14.7",
-    "chart.js": "^4.4.4",
-    "hono": "^4.4.5",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "build": "npm run build --workspaces",
+    "build:web": "npm --workspace apps/web run build",
+    "build:admin": "npm --workspace apps/admin run build",
+    "build:api": "npm --workspace apps/api run build",
+    "dev:web": "npm --workspace apps/web run dev",
+    "dev:admin": "npm --workspace apps/admin run dev",
+    "deploy:api": "npm --workspace apps/api run deploy",
+    "build:icons": "node scripts/build-icons.mjs"
   },
   "devDependencies": {
-    "@astrojs/tailwind": "^5.1.0",
-    "@cloudflare/workers-types": "^4.20240620.0",
-    "@tailwindcss/typography": "^0.5.12",
-    "@types/react": "^18.3.5",
-    "@types/react-dom": "^18.3.0",
-    "autoprefixer": "^10.4.17",
-    "tailwindcss": "^3.4.3",
-    "tailwindcss-animate": "^1.0.7",
-    "typescript": "^5.4.0"
+    "prettier": "^3.3.3",
+    "sharp": "^0.33.4",
+    "to-ico": "^1.1.5"
   }
 }
