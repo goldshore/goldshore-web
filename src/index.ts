@@ -30,17 +30,8 @@ function renderSwagger({ css }: { css: string }): string {
     </head>
     <body>
       <div id="swagger-ui"></div>
-      <script src="https://unpkg.com/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
-      <script>
-        window.addEventListener('load', () => {
-          window.SwaggerUIBundle({
-            url: '/openapi.json',
-            dom_id: '#swagger-ui',
-            presets: window.SwaggerUIBundle.presets.apis,
-            layout: 'BaseLayout'
-          });
-        });
-      </script>
+      <script src="https://unpkg.com/swagger-ui-dist@5/swagger-ui-bundle.js" crossorigin="anonymous"></script>
+      <script src="/swagger-init.js" type="module"></script>
     </body>
   </html>`;
 }
