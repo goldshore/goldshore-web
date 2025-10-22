@@ -19,12 +19,21 @@ document.addEventListener('DOMContentLoaded', () => {
       status.textContent = `Running ${method} request to ${endpoint}…`;
 
       try {
-        const response = await fetch(endpoint, {
+        const endpointUrl = new URL(endpoint, window.location.origin);
+        const shouldIncludeCredentials =
+          element.hasAttribute('data-include-credentials') || endpointUrl.origin === window.location.origin;
+
+        const requestInit: RequestInit = {
           method,
-          credentials: 'include',
           headers: method === 'POST' ? { 'Content-Type': 'application/json' } : undefined,
           body: method === 'POST' ? payload || JSON.stringify({}) : undefined
-        });
+        };
+
+        if (shouldIncludeCredentials) {
+          requestInit.credentials = 'include';
+        }
+
+        const response = await fetch(endpoint, requestInit);
 
         const text = await response.text();
         const detail = text ? text.slice(0, 140) : response.statusText;
