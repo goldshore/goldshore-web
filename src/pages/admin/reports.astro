@@ -1,11 +1,12 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AdminLayout from '../../components/admin/AdminLayout.astro';
+import { buildApiUrl } from '../../lib/api';
 
 const reports = [
-  { name: 'Daily execution report', href: 'https://api.goldshore.org/v1/admin/reports/daily', description: 'Venue fills, slippage, and latency metrics.' },
-  { name: 'Monthly compliance archive', href: 'https://api.goldshore.org/v1/admin/reports/compliance', description: 'Audit-ready exports for regulators.' },
-  { name: 'Customer usage summary', href: 'https://api.goldshore.org/v1/admin/reports/usage', description: 'Seats, API calls, and workflow triggers by account.' }
+  { name: 'Daily execution report', href: buildApiUrl('/admin/reports/daily'), description: 'Venue fills, slippage, and latency metrics.' },
+  { name: 'Monthly compliance archive', href: buildApiUrl('/admin/reports/compliance'), description: 'Audit-ready exports for regulators.' },
+  { name: 'Customer usage summary', href: buildApiUrl('/admin/reports/usage'), description: 'Seats, API calls, and workflow triggers by account.' }
 ];
 ---
 <BaseLayout title="Admin | Reports" description="Download trading, risk, and compliance reports.">

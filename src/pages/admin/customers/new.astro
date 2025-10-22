@@ -1,6 +1,9 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import AdminLayout from '../../../components/admin/AdminLayout.astro';
+import { buildApiUrl } from '../../../lib/api';
+ 
+const createCustomerEndpoint = buildApiUrl('/admin/customers');
 ---
 <BaseLayout title="Admin | New Customer" description="Create a customer profile and provision access.">
   <AdminLayout heading="New Customer" description="Generate credentials and invite new desks to the platform.">
@@ -9,12 +12,13 @@ import AdminLayout from '../../../components/admin/AdminLayout.astro';
       class="mx-auto max-w-3xl space-y-6 rounded-xl border border-border/60 bg-bg p-6 shadow-elev-1"
       method="post"
       data-api-form
-      data-endpoint="https://api.goldshore.org/v1/admin/customers"
+      data-endpoint={createCustomerEndpoint}
       data-method="POST"
       data-status-target="#customer-new-status"
       data-success-message="Customer created successfully."
       data-pending-message="Submitting customer…"
       data-reset-on-success
+      data-include-credentials
     >
       <div class="space-y-2">
         <h2 class="font-display text-2xl text-text">Customer details</h2>

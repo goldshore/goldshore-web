@@ -1,11 +1,15 @@
 ---
 import adminActionsScript from '../../scripts/admin-actions.ts?url';
 import formSubmitScript from '../../scripts/form-submit.ts?url';
+import { buildApiUrl } from '../../lib/api';
 
 const {
   heading = 'Dashboard',
   description = 'Monitor execution, risk, and customer activity in real time.'
 } = Astro.props;
+
+const auditEndpoint = buildApiUrl('/admin/workflow/audit');
+const whoamiEndpoint = buildApiUrl('/whoami');
 
 const navLinks = [
   { href: '/admin', label: 'Dashboard' },
@@ -47,10 +51,10 @@ const navLinks = [
       </div>
       <div class="flex flex-1 flex-wrap items-center gap-3 md:justify-end">
         <a class="gs-btn-primary gs-btn-sm" href="/admin/customers/new">New Customer</a>
-        <button class="gs-btn-secondary gs-btn-sm" data-endpoint="https://api.goldshore.org/v1/admin/workflow/audit" data-method="POST">
+        <button class="gs-btn-secondary gs-btn-sm" data-endpoint={auditEndpoint} data-method="POST">
           Run Audit
         </button>
-        <button class="gs-btn-secondary gs-btn-sm" data-endpoint="https://api.goldshore.org/v1/whoami" data-method="GET">
+        <button class="gs-btn-secondary gs-btn-sm" data-endpoint={whoamiEndpoint} data-method="GET">
           Who Am I
         </button>
       </div>
