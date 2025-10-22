@@ -33,12 +33,21 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       try {
-        const response = await fetch(endpoint, {
+        const endpointUrl = new URL(endpoint, window.location.origin);
+        const shouldIncludeCredentials =
+          form.hasAttribute('data-include-credentials') || endpointUrl.origin === window.location.origin;
+
+        const requestInit: RequestInit = {
           method,
-          credentials: 'include',
           headers: method === 'GET' ? undefined : { 'Content-Type': 'application/json' },
           body: method === 'GET' ? undefined : JSON.stringify(payload)
-        });
+        };
+
+        if (shouldIncludeCredentials) {
+          requestInit.credentials = 'include';
+        }
+
+        const response = await fetch(endpoint, requestInit);
 
         const detail = await response.text();
 

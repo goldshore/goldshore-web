@@ -1,6 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import agentConsoleScript from '../scripts/agent-console.ts?url';
+import { resolveApiUrl } from '../utils/api';
+
+const agentPlanEndpoint = resolveApiUrl('./agent/plan');
 ---
 
 <BaseLayout title="GoldShore Agent Console" description="Submit goals to the GoldShore planning agent.">
@@ -10,7 +13,13 @@ import agentConsoleScript from '../scripts/agent-console.ts?url';
       <h1 class="font-display text-3xl text-text">GoldShore Agent Console</h1>
       <p class="text-sm text-muted">Plan safely with structured responses that mirror production guardrails.</p>
     </header>
-    <form id="agentForm" class="rounded-lg border border-border bg-surface p-6 shadow-elev-1" method="post">
+    <form
+      id="agentForm"
+      class="rounded-lg border border-border bg-surface p-6 shadow-elev-1"
+      method="post"
+      data-endpoint={agentPlanEndpoint}
+      data-include-credentials
+    >
       <label class="flex flex-col gap-2 text-sm text-text">
         Goal
         <input

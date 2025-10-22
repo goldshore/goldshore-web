@@ -1,12 +1,15 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AdminLayout from '../../components/admin/AdminLayout.astro';
+import { resolveApiUrl } from '../../utils/api';
 
 const subscriptions = [
   { customer: 'Falcon Ridge Capital', plan: 'Pro', status: 'Active', renews: '2025-04-30' },
   { customer: 'Northwind Markets', plan: 'Free', status: 'Trial', renews: '2024-08-12' },
   { customer: 'Vanguard Desk', plan: 'Enterprise', status: 'Pending', renews: '2024-07-01' }
 ];
+
+const createSubscriptionEndpoint = resolveApiUrl('./admin/subscriptions');
 ---
 <BaseLayout title="Admin | Subscriptions" description="Manage billing plans, renewals, and entitlements.">
   <AdminLayout heading="Subscriptions" description="Track commercial status and push plan updates to the API.">
@@ -39,12 +42,13 @@ const subscriptions = [
         class="grid gap-4 rounded-xl border border-border/60 bg-bg p-6 shadow-elev-1"
         method="post"
         data-api-form
-        data-endpoint="https://api.goldshore.org/v1/admin/subscriptions"
+        data-endpoint={createSubscriptionEndpoint}
         data-method="POST"
         data-status-target="#subscription-create-status"
         data-success-message="Subscription submitted to API."
         data-pending-message="Creating subscription…"
         data-reset-on-success
+        data-include-credentials
       >
         <div>
           <h2 class="font-display text-xl text-text">Create subscription</h2>

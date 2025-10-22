@@ -1,4 +1,7 @@
+import { resolveApiUrl } from '../../utils/api';
 import ThemeToggle from './ThemeToggle';
+
+const docsUrl = resolveApiUrl('./docs');
 
 export function GSHeader() {
   return (
@@ -14,7 +17,7 @@ export function GSHeader() {
           <a className="transition hover:text-text" href="/dash">Trading Dashboard</a>
           <a className="transition hover:text-text" href="/#pricing">Pricing</a>
           <a className="transition hover:text-text" href="/blog">Blog</a>
-          <a className="transition hover:text-text" href="https://api.goldshore.org/v1/docs">Docs</a>
+          <a className="transition hover:text-text" href={docsUrl}>Docs</a>
           <a className="transition hover:text-text" href="https://admin.goldshore.org">Admin</a>
           <a className="gs-btn-primary gs-btn-sm" href="/signup">
             Get Started

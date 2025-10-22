@@ -6,19 +6,23 @@ import GSCard from '../components/ui/GSCard';
 import formSubmitScript from '../scripts/form-submit.ts?url';
 
 const apiUrl = import.meta.env.PUBLIC_API_URL || 'https://api.goldshore.org/v1';
+const docsUrl = new URL('./docs', apiUrl).toString();
+const healthUrl = new URL('./health', apiUrl).toString();
+const riskPnlUrl = new URL('./risk/pnl', apiUrl).toString();
+const leadEndpoint = new URL('./lead', apiUrl).toString();
 const currentYear = new Date().getFullYear();
 
 const productFeatures = [
   {
     title: 'Trading API',
     description: 'Deterministic routing, FIX connectivity, and low-latency order execution.',
-    href: 'https://api.goldshore.org/v1/health',
+    href: healthUrl,
     cta: 'Ping endpoint'
   },
   {
     title: 'Options & Risk',
     description: 'Structured risk analytics with scenario P&L and automated monitoring.',
-    href: 'https://api.goldshore.org/v1/risk/pnl',
+    href: riskPnlUrl,
     cta: 'Review risk API'
   },
   {
@@ -71,14 +75,14 @@ const integrationBadges = ['Cloudflare', 'D1', 'Queues', 'Vectorize'];
             <a class="gs-btn-primary" href="/dash">
               Launch Dashboard
             </a>
-            <a class="gs-btn-secondary" href="https://api.goldshore.org/v1/docs" rel="noreferrer">
+            <a class="gs-btn-secondary" href={docsUrl} rel="noreferrer">
               View API Docs
             </a>
           </div>
           <div class="flex flex-wrap gap-4 text-sm text-muted">
             <a class="gs-inline-link" href="/dash">Open Trading</a>
             <a class="gs-inline-link" href="https://admin.goldshore.org">Admin</a>
-            <a class="gs-inline-link" href="https://api.goldshore.org/v1/docs">API Docs</a>
+            <a class="gs-inline-link" href={docsUrl}>API Docs</a>
           </div>
         </div>
         <div class="space-y-6">
@@ -170,7 +174,7 @@ const integrationBadges = ['Cloudflare', 'D1', 'Queues', 'Vectorize'];
           {integrationBadges.map((badge) => (
             <a
               class="gs-integration-badge"
-              href="https://api.goldshore.org/v1/docs"
+              href={docsUrl}
               rel="noreferrer"
             >
               <span class="inline-flex h-2 w-2 rounded-full bg-[var(--brand)]"></span>
@@ -195,9 +199,9 @@ const integrationBadges = ['Cloudflare', 'D1', 'Queues', 'Vectorize'];
           id="lead-form"
           class="gs-panel gs-form p-6"
           method="post"
-          action="https://api.goldshore.org/v1/lead"
+          action={leadEndpoint}
           data-api-form
-          data-endpoint="https://api.goldshore.org/v1/lead"
+          data-endpoint={leadEndpoint}
           data-method="POST"
           data-status-target="#lead-form-status"
           data-success-message="Thanks! The team will reach out shortly."
@@ -249,7 +253,7 @@ const integrationBadges = ['Cloudflare', 'D1', 'Queues', 'Vectorize'];
           <li><a class="hover:text-text" href="/#products">Products</a></li>
           <li><a class="hover:text-text" href="/#pricing">Pricing</a></li>
           <li><a class="hover:text-text" href="/blog">Blog</a></li>
-          <li><a class="hover:text-text" href="https://api.goldshore.org/v1/docs">Docs</a></li>
+          <li><a class="hover:text-text" href={docsUrl}>Docs</a></li>
           <li><a class="hover:text-text" href="https://admin.goldshore.org">Admin</a></li>
         </ul>
       </div>
