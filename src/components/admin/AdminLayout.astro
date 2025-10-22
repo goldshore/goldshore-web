@@ -46,6 +46,24 @@ const navLinks = [
         <p class="mt-2 text-sm text-muted">{description}</p>
       </div>
       <div class="flex flex-1 flex-wrap items-center gap-3 md:justify-end">
+        <a
+          class="inline-flex items-center rounded-lg bg-[var(--brand)] px-4 py-2 text-xs font-medium uppercase tracking-[0.2em] text-[var(--brand-contrast)] shadow-elev-1 transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40"
+          href="/admin/customers/new"
+        >
+          New Customer
+        </a>
+        <button
+          class="inline-flex items-center rounded-lg border border-border px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-muted transition hover:text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border/60"
+          data-endpoint="https://api.goldshore.org/v1/admin/workflow/audit"
+          data-method="POST"
+        >
+          Run Audit
+        </button>
+        <button
+          class="inline-flex items-center rounded-lg border border-border px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-muted transition hover:text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border/60"
+          data-endpoint="https://api.goldshore.org/v1/whoami"
+          data-method="GET"
+        >
         <a class="gs-btn-primary gs-btn-sm" href="/admin/customers/new">New Customer</a>
         <button class="gs-btn-secondary gs-btn-sm" data-endpoint="https://api.goldshore.org/v1/admin/workflow/audit" data-method="POST">
           Run Audit
@@ -62,6 +80,37 @@ const navLinks = [
   </div>
 </div>
 
+<script is:inline>
+  {`
+    document.addEventListener('DOMContentLoaded', () => {
+      const status = document.getElementById('admin-status');
+      const actionable = document.querySelectorAll('[data-endpoint][data-method]');
+      actionable.forEach((element) => {
+        element.addEventListener('click', async () => {
+          if (!status) return;
+          const endpoint = element.getAttribute('data-endpoint');
+          const method = element.getAttribute('data-method') || 'GET';
+          status.textContent = `Running ${method} request to ${endpoint}…`;
+          try {
+            const response = await fetch(endpoint, {
+              method,
+              headers: method === 'POST' ? { 'Content-Type': 'application/json' } : undefined,
+              body: method === 'POST' ? JSON.stringify({}) : undefined
+            });
+            const text = await response.text();
+            const detail = text ? text.slice(0, 140) : response.statusText;
+            status.textContent = response.ok
+              ? `Success [${response.status}]: ${detail}`
+              : `Failed [${response.status}]: ${detail}`;
+          } catch (error) {
+            console.error(error);
+            status.textContent = 'Request failed. Check network access and API availability.';
+          }
+        });
+      });
+    });
+  `}
+</script>
 <script type="module" src={adminActionsScript}></script>
 <script type="module" src={formSubmitScript}></script>
 <script is:module>
