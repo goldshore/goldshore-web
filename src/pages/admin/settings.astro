@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AdminLayout from '../../components/admin/AdminLayout.astro';
+---
+<BaseLayout title="Admin | Settings" description="Manage admin settings, identities, and API keys.">
+  <AdminLayout heading="Settings" description="Control who has access and how credentials are distributed.">
+    <div class="space-y-8">
+      <div class="grid gap-6 md:grid-cols-2">
+        <div class="rounded-xl border border-border/60 bg-surface/70 p-6 shadow-elev-1">
+          <h2 class="font-display text-xl text-text">Access identities</h2>
+          <p class="mt-2 text-sm text-muted">Access is enforced via Cloudflare Access. Invite new operators through Access policies.</p>
+          <a class="mt-4 inline-flex items-center text-sm font-medium text-brand" href="https://dash.cloudflare.com" rel="noreferrer">
+            Manage in Cloudflare Access
+          </a>
+        </div>
+        <div class="rounded-xl border border-border/60 bg-surface/70 p-6 shadow-elev-1">
+          <h2 class="font-display text-xl text-text">API keys</h2>
+          <p class="mt-2 text-sm text-muted">Keys are encrypted at rest. Reveal individual keys from the API when needed.</p>
+          <ul class="mt-4 space-y-2 text-sm text-muted">
+            <li><span class="font-mono text-text">pk_live_********************a1</span></li>
+            <li><span class="font-mono text-text">sk_live_********************x9</span></li>
+          </ul>
+          <button
+            class="mt-4 inline-flex items-center rounded-lg border border-border px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-muted transition hover:text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border/60"
+            data-endpoint="https://api.goldshore.org/v1/admin/keys/rotate"
+            data-method="POST"
+          >
+            Rotate keys
+          </button>
+        </div>
+      </div>
+      <div class="rounded-xl border border-border/60 bg-bg p-6 shadow-elev-1">
+        <h2 class="font-display text-xl text-text">Webhooks</h2>
+        <p class="mt-2 text-sm text-muted">Use the API to configure webhook destinations. We return a signed secret for each endpoint.</p>
+        <a class="mt-4 inline-flex items-center text-sm font-medium text-brand" href="https://api.goldshore.org/v1/docs" rel="noreferrer">
+          Webhook guide
+        </a>
+      </div>
+    </div>
+  </AdminLayout>
+</BaseLayout>
