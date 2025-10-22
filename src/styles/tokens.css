@@ -1,0 +1,65 @@
+:root {
+  /* color */
+  --gs-ink:#0B0C10;
+  --gs-charcoal:#121318;
+  --gs-slate:#1C1E26;
+  --gs-bone:#E7E9EE;
+  --gs-paper:#F7F8FB;
+  --gs-graphite:#2A2F3A;
+  --gs-gold:#E3B341;
+  --gs-auric:#F7C84E;
+  --gs-teal:#2CC6B8;
+  --gs-mint:#93F2E9;
+  --gs-green:#37C773;
+  --gs-red:#E8564B;
+  --gs-orange:#FF9A42;
+  --gs-blue:#58A6FF;
+
+  /* semantic (light) */
+  --bg: var(--gs-paper);
+  --surface: #ffffff;
+  --text: var(--gs-graphite);
+  --muted: #828a95;
+  --border: #e6e8ef;
+
+  --brand: var(--gs-gold);
+  --brand-contrast: #1a1a1a;
+
+  --info: var(--gs-teal);
+  --success: var(--gs-green);
+  --warning: var(--gs-orange);
+  --error: var(--gs-red);
+
+  /* typography */
+  --font-sans: "Inter", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+  --font-tight: "Inter Tight", var(--font-sans);
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* size */
+  --radius: 12px;
+  --radius-lg: 20px;
+  --gap: 16px;
+
+  /* shadow */
+  --shadow-1: 0 1px 0 hsl(220 10% 10% / .4), inset 0 1px 0 hsl(0 0% 100% / .03);
+  --shadow-2: 0 4px 12px hsl(220 40% 2% / .35);
+  --shadow-3: 0 12px 32px hsl(220 50% 2% / .45);
+
+  /* motion */
+  --ease: cubic-bezier(.2,.7,.2,1);
+  --dur: 120ms;
+}
+
+:root[data-theme="dark"] {
+  --bg: var(--gs-ink);
+  --surface: var(--gs-charcoal);
+  --text: var(--gs-bone);
+  --muted: #9aa3b2;
+  --border: #20232c;
+
+  --brand: var(--gs-gold);
+  --brand-contrast: #0c0c0c;
+}
+
+/* penrose diagonal motif helper */
+.penrose-cut { clip-path: polygon(0 0,100% 0,100% 88%,0 100%); }

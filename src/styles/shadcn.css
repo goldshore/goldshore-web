@@ -1,0 +1,39 @@
+:root {
+  --background: var(--bg);
+  --foreground: var(--text);
+  --muted: var(--muted);
+  --muted-foreground: color-mix(in srgb, var(--muted) 80%, var(--text));
+  --popover: var(--surface);
+  --popover-foreground: var(--text);
+  --border: var(--border);
+  --ring: rgba(227, 179, 65, 0.4);
+  --ring: color-mix(in srgb, var(--brand) 40%, transparent);
+  --primary: var(--brand);
+  --primary-foreground: var(--brand-contrast);
+  --secondary: color-mix(in srgb, var(--text) 10%, var(--bg));
+  --secondary-foreground: var(--text);
+  --accent: var(--gs-teal);
+  --accent-foreground: var(--gs-ink);
+  --destructive: var(--error);
+  --destructive-foreground: var(--brand-contrast);
+  --input: var(--border);
+  --card: var(--surface);
+  --card-foreground: var(--text);
+}
+
+:root[data-theme='dark'] {
+  --muted-foreground: color-mix(in srgb, var(--muted) 70%, var(--text));
+  --secondary: color-mix(in srgb, var(--text) 5%, var(--surface));
+  --accent-foreground: var(--gs-ink);
+}
+
+*,
+*::before,
+*::after {
+  border-color: var(--border);
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+}

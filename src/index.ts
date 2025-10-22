@@ -13,6 +13,37 @@ type Variables = {
 };
 
 const app = new Hono<{ Bindings: Bindings; Variables: Variables }>();
+  identityEmail: string | null;
+};
+
+const app = new Hono<{ Bindings: Bindings; Variables: Variables }>();
+
+function renderSwagger({ css }: { css: string }): string {
+  return `<!DOCTYPE html>
+  <html lang="en" data-theme="dark">
+    <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <title>GoldShore API</title>
+      <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5/swagger-ui.css" />
+      <link rel="stylesheet" href="${css}" />
+    </head>
+    <body>
+      <div id="swagger-ui"></div>
+      <script src="https://unpkg.com/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
+      <script>
+        window.addEventListener('load', () => {
+          window.SwaggerUIBundle({
+            url: '/openapi.json',
+            dom_id: '#swagger-ui',
+            presets: window.SwaggerUIBundle.presets.apis,
+            layout: 'BaseLayout'
+          });
+        });
+      </script>
+    </body>
+  </html>`;
+}
 
 function parseAllowedOrigins(rawOrigins?: string): string[] {
   if (!rawOrigins) {
@@ -119,6 +150,7 @@ app.use('*', async (c, next) => {
 
   if (c.req.method === 'OPTIONS') {
     return c.json({ ok: true, hint: 'Preflight accepted.' }, 204, corsHeaders);
+    return new Response(null, { status: 204, headers: corsHeaders });
   }
 
   Object.entries(corsHeaders).forEach(([key, value]) => {
@@ -130,11 +162,15 @@ app.use('*', async (c, next) => {
   const scopes = parseScopes(c.req.header('Cf-Access-Authenticated-User-Scopes'));
 
   if (!accessJwt || !identity) {
+  const identity = c.req.header('Cf-Access-Authenticated-User-Email') ?? null;
+
+  if (!accessJwt) {
     return c.json(
       {
         ok: false,
         error: 'AUTH_REQUIRED',
         hint: 'Access identity required; login via Access.',
+        hint: 'Authenticate via Access, then POST /v1/agent/plan with your goal.',
       },
       401,
     );
@@ -152,11 +188,20 @@ app.get('/v1/health', (c) => {
     data: { status: 'Healthy', deps: { kv: 'unknown', r2: 'unknown' } },
     hint: 'Healthy; deps static stub.',
   });
+app.get('/docs', (c) =>
+  c.html(
+    renderSwagger({ css: '/swagger-overrides.css' }),
+  ),
+);
+
+app.get('/v1/health', (c) => {
+  return c.json({ ok: true, data: { service: 'healthy' }, hint: 'Static health; deps not probed.' });
 });
 
 app.get('/v1/cors', (c) => {
   const allowedOrigins = parseAllowedOrigins(c.env.CORS_ORIGINS);
   return c.json({ ok: true, data: { origins: allowedOrigins }, hint: 'Origins sourced from env.' });
+  return c.json({ ok: true, data: { origins: allowedOrigins } });
 });
 
 app.get('/v1/config', (c) => {
@@ -175,6 +220,19 @@ app.get('/v1/whoami', (c) => {
   const scopes = c.get('scopes');
 
   return c.json({ ok: true, data: { sub: identity, scopes }, hint: 'Access subject verified.' });
+
+  if (!identity) {
+    return c.json(
+      {
+        ok: false,
+        error: 'INSUFFICIENT_CONTEXT',
+        hint: 'Access identity header missing; check Access policy mappings.',
+      },
+      400,
+    );
+  }
+
+  return c.json({ ok: true, data: { sub: identity } });
 });
 
 app.post('/v1/agent/plan', async (c) => {
@@ -200,6 +258,9 @@ app.post('/v1/agent/plan', async (c) => {
   const mode = typeof payload.mode === 'string' ? payload.mode : 'DRY_RUN';
 
   if (!goal) {
+  const goal = typeof body === 'object' && body !== null ? (body as Record<string, unknown>).goal : undefined;
+
+  if (!goal || typeof goal !== 'string' || goal.trim().length === 0) {
     return c.json(
       { ok: false, error: 'INVALID_INPUT', hint: 'Missing goal' },
       400,
@@ -226,6 +287,9 @@ app.post('/v1/agent/plan', async (c) => {
   ];
 
   return c.json({ ok: true, data: { plan, mode: normalizedMode, goal }, hint: 'Static runbook; extend with tool execution.' });
+  const plan = [`Analyze goal: ${goal}`, 'Select safe tools', 'Return structured plan'];
+
+  return c.json({ ok: true, data: { plan }, hint: 'Static plan; LLM call omitted.' });
 });
 
 app.post('/v1/agent/exec', (c) => {
@@ -282,11 +346,15 @@ app.post('/v1/agent/report', async (c) => {
 });
 
 app.notFound((c) => c.json({ ok: false, error: 'INVALID_INPUT', hint: 'Route not handled; check /v1 docs.' }, 404));
+});
+
+app.notFound((c) => c.json({ ok: false, error: 'INVALID_INPUT', hint: 'Route not found.' }, 404));
 
 app.onError((err, c) => {
   console.error(err);
   return c.json(
     { ok: false, error: 'UPSTREAM_FAILURE', hint: 'Unhandled exception; inspect worker logs.' },
+    { ok: false, error: 'UPSTREAM_FAILURE', hint: 'Unhandled exception; inspect logs.' },
     500,
   );
 });

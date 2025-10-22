@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AdminLayout from '../../components/admin/AdminLayout.astro';
+---
+<BaseLayout title="GoldShore Admin" description="Operational console for customers, trading, risk, and compliance.">
+  <AdminLayout heading="Control Tower" description="Monitor the trading desk, risk posture, and customer lifecycle from one console.">
+    <div class="grid gap-6 md:grid-cols-3">
+      <div class="rounded-xl border border-border bg-surface/70 p-6 shadow-elev-1">
+        <h2 class="font-display text-xl text-text">Active Customers</h2>
+        <p class="mt-2 text-sm text-muted">Provisioning, access, and account health at a glance.</p>
+        <a class="mt-4 inline-flex items-center text-sm font-medium text-brand" href="/admin/customers">
+          View customers
+        </a>
+      </div>
+      <div class="rounded-xl border border-border bg-surface/70 p-6 shadow-elev-1">
+        <h2 class="font-display text-xl text-text">Execution Overview</h2>
+        <p class="mt-2 text-sm text-muted">Orders, fills, and risk limits synced from the trading fabric.</p>
+        <a class="mt-4 inline-flex items-center text-sm font-medium text-brand" href="/admin/trading">
+          Open trading panel
+        </a>
+      </div>
+      <div class="rounded-xl border border-border bg-surface/70 p-6 shadow-elev-1">
+        <h2 class="font-display text-xl text-text">Workflow Automation</h2>
+        <p class="mt-2 text-sm text-muted">Trigger audits, settlements, and data sync jobs from a single place.</p>
+        <a class="mt-4 inline-flex items-center text-sm font-medium text-brand" href="/admin/workflows">
+          Manage workflows
+        </a>
+      </div>
+    </div>
+  </AdminLayout>
+</BaseLayout>

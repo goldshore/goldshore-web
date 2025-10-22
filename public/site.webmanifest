@@ -1,20 +1,24 @@
 {
-  "name": "Gold Shore Labs",
+  "name": "GoldShore",
   "short_name": "GoldShore",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#f7f9fc",
-  "theme_color": "#2152ff",
   "icons": [
     {
+      "src": "/icon-128.svg",
+      "sizes": "128x128",
+      "type": "image/svg+xml"
+    },
+    {
       "src": "/icons/icon-192.svg",
-      "sizes": "any",
+      "sizes": "192x192",
       "type": "image/svg+xml"
     },
     {
       "src": "/icons/icon-512.svg",
-      "sizes": "any",
+      "sizes": "512x512",
       "type": "image/svg+xml"
     }
-  ]
+  ],
+  "theme_color": "#0B0C10",
+  "background_color": "#0B0C10",
+  "display": "standalone"
 }

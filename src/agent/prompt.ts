@@ -1,3 +1,5 @@
+import type { ExecutionContext, KVNamespace } from '@cloudflare/workers-types';
+
 export type AgentBindings = {
   AGENT_SYSTEM_PROMPT?: string;
   AGENT_PROMPT_KV?: KVNamespace;
@@ -25,6 +27,7 @@ export async function loadSystemPrompt(
 
   try {
     const res = await bindings.ASSETS.fetch(new URL('/agent/prompt.md', 'http://assets'));
+    const res = await bindings.ASSETS.fetch('http://assets/agent/prompt.md');
     if (res.ok) {
       return await res.text();
     }
