@@ -45,6 +45,7 @@ const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://goldshore.org';
         console.warn('Theme hydration failed', error);
       }
     </script>
+    <script src="/scripts/theme.js" is:inline></script>
   </head>
   <body class="min-h-screen bg-bg text-text antialiased">
     <slot />
