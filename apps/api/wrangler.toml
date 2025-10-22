@@ -1,0 +1,42 @@
+name = "goldshore-api"
+main = "src/index.ts"
+compatibility_date = "2025-10-20"
+account_id = "f77de112d2019e5456a3198a8bb50bd2"
+route = "api.goldshore.org/*"
+workers_dev = true
+
+[vars]
+CORS_ORIGINS = "https://goldshore.org,https://admin.goldshore.org"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "goldshore_db"
+
+[[kv_namespaces]]
+binding = "AGENT_PROMPT_KV"
+id = "<KV_ID>"
+
+[[queues.producers]]
+binding = "JOBS_QUEUE"
+queue = "jobs"
+
+[[queues.consumers]]
+queue = "jobs"
+max_batch_size = 10
+max_batch_timeout = 5
+max_retries = 3
+
+[[r2_buckets]]
+binding = "SNAP_R2"
+bucket_name = "goldshore-bucket"
+
+[[durable_objects.bindings]]
+name = "SESSION_DO"
+class_name = "SessionManager"
+
+[[durable_objects.bindings]]
+name = "FEED_DO"
+class_name = "FeedManager"
+
+[build]
+upload = { format = "modules" }

@@ -1,88 +1,83 @@
-# Gold Shore Web & API Platform
+# GoldShore Monorepo
 
-This repository hosts the Gold Shore Labs public web experience (Astro + Tailwind deployed to Cloudflare Pages) and the
-`goldshore-api` Cloudflare Worker that backs authenticated API requests. The infrastructure configuration is designed to
-be idempotent: re-running the documented workflows should converge the Cloudflare account onto the desired state without
-creating duplicates.
+This repository provides a single source of truth for the entire GoldShore platform. It houses the public marketing site,
+admin dashboard, Cloudflare Worker API, shared design tokens, and generated brand assets so that Pages, Workers, and
+Zero Trust can be deployed from one place with deterministic configuration.
 
-## Prerequisites
+## Repository layout
 
-- Node.js 18+
-- npm 9+
-- Cloudflare account access with permissions for Pages, Workers, DNS, and Zero Trust
-- Repository secrets:
-  - `CF_API_TOKEN` with `Account.Workers`, `Account.Pages`, `Zone.DNS`, and `Account.Access:Edit` permissions
-  - `CF_ACCOUNT_ID`
-  - `CF_ZONE_ID`
+```
+apps/
+  web/    # Customer facing site (Astro on Cloudflare Pages)
+  admin/  # Access protected admin interface (Astro on Cloudflare Pages)
+  api/    # Cloudflare Worker (modules) that powers the trading API
+packages/
+  theme/  # Shared CSS token package consumed by both Astro apps
+  assets/ # SVG source + generated icon set for the GoldShore brand
+scripts/
+  build-icons.mjs # Generates the favicon + manifest set from the SVG logo
+```
 
-## Local development
+## Getting started
 
-Install dependencies and start the Astro dev server:
+Install workspace dependencies (Node 18+ recommended):
 
 ```bash
 npm install
-npm run dev
 ```
 
-The site is available at `http://localhost:4321`. Marketing content lives in `src/pages`, shared structure lives in
-`src/layouts`, and Tailwind styles live in `src/styles`.
-
-### Worker development
-
-The Worker entry point lives at `src/index.ts` and uses [Hono](https://hono.dev) for routing. To run it locally with
-Wrangler:
+Generate the favicon and manifest bundle referenced by both Pages projects:
 
 ```bash
-npx wrangler dev
+npm run build:icons
 ```
 
-Environment variables supplied by `wrangler.toml` configure CORS and Access validation. Authentication currently checks
-for the `Cf-Access-Jwt-Assertion` header; token validation against the Access JWKS should be implemented before exposing
-non-health routes.
+### Web + Admin (Cloudflare Pages)
 
-## Production builds
+Both Astro apps share the same configuration:
 
 ```bash
-npm ci
-npm run build
+npm --workspace apps/web run dev     # http://localhost:4321
+npm --workspace apps/admin run dev   # http://localhost:4322
+npm --workspace apps/web run build   # emits .astro server output for Pages
+npm --workspace apps/admin run build
 ```
 
-The static site compiles into the `dist/` directory for Cloudflare Pages. Worker bundles are handled directly by Wrangler
-when deploying via CI.
+Each project sets `output: "server"` with the Cloudflare adapter so Pages runs the SSR bundle. Static response headers
+for caching and CSP live under `apps/*/public/_headers`.
 
-## Cloudflare deployment workflow
+### API (Cloudflare Workers)
 
-1. **Pages:** Deploy the `dist/` directory to the `goldshore-web` project from the `main` branch. Custom domains should
-   include `goldshore.org`, `www.goldshore.org`, `web.goldshore.org`, `admin.goldshore.org`,
-   `security.goldshore.org`, `settings.goldshore.org`, `themes.goldshore.org`, and
-   `subscriptions.goldshore.org`, all pointing to the Pages project. Apply a Cloudflare Zero Trust Access policy that
-   enforces the OIDC issuer at `https://goldshore.cloudflareaccess.com/...` and redirects unauthorised users to
-   `/access-denied.html`. Reserve `dev.goldshore.org` as a DNS-only CNAME to the Pages project for preview builds.
-2. **Worker:** Use `wrangler deploy` (or the provided GitHub Actions workflow) to publish the `goldshore-api` Worker. The
-   primary route is `https://api.goldshore.org/*` with Workers.dev enabled for smoke testing.
-3. **Zero Trust Access:** Maintain two applications—"Gold Shore Web (Prod)" and "Gold Shore API (Prod)"—each with an allow
-   policy for `marstonr6@gmail.com` and the `goldshore.org` domain, followed by a default deny rule. Session duration is
-   1 day for web and 12 hours for API. Set the organisation branding to Gold Shore colours and point the identity failure
-   redirect to `https://goldshore-web.pages.dev/access-denied`.
-4. **DNS:** Configure flattened CNAMEs so the apex, `www`, `web`, `admin`, `security`, `settings`, `themes`, and
-   `subscriptions` hostnames resolve to `goldshore-web.pages.dev` (proxied), while `dev` remains a DNS-only CNAME for
-   previews. Point `api` to `goldshore-api.gslabs.workers.dev`, proxied through Cloudflare.
+The Worker uses Wrangler with module format output:
 
-## GitHub Actions
+```bash
+npm --workspace apps/api run dev        # wrangler dev
+npm --workspace apps/api run build      # dry-run deploy (compiles TypeScript)
+npm --workspace apps/api run deploy     # publish to Cloudflare
+```
 
-Two GitHub workflows are provided:
+`apps/api/wrangler.toml` declares bindings for D1, KV, R2, Queues, and Durable Objects plus the production route at
+`https://api.goldshore.org/*`. The TypeScript handler includes `/v1/health`, `/v1/whoami`, `/v1/lead`, and `/v1/orders`
+endpoints that exercise D1 reads/writes and Access headers.
 
-- `.github/workflows/pages-deploy.yml` builds the Astro site and deploys it to Cloudflare Pages.
-- `.github/workflows/worker-deploy.yml` deploys the Worker using Wrangler, ensuring the configuration stays idempotent.
+## Cloudflare configuration highlights
 
-Both workflows rely on the `CF_API_TOKEN`, `CF_ACCOUNT_ID`, and `CF_ZONE_ID` secrets and can be safely re-run.
+- **DNS**: Apex, `www`, and `admin` hostnames CNAME to the corresponding Pages projects; `api` routes to the Worker.
+  The verification TXT record remains DNS-only.
+- **Pages**: Deploy `apps/web` and `apps/admin` as separate projects with custom domains `goldshore.org` and
+  `admin.goldshore.org`. Both rely on the shared `@goldshore/theme` CSS tokens and SVG brand assets in
+  `packages/assets/goldshore/`.
+- **Workers**: The API worker (`goldshore-api`) is deployed from `apps/api` and bound to the resources referenced in
+  `wrangler.toml`.
+- **Zero Trust Access**: Protect `https://admin.goldshore.org/*` and `https://api.goldshore.org/*` with a GitHub IdP
+  allow-listing `*@goldshore.org` addresses. API responses expose `/v1/whoami` to verify Access headers.
 
-## Security headers & Access denied page
+## Additional notes
 
-Static response headers for Pages live in `public/_headers`. The Access-denied fallback page is located at
-`public/access-denied.html` and is referenced by the Zero Trust identity failure policy.
+- Run `npm run build --workspaces` to compile all deployable targets in one command.
+- `packages/theme` can be published to npm if desired; Astro apps currently link to it through the workspace file
+  dependency.
+- The icon build script outputs PNG/ICO assets into `packages/assets/goldshore/dist/`, which is gitignored to avoid
+  committing binary artifacts. Run `node scripts/build-icons.mjs` locally when you need raster favicons.
 
-## Additional documentation
-
-More operational background lives in [`docs/`](docs/). Update those documents alongside any substantial infra change to
-keep the runbooks consistent.
+Feel free to expand the `docs/` directory with operational runbooks as the platform grows.
