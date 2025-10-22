@@ -1,0 +1,86 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AdminLayout from '../../components/admin/AdminLayout.astro';
+
+const customers = [
+  { name: 'Falcon Ridge Capital', status: 'Active', plan: 'Pro', created: '2024-04-18' },
+  { name: 'Northwind Markets', status: 'Invited', plan: 'Free', created: '2024-05-02' },
+  { name: 'Vanguard Desk', status: 'Active', plan: 'Enterprise', created: '2023-12-11' }
+];
+---
+<BaseLayout title="Admin | Customers" description="Manage customer accounts, permissions, and lifecycle states.">
+  <AdminLayout heading="Customers" description="Provision new desks, audit permissions, and review adoption metrics.">
+    <div class="space-y-10">
+      <div class="overflow-hidden gs-panel">
+        <table class="min-w-full divide-y divide-border/60 text-sm">
+          <thead class="bg-surface/70 text-xs uppercase tracking-[0.2em] text-muted">
+            <tr>
+              <th class="px-4 py-3 text-left">Customer</th>
+              <th class="px-4 py-3 text-left">Status</th>
+              <th class="px-4 py-3 text-left">Plan</th>
+              <th class="px-4 py-3 text-left">Created</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border/60 bg-bg text-sm">
+            {customers.map((customer) => (
+              <tr>
+                <td class="px-4 py-3 font-medium text-text">{customer.name}</td>
+                <td class="px-4 py-3 text-muted">{customer.status}</td>
+                <td class="px-4 py-3 text-muted">{customer.plan}</td>
+                <td class="px-4 py-3 text-muted">{customer.created}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <form
+        id="customer-create"
+        class="gs-panel gs-form grid gap-4 p-6"
+        method="post"
+        data-api-form
+        data-credentials="include"
+        data-endpoint="https://api.goldshore.org/v1/admin/customers"
+        data-method="POST"
+        data-status-target="#customer-create-status"
+        data-success-message="Customer submitted to API."
+        data-pending-message="Creating customer…"
+        data-reset-on-success
+      >
+        <div>
+          <h2 class="font-display text-xl text-text">Create customer</h2>
+          <p class="text-sm text-muted">Submit a customer profile to <code>/v1/admin/customers</code>.</p>
+        </div>
+        <div class="grid gap-4 md:grid-cols-3">
+          <label class="flex flex-col gap-1 text-sm">
+            <span class="font-medium text-text">Name</span>
+            <input class="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text focus:border-[var(--brand)] focus:outline-none" name="name" required />
+          </label>
+          <label class="flex flex-col gap-1 text-sm">
+            <span class="font-medium text-text">Email</span>
+            <input class="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text focus:border-[var(--brand)] focus:outline-none" type="email" name="email" required />
+          </label>
+          <label class="flex flex-col gap-1 text-sm">
+            <span class="font-medium text-text">Plan</span>
+            <select class="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text focus:border-[var(--brand)] focus:outline-none" name="plan" required>
+              <option value="free">Free</option>
+              <option value="pro">Pro</option>
+              <option value="enterprise">Enterprise</option>
+            </select>
+          </label>
+        </div>
+        <label class="flex flex-col gap-1 text-sm">
+          <span class="font-medium text-text">Notes</span>
+          <textarea class="h-24 rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text focus:border-[var(--brand)] focus:outline-none" name="notes"></textarea>
+        </label>
+        <div class="flex items-center gap-4">
+          <button class="rounded-lg bg-[var(--brand)] px-4 py-2 text-sm font-medium text-[var(--brand-contrast)] shadow-elev-1 transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40" type="submit">
+            Create
+          </button>
+          <p id="customer-create-status" class="text-xs text-muted"></p>
+        </div>
+      </form>
+    </div>
+  </AdminLayout>
+</BaseLayout>
+

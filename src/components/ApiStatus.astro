@@ -1,0 +1,62 @@
+---
+import apiStatusScript from '../scripts/api-status.ts?url';
+
+const defaultApiUrl = 'https://api.goldshore.org/v1';
+const apiUrl = import.meta.env.PUBLIC_API_URL || defaultApiUrl;
+const origin = new URL('.', apiUrl).origin;
+const healthEndpoint = new URL('./health', apiUrl).toString();
+const protectedEndpoint = new URL('.', apiUrl).toString();
+const endpoints = [
+  {
+    id: 'health',
+    label: 'Health check',
+    endpoint: healthEndpoint,
+    description: 'Expect 200 OK with permissive CORS headers.',
+    expectedStatuses: ['200']
+  },
+  {
+    id: 'protected',
+    label: 'Protected endpoint',
+    endpoint: protectedEndpoint,
+    description: 'Expect 401 Unauthorized until authenticated via Access.',
+    expectedStatuses: ['401']
+  }
+];
+---
+<div
+  class="flex flex-col gap-4 rounded-lg border border-border bg-surface/80 p-4 text-sm text-muted shadow-elev-1"
+  data-api-status
+  data-api-origin={origin}
+>
+  <div class="flex items-center justify-between text-text">
+    <span class="font-semibold tracking-[-0.01em]">API connectivity</span>
+  </div>
+  <p class="text-xs leading-5 text-muted">
+    We’re verifying connectivity with {origin}.
+  </p>
+  <div class="space-y-3" data-endpoint-list>
+    {endpoints.map((endpoint) => (
+      <div
+        class="rounded-lg border border-border/80 bg-surface/60 p-3"
+        data-endpoint-row
+        data-endpoint={endpoint.endpoint}
+        data-expected-statuses={endpoint.expectedStatuses.join(',')}
+      >
+        <div class="flex items-center justify-between gap-2">
+          <div class="flex items-center gap-2">
+            <span class="inline-flex h-2 w-2 rounded-full bg-muted" aria-hidden="true" data-status-dot></span>
+            <span class="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted/80">{endpoint.label}</span>
+          </div>
+          <span class="text-[11px] font-medium uppercase tracking-[0.2em]" data-status-text>Checking…</span>
+        </div>
+        <div class="mt-2 text-xs font-medium text-text">
+          <code class="rounded bg-bg px-2 py-1 text-[11px]">{endpoint.endpoint}</code>
+        </div>
+        <p class="mt-2 text-[11px] leading-5 text-muted" data-status-message>
+          {endpoint.description}
+        </p>
+      </div>
+    ))}
+  </div>
+</div>
+<script type="module" src={apiStatusScript}></script>

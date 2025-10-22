@@ -1,0 +1,96 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AdminLayout from '../../components/admin/AdminLayout.astro';
+
+const subscriptions = [
+  { customer: 'Falcon Ridge Capital', plan: 'Pro', status: 'Active', renews: '2025-04-30' },
+  { customer: 'Northwind Markets', plan: 'Free', status: 'Trial', renews: '2024-08-12' },
+  { customer: 'Vanguard Desk', plan: 'Enterprise', status: 'Pending', renews: '2024-07-01' }
+];
+---
+<BaseLayout title="Admin | Subscriptions" description="Manage billing plans, renewals, and entitlements.">
+  <AdminLayout heading="Subscriptions" description="Track commercial status and push plan updates to the API.">
+    <div class="space-y-10">
+      <div class="overflow-hidden rounded-xl border border-border/60 bg-surface/80 shadow-elev-1">
+        <table class="min-w-full divide-y divide-border/60 text-sm">
+          <thead class="bg-surface/70 text-xs uppercase tracking-[0.2em] text-muted">
+            <tr>
+              <th class="px-4 py-3 text-left">Customer</th>
+              <th class="px-4 py-3 text-left">Plan</th>
+              <th class="px-4 py-3 text-left">Status</th>
+              <th class="px-4 py-3 text-left">Renews</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border/60 bg-bg text-sm">
+            {subscriptions.map((item) => (
+              <tr>
+                <td class="px-4 py-3 font-medium text-text">{item.customer}</td>
+                <td class="px-4 py-3 text-muted">{item.plan}</td>
+                <td class="px-4 py-3 text-muted">{item.status}</td>
+                <td class="px-4 py-3 text-muted">{item.renews}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <form
+        id="subscription-create"
+        class="grid gap-4 rounded-xl border border-border/60 bg-bg p-6 shadow-elev-1"
+        method="post"
+        data-api-form
+        data-credentials="include"
+        data-endpoint="https://api.goldshore.org/v1/admin/subscriptions"
+        data-method="POST"
+        data-status-target="#subscription-create-status"
+        data-success-message="Subscription submitted to API."
+        data-pending-message="Creating subscription…"
+        data-reset-on-success
+      >
+        <div>
+          <h2 class="font-display text-xl text-text">Create subscription</h2>
+          <p class="text-sm text-muted">Posts to <code>/v1/admin/subscriptions</code> with the plan details below.</p>
+        </div>
+        <div class="grid gap-4 md:grid-cols-3">
+          <label class="flex flex-col gap-1 text-sm">
+            <span class="font-medium text-text">Customer ID</span>
+            <input class="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text focus:border-[var(--brand)] focus:outline-none" name="customerId" required />
+          </label>
+          <label class="flex flex-col gap-1 text-sm">
+            <span class="font-medium text-text">Plan</span>
+            <select class="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text focus:border-[var(--brand)] focus:outline-none" name="plan" required>
+              <option value="free">Free</option>
+              <option value="pro">Pro</option>
+              <option value="enterprise">Enterprise</option>
+            </select>
+          </label>
+          <label class="flex flex-col gap-1 text-sm">
+            <span class="font-medium text-text">Status</span>
+            <select class="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text focus:border-[var(--brand)] focus:outline-none" name="status" required>
+              <option value="trial">Trial</option>
+              <option value="active">Active</option>
+              <option value="pending">Pending</option>
+            </select>
+          </label>
+        </div>
+        <div class="grid gap-4 md:grid-cols-2">
+          <label class="flex flex-col gap-1 text-sm">
+            <span class="font-medium text-text">Start date</span>
+            <input class="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text focus:border-[var(--brand)] focus:outline-none" type="date" name="startDate" required />
+          </label>
+          <label class="flex flex-col gap-1 text-sm">
+            <span class="font-medium text-text">Renew date</span>
+            <input class="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text focus:border-[var(--brand)] focus:outline-none" type="date" name="renewDate" required />
+          </label>
+        </div>
+        <div class="flex items-center gap-4">
+          <button class="rounded-lg bg-[var(--brand)] px-4 py-2 text-sm font-medium text-[var(--brand-contrast)] shadow-elev-1 transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40" type="submit">
+            Create
+          </button>
+          <p id="subscription-create-status" class="text-xs text-muted"></p>
+        </div>
+      </form>
+    </div>
+  </AdminLayout>
+</BaseLayout>
+
