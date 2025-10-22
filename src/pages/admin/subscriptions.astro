@@ -34,7 +34,18 @@ const subscriptions = [
         </table>
       </div>
 
-      <form id="subscription-create" class="grid gap-4 rounded-xl border border-border/60 bg-bg p-6 shadow-elev-1" method="post">
+      <form
+        id="subscription-create"
+        class="grid gap-4 rounded-xl border border-border/60 bg-bg p-6 shadow-elev-1"
+        method="post"
+        data-api-form
+        data-endpoint="https://api.goldshore.org/v1/admin/subscriptions"
+        data-method="POST"
+        data-status-target="#subscription-create-status"
+        data-success-message="Subscription submitted to API."
+        data-pending-message="Creating subscription…"
+        data-reset-on-success
+      >
         <div>
           <h2 class="font-display text-xl text-text">Create subscription</h2>
           <p class="text-sm text-muted">Posts to <code>/v1/admin/subscriptions</code> with the plan details below.</p>
@@ -82,37 +93,3 @@ const subscriptions = [
   </AdminLayout>
 </BaseLayout>
 
-<script is:inline>
-  {`
-    document.addEventListener('DOMContentLoaded', () => {
-      const form = document.getElementById('subscription-create');
-      const status = document.getElementById('subscription-create-status');
-      if (!form || !status) return;
-      form.addEventListener('submit', async (event) => {
-        event.preventDefault();
-        status.textContent = 'Creating subscription…';
-        const data = new FormData(form);
-        const payload = {
-          customerId: data.get('customerId'),
-          plan: data.get('plan'),
-          status: data.get('status'),
-          startDate: data.get('startDate'),
-          renewDate: data.get('renewDate')
-        };
-        try {
-          const response = await fetch('https://api.goldshore.org/v1/admin/subscriptions', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-          });
-          const text = await response.text();
-          status.textContent = response.ok ? 'Subscription submitted to API.' : `API error ${response.status}: ${text}`;
-          if (response.ok) form.reset();
-        } catch (error) {
-          console.error(error);
-          status.textContent = 'Request failed. Verify connectivity and try again.';
-        }
-      });
-    });
-  `}
-</script>

@@ -1,0 +1,30 @@
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.querySelector<HTMLFormElement>('#agentForm');
+  const input = document.querySelector<HTMLInputElement>('#goal');
+  const resultNode = document.querySelector<HTMLElement>('#result');
+
+  if (!form || !input || !resultNode) {
+    return;
+  }
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const goal = input.value;
+    resultNode.textContent = 'Planning…';
+
+    try {
+      const response = await fetch('https://api.goldshore.org/v1/agent/plan', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ goal })
+      });
+
+      const payload = await response.json();
+      resultNode.textContent = JSON.stringify(payload, null, 2);
+    } catch (error) {
+      console.error(error);
+      resultNode.textContent = `Request failed: ${error instanceof Error ? error.message : String(error)}`;
+    }
+  });
+});
