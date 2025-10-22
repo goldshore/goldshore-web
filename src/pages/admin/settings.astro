@@ -1,6 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AdminLayout from '../../components/admin/AdminLayout.astro';
+import { buildApiUrl } from '../../lib/api';
+
+const rotateKeysEndpoint = buildApiUrl('/admin/keys/rotate');
 
 const defaultApiUrl = 'https://api.goldshore.org/v1';
 const apiUrl = import.meta.env.PUBLIC_API_URL || defaultApiUrl;

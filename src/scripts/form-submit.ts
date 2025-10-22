@@ -33,6 +33,31 @@ document.addEventListener('DOMContentLoaded', () => {
         payload[key] = value;
       });
 
+      let shouldIncludeCredentials = form.hasAttribute('data-include-credentials');
+
+      if (!shouldIncludeCredentials) {
+        try {
+          const parsedEndpoint = new URL(endpoint, window.location.origin);
+          if (parsedEndpoint.origin === window.location.origin) {
+            shouldIncludeCredentials = true;
+          }
+        } catch (error) {
+          console.warn('Invalid endpoint URL for API form', endpoint, error);
+        }
+      }
+
+      const requestInit: RequestInit = {
+        method,
+        headers: method === 'GET' ? undefined : { 'Content-Type': 'application/json' },
+        body: method === 'GET' ? undefined : JSON.stringify(payload)
+      };
+
+      if (shouldIncludeCredentials) {
+        requestInit.credentials = 'include';
+      }
+
+      try {
+        const response = await fetch(endpoint, requestInit);
       const endpointUrl = (() => {
         try {
           return new URL(endpoint, window.location.origin);

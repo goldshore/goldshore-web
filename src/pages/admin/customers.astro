@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AdminLayout from '../../components/admin/AdminLayout.astro';
+import { buildApiUrl } from '../../lib/api';
 
 const defaultApiUrl = 'https://api.goldshore.org/v1';
 const apiUrl = import.meta.env.PUBLIC_API_URL || defaultApiUrl;
@@ -11,6 +12,8 @@ const customers = [
   { name: 'Northwind Markets', status: 'Invited', plan: 'Free', created: '2024-05-02' },
   { name: 'Vanguard Desk', status: 'Active', plan: 'Enterprise', created: '2023-12-11' }
 ];
+
+const createCustomerEndpoint = buildApiUrl('/admin/customers');
 ---
 <BaseLayout title="Admin | Customers" description="Manage customer accounts, permissions, and lifecycle states.">
   <AdminLayout heading="Customers" description="Provision new desks, audit permissions, and review adoption metrics.">
