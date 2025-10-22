@@ -4,7 +4,6 @@
 
 /*
   Content-Security-Policy: default-src 'self'; script-src 'self'; connect-src 'self' https://api.goldshore.org; img-src 'self' data:; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; object-src 'none'; base-uri 'self'; frame-ancestors 'none'
-  Content-Security-Policy: default-src 'self'; connect-src 'self' https://api.goldshore.org; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'; font-src 'self' https://fonts.gstatic.com data:
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin

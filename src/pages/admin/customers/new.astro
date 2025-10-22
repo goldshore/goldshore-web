@@ -15,10 +15,6 @@ import AdminLayout from '../../../components/admin/AdminLayout.astro';
       data-success-message="Customer created successfully."
       data-pending-message="Submitting customer…"
       data-reset-on-success
-      data-admin-endpoint="https://api.goldshore.org/v1/admin/customers"
-      data-admin-status-id="customer-new-status"
-      data-admin-pending="Submitting customer…"
-      data-admin-success="Customer created successfully."
     >
       <div class="space-y-2">
         <h2 class="font-display text-2xl text-text">Customer details</h2>
@@ -67,37 +63,3 @@ import AdminLayout from '../../../components/admin/AdminLayout.astro';
   </AdminLayout>
 </BaseLayout>
 
-<script is:module>
-  document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('customer-new-form') as HTMLFormElement | null;
-    const status = document.getElementById('customer-new-status');
-    if (!form || !status) return;
-    form.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      status.textContent = 'Submitting customer…';
-      const data = new FormData(form);
-      const payload = {
-        name: data.get('name'),
-        email: data.get('email'),
-        plan: data.get('plan'),
-        opsContact: data.get('opsContact'),
-        region: data.get('region'),
-        notes: data.get('notes')
-      };
-      try {
-        const response = await fetch('https://api.goldshore.org/v1/admin/customers', {
-          method: 'POST',
-          credentials: 'include',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-        const text = await response.text();
-        status.textContent = response.ok ? 'Customer created successfully.' : `API error ${response.status}: ${text}`;
-        if (response.ok) form.reset();
-      } catch (error) {
-        console.error(error);
-        status.textContent = 'Request failed. Verify connectivity and try again.';
-      }
-    });
-  });
-</script>
