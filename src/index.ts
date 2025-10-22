@@ -130,6 +130,8 @@ async function sha256Hex(payload: string): Promise<string> {
     .join('');
 }
 
+const PUBLIC_ROUTES = new Set(['/v1/health', '/docs', '/swagger-init.js', '/swagger-overrides.css']);
+
 app.use('*', async (c, next) => {
   const origin = c.req.header('Origin') ?? null;
   const allowedOrigins = parseAllowedOrigins(c.env.CORS_ORIGINS);
@@ -156,6 +158,10 @@ app.use('*', async (c, next) => {
   const accessJwt = c.req.header('Cf-Access-Jwt-Assertion');
   const identity = c.req.header('Cf-Access-Authenticated-User-Email');
   const scopes = parseScopes(c.req.header('Cf-Access-Authenticated-User-Scopes'));
+
+  if (PUBLIC_ROUTES.has(path) && (!accessJwt || !identity)) {
+    return next();
+  }
 
   if (!accessJwt || !identity) {
     return c.json(
