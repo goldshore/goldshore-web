@@ -134,6 +134,7 @@ app.use('*', async (c, next) => {
   const origin = c.req.header('Origin') ?? null;
   const allowedOrigins = parseAllowedOrigins(c.env.CORS_ORIGINS);
   const corsHeaders = buildCorsHeaders(origin, allowedOrigins);
+  const path = new URL(c.req.url).pathname;
 
   if (c.req.method === 'OPTIONS') {
     return c.json({ ok: true, hint: 'Preflight accepted.' }, 204, corsHeaders);
@@ -142,6 +143,15 @@ app.use('*', async (c, next) => {
   Object.entries(corsHeaders).forEach(([key, value]) => {
     c.header(key, value);
   });
+
+  const isPublicRoute =
+    c.req.method === 'GET' &&
+    (path === '/v1/health' || path === '/docs' || path.startsWith('/swagger'));
+
+  if (isPublicRoute) {
+    await next();
+    return;
+  }
 
   const accessJwt = c.req.header('Cf-Access-Jwt-Assertion');
   const identity = c.req.header('Cf-Access-Authenticated-User-Email');
