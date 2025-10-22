@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const pendingMessage = form.getAttribute('data-pending-message') || 'Submitting…';
     const errorMessage = form.getAttribute('data-error-message');
     const resetOnSuccess = form.hasAttribute('data-reset-on-success');
+    const includeCredentials = form.hasAttribute('data-include-credentials');
     const credentialsAttr = form.getAttribute('data-credentials');
     const normalizedCredentials = credentialsAttr?.trim().toLowerCase();
     const credentials: RequestCredentials = (() => {
@@ -44,14 +45,64 @@ document.addEventListener('DOMContentLoaded', () => {
         payload[key] = value;
       });
 
+      let shouldIncludeCredentials = form.hasAttribute('data-include-credentials');
+
+      if (!shouldIncludeCredentials) {
+        try {
+          const parsedEndpoint = new URL(endpoint, window.location.origin);
+          if (parsedEndpoint.origin === window.location.origin) {
+            shouldIncludeCredentials = true;
+          }
+        } catch (error) {
+          console.warn('Invalid endpoint URL for API form', endpoint, error);
+        }
+      }
+
+      const requestInit: RequestInit = {
+        method,
+        headers: method === 'GET' ? undefined : { 'Content-Type': 'application/json' },
+        body: method === 'GET' ? undefined : JSON.stringify(payload)
+      };
+
+      if (shouldIncludeCredentials) {
+        requestInit.credentials = 'include';
+      }
+
       try {
-        const response = await fetch(endpoint, {
+        const response = await fetch(endpoint, requestInit);
+      const endpointUrl = (() => {
+        try {
+          return new URL(endpoint, window.location.origin);
+        } catch (error) {
+          console.warn('Invalid endpoint URL for API form', endpoint, error);
+          return null;
+        }
+      })();
+
+      const credentials: RequestCredentials = includeCredentials
+        ? 'include'
+        : endpointUrl && endpointUrl.origin === window.location.origin
+          ? 'same-origin'
+          : 'omit';
+
+      try {
+        const endpointUrl = new URL(endpoint, window.location.origin);
+        const shouldIncludeCredentials =
+          form.hasAttribute('data-include-credentials') || endpointUrl.origin === window.location.origin;
+
+        const requestInit: RequestInit = {
           method,
           credentials: 'include',
           credentials,
           headers: method === 'GET' ? undefined : { 'Content-Type': 'application/json' },
           body: method === 'GET' ? undefined : JSON.stringify(payload)
-        });
+        };
+
+        if (shouldIncludeCredentials) {
+          requestInit.credentials = 'include';
+        }
+
+        const response = await fetch(endpoint, requestInit);
 
         const detail = await response.text();
 

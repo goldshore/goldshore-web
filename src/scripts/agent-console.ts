@@ -1,3 +1,7 @@
+import { buildApiUrl } from '../lib/api';
+
+const agentPlanEndpoint = buildApiUrl('/agent/plan');
+
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.querySelector<HTMLFormElement>('#agentForm');
   const input = document.querySelector<HTMLInputElement>('#goal');
@@ -13,12 +17,17 @@ document.addEventListener('DOMContentLoaded', () => {
     resultNode.textContent = 'Planning…';
 
     try {
-      const response = await fetch('https://api.goldshore.org/v1/agent/plan', {
+      const response = await fetch(agentPlanEndpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
         body: JSON.stringify({ goal })
-      });
+      };
+
+      if (shouldIncludeCredentials) {
+        requestInit.credentials = 'include';
+      }
+
+      const response = await fetch(endpoint, requestInit);
 
       const payload = await response.json();
       resultNode.textContent = JSON.stringify(payload, null, 2);
