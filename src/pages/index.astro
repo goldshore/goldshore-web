@@ -3,7 +3,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ApiStatus from '../components/ApiStatus.astro';
 import GSHeader from '../components/ui/GSHeader';
 import GSCard from '../components/ui/GSCard';
-import formSubmitScript from '../scripts/form-submit.ts?url';
 
 const apiUrl = import.meta.env.PUBLIC_API_URL || 'https://api.goldshore.org/v1';
 const currentYear = new Date().getFullYear();
@@ -191,20 +190,7 @@ const integrationBadges = ['Cloudflare', 'D1', 'Queues', 'Vectorize'];
           </p>
           <p class="gs-muted-callout">We respond within one business day for regulated entities.</p>
         </div>
-        <form
-          id="lead-form"
-          class="gs-panel gs-form p-6"
-          method="post"
-          action="https://api.goldshore.org/v1/lead"
-          data-api-form
-          data-endpoint="https://api.goldshore.org/v1/lead"
-          data-method="POST"
-          data-status-target="#lead-form-status"
-          data-success-message="Thanks! The team will reach out shortly."
-          data-pending-message="Sending…"
-          data-error-message="We could not send your request. Email hello@goldshore.org and we will help right away."
-          data-reset-on-success
-        >
+        <form id="lead-form" class="gs-panel gs-form p-6" method="post" action="https://api.goldshore.org/v1/lead">
           <div class="grid gap-4 md:grid-cols-2">
             <label class="flex flex-col gap-1 text-sm">
               <span>Name</span>
@@ -266,5 +252,5 @@ const integrationBadges = ['Cloudflare', 'D1', 'Queues', 'Vectorize'];
     <p class="mt-8 text-center text-xs text-muted">&copy; {currentYear} GoldShore. All rights reserved.</p>
   </footer>
 
-  <script type="module" src={formSubmitScript}></script>
+  <script src="/scripts/lead-form.js" defer is:inline></script>
 </BaseLayout>

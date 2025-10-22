@@ -1,7 +1,4 @@
 ---
-import adminActionsScript from '../../scripts/admin-actions.ts?url';
-import formSubmitScript from '../../scripts/form-submit.ts?url';
-
 const {
   heading = 'Dashboard',
   description = 'Monitor execution, risk, and customer activity in real time.'
@@ -62,5 +59,5 @@ const navLinks = [
   </div>
 </div>
 
-<script type="module" src={adminActionsScript}></script>
-<script type="module" src={formSubmitScript}></script>
+<script src="/scripts/admin-actions.js" defer is:inline></script>
+<script src="/scripts/admin-forms.js" defer is:inline></script>

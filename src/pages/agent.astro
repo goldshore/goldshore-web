@@ -2,7 +2,6 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import agentConsoleScript from '../scripts/agent-console.ts?url';
 ---
-
 <BaseLayout title="GoldShore Agent Console" description="Submit goals to the GoldShore planning agent.">
   <main class="mx-auto flex min-h-screen max-w-3xl flex-col gap-8 px-6 py-16">
     <header class="space-y-2">
@@ -35,5 +34,5 @@ import agentConsoleScript from '../scripts/agent-console.ts?url';
       aria-live="polite"
     ></pre>
   </main>
-  <script type="module" src={agentConsoleScript}></script>
+  <script src="/scripts/agent-console.js" defer is:inline></script>
 </BaseLayout>
