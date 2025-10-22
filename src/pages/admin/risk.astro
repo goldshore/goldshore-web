@@ -28,6 +28,7 @@ const circuitBreakerEndpoint = buildApiUrl('/admin/risk/circuit-breaker');
             class="mt-4 inline-flex items-center rounded-lg bg-[var(--brand)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--brand-contrast)] shadow-elev-1 transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40"
             data-endpoint={killSwitchEndpoint}
             data-method="POST"
+            data-include-credentials
           >
             Activate kill switch
           </button>
@@ -39,13 +40,14 @@ const circuitBreakerEndpoint = buildApiUrl('/admin/risk/circuit-breaker');
             class="mt-4 inline-flex items-center rounded-lg border border-border px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-muted transition hover:text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border/60"
             data-endpoint={circuitBreakerEndpoint}
             data-method="POST"
+            data-include-credentials
           >
             Trigger breaker
           </button>
         </div>
         <div class="rounded-xl border border-border/60 bg-surface/70 p-6 shadow-elev-1">
           <p class="text-xs uppercase tracking-[0.2em] text-muted">Docs</p>
-          <a class="mt-3 inline-flex items-center text-sm font-medium text-brand" href="https://api.goldshore.org/v1/docs" rel="noreferrer">
+          <a class="mt-3 inline-flex items-center text-sm font-medium text-brand" href={docsEndpoint} rel="noreferrer">
             Risk API guide
           </a>
         </div>

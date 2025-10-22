@@ -1,6 +1,7 @@
 ---
 import adminActionsScript from '../../scripts/admin-actions.ts?url';
 import formSubmitScript from '../../scripts/form-submit.ts?url';
+import { resolveApiUrl } from '../../utils/api';
 import { buildApiUrl } from '../../lib/api';
 
 const {
@@ -53,6 +54,12 @@ const navLinks = [
       </div>
       <div class="flex flex-1 flex-wrap items-center gap-3 md:justify-end">
         <a class="gs-btn-primary gs-btn-sm" href="/admin/customers/new">New Customer</a>
+        <button
+          class="gs-btn-secondary gs-btn-sm"
+          data-endpoint={whoamiEndpoint}
+          data-method="GET"
+          data-include-credentials
+        >
         <button class="gs-btn-secondary gs-btn-sm" data-endpoint={auditEndpoint} data-method="POST">
           Run Audit
         </button>

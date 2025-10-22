@@ -20,9 +20,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const response = await fetch(agentPlanEndpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
         body: JSON.stringify({ goal })
-      });
+      };
+
+      if (shouldIncludeCredentials) {
+        requestInit.credentials = 'include';
+      }
+
+      const response = await fetch(endpoint, requestInit);
 
       const payload = await response.json();
       resultNode.textContent = JSON.stringify(payload, null, 2);

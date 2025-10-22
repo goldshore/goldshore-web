@@ -31,6 +31,7 @@ const rotateKeysEndpoint = new URL('./admin/keys/rotate', apiUrl).toString();
             class="mt-4 inline-flex items-center rounded-lg border border-border px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-muted transition hover:text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border/60"
             data-endpoint={rotateKeysEndpoint}
             data-method="POST"
+            data-include-credentials
           >
             Rotate keys
           </button>
@@ -39,7 +40,7 @@ const rotateKeysEndpoint = new URL('./admin/keys/rotate', apiUrl).toString();
       <div class="rounded-xl border border-border/60 bg-bg p-6 shadow-elev-1">
         <h2 class="font-display text-xl text-text">Webhooks</h2>
         <p class="mt-2 text-sm text-muted">Use the API to configure webhook destinations. We return a signed secret for each endpoint.</p>
-        <a class="mt-4 inline-flex items-center text-sm font-medium text-brand" href="https://api.goldshore.org/v1/docs" rel="noreferrer">
+        <a class="mt-4 inline-flex items-center text-sm font-medium text-brand" href={docsEndpoint} rel="noreferrer">
           Webhook guide
         </a>
       </div>
