@@ -350,3 +350,8 @@ textarea:focus-visible {
     scroll-behavior: auto !important;
   }
 }
+
+.gs-action-transition {
+  transition-duration: var(--dur);
+  transition-timing-function: var(--ease);
+}
