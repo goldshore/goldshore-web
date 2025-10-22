@@ -9,6 +9,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const pendingMessage = form.getAttribute('data-pending-message') || 'Submitting…';
     const errorMessage = form.getAttribute('data-error-message');
     const resetOnSuccess = form.hasAttribute('data-reset-on-success');
+    const credentialsAttr = form.getAttribute('data-credentials');
+    const normalizedCredentials = credentialsAttr?.trim().toLowerCase();
+    const credentials: RequestCredentials = (() => {
+      switch (normalizedCredentials) {
+        case 'include':
+        case 'same-origin':
+        case 'omit':
+          return normalizedCredentials;
+        default:
+          return 'omit';
+      }
+    })();
     const status = statusSelector ? document.querySelector<HTMLElement>(statusSelector) : null;
 
     if (!endpoint) {
@@ -36,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const response = await fetch(endpoint, {
           method,
           credentials: 'include',
+          credentials,
           headers: method === 'GET' ? undefined : { 'Content-Type': 'application/json' },
           body: method === 'GET' ? undefined : JSON.stringify(payload)
         });

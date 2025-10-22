@@ -62,16 +62,13 @@ const integrationBadges = ['Cloudflare', 'D1', 'Queues', 'Vectorize'];
       <div class="pointer-events-none absolute inset-x-0 -top-48 z-0 h-96 bg-[radial-gradient(circle_at_top,var(--gs-gold)_0%,rgba(227,179,65,0)_70%)] opacity-40"></div>
       <div class="relative z-10 mx-auto grid max-w-7xl gap-12 px-6 py-24 md:grid-cols-[1.1fr_0.9fr] md:items-center">
         <div class="space-y-6">
-          <p class="text-sm font-medium uppercase tracking-[0.2em] text-muted">Capital-markets grade infrastructure</p>
+          <p class="gs-eyebrow">Capital-markets grade infrastructure</p>
           <h1 class="font-display text-4xl tracking-[-0.02em] text-text md:text-6xl">GoldShore — trading infrastructure &amp; insights</h1>
-          <p class="max-w-xl text-lg text-muted">
+          <p class="gs-section-lead max-w-xl">
             Launch the trading stack your desk deserves: streaming data, supervised automation, and risk guardrails wired into every workflow.
           </p>
           <div class="flex flex-wrap items-center gap-4">
-            <a
-              class="inline-flex items-center gap-2 rounded-lg bg-[var(--brand)] px-6 py-3 text-base font-medium text-[var(--brand-contrast)] shadow-elev-1 transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40"
-              href="/dash"
-            >
+            <a class="gs-btn-primary" href="/dash">
               Launch Dashboard
             </a>
           <p class="gs-eyebrow">Capital-markets grade infrastructure</p>
@@ -91,13 +88,14 @@ const integrationBadges = ['Cloudflare', 'D1', 'Queues', 'Vectorize'];
               href="https://api.goldshore.org/v1/docs"
               rel="noreferrer"
             >
+            <a class="gs-btn-secondary" href="https://api.goldshore.org/v1/docs" rel="noreferrer">
               View API Docs
             </a>
           </div>
           <div class="flex flex-wrap gap-4 text-sm text-muted">
-            <a class="text-brand hover:text-text" href="/dash">Open Trading</a>
-            <a class="text-brand hover:text-text" href="https://admin.goldshore.org">Admin</a>
-            <a class="text-brand hover:text-text" href="https://api.goldshore.org/v1/docs">API Docs</a>
+            <a class="gs-inline-link" href="/dash">Open Trading</a>
+            <a class="gs-inline-link" href="https://admin.goldshore.org">Admin</a>
+            <a class="gs-inline-link" href="https://api.goldshore.org/v1/docs">API Docs</a>
           </div>
           <div class="flex flex-wrap gap-4 text-sm text-muted">
             <a class="gs-inline-link" href="/dash">Open Trading</a>
@@ -116,10 +114,10 @@ const integrationBadges = ['Cloudflare', 'D1', 'Queues', 'Vectorize'];
       </div>
     </section>
 
-    <section id="products" class="border-b border-border/60 bg-bg py-20">
+    <section id="products" class="gs-section border-b border-border/60 bg-bg">
       <div class="mx-auto max-w-7xl px-6">
-        <div class="mb-12 max-w-3xl space-y-4">
-          <p class="text-sm font-medium uppercase tracking-[0.2em] text-muted">Products</p>
+        <div class="mb-12 gs-section-header">
+          <p class="gs-eyebrow">Products</p>
           <h2 class="font-display text-3xl tracking-[-0.015em] md:text-4xl">Execution, oversight, and CRM in one stack</h2>
           <p class="text-base text-muted">
     <section id="products" class="gs-section border-b border-border/60 bg-bg">
@@ -142,8 +140,8 @@ const integrationBadges = ['Cloudflare', 'D1', 'Queues', 'Vectorize'];
             >
               <h3 class="font-display text-xl text-text">{feature.title}</h3>
               <p class="mt-3 flex-1 text-sm text-muted">{feature.description}</p>
-              <span class="mt-4 inline-flex items-center gap-2 text-sm font-medium text-brand transition group-hover:text-text">
-                {feature.cta}
+              <div class="mt-4 flex items-center gap-2 text-sm font-medium">
+                <span class="gs-inline-link">{feature.cta}</span>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 12h14m0 0-6-6m6 6-6 6" />
                 </svg>
@@ -160,10 +158,10 @@ const integrationBadges = ['Cloudflare', 'D1', 'Queues', 'Vectorize'];
       </div>
     </section>
 
-    <section id="pricing" class="border-b border-border/60 bg-surface/70 py-20">
+    <section id="pricing" class="gs-section border-b border-border/60 bg-surface/70">
       <div class="mx-auto max-w-7xl px-6">
-        <div class="mb-12 max-w-3xl space-y-4">
-          <p class="text-sm font-medium uppercase tracking-[0.2em] text-muted">Pricing</p>
+        <div class="mb-12 gs-section-header">
+          <p class="gs-eyebrow">Pricing</p>
           <h2 class="font-display text-3xl tracking-[-0.015em] md:text-4xl">Plans tuned for every desk</h2>
           <p class="text-base text-muted">
     <section id="pricing" class="gs-section border-b border-border/60 bg-surface/70">
@@ -282,17 +280,17 @@ const integrationBadges = ['Cloudflare', 'D1', 'Queues', 'Vectorize'];
 
     <section id="integrations" class="border-b border-border/60 bg-bg py-20">
       <div class="mx-auto max-w-7xl px-6">
-        <div class="mb-8 max-w-3xl space-y-4">
-          <p class="text-sm font-medium uppercase tracking-[0.2em] text-muted">Integrations</p>
+        <div class="mb-8 gs-section-header">
+          <p class="gs-eyebrow">Integrations</p>
           <h2 class="font-display text-3xl tracking-[-0.015em] md:text-4xl">Deploy on trusted market infrastructure</h2>
-          <p class="text-base text-muted">
+          <p class="gs-section-lead">
             Build on top of Cloudflare primitives with durable storage, queues, and inference ready to go. Each badge jumps straight into the documentation.
           </p>
         </div>
         <div class="flex flex-wrap items-center gap-4">
           {integrationBadges.map((badge) => (
             <a
-              class="inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-4 py-2 text-sm font-medium text-muted transition hover:border-[var(--brand)] hover:text-text"
+              class="gs-integration-badge"
               href="https://api.goldshore.org/v1/docs"
               rel="noreferrer"
             >
@@ -304,39 +302,39 @@ const integrationBadges = ['Cloudflare', 'D1', 'Queues', 'Vectorize'];
       </div>
     </section>
 
-    <section id="contact" class="bg-surface/70 py-20">
+    <section id="contact" class="gs-section bg-surface/70">
       <div class="mx-auto grid max-w-5xl gap-8 px-6 md:grid-cols-[1fr_1fr]">
         <div class="space-y-4">
-          <p class="text-sm font-medium uppercase tracking-[0.2em] text-muted">Contact</p>
+          <p class="gs-eyebrow">Contact</p>
           <h2 class="font-display text-3xl tracking-[-0.015em] md:text-4xl">Request a lead briefing</h2>
-          <p class="text-base text-muted">
+          <p class="gs-section-lead">
             Share a few details and our team will reach out with credentials, timelines, and integration guidance for your desk.
           </p>
-          <p class="text-sm text-muted">We respond within one business day for regulated entities.</p>
+          <p class="gs-muted-callout">We respond within one business day for regulated entities.</p>
         </div>
-        <form id="lead-form" class="space-y-4 rounded-xl border border-border bg-bg p-6 shadow-elev-1" method="post" action="https://api.goldshore.org/v1/lead">
+        <form id="lead-form" class="gs-panel gs-form p-6" method="post" action="https://api.goldshore.org/v1/lead">
           <div class="grid gap-4 md:grid-cols-2">
             <label class="flex flex-col gap-1 text-sm">
-              <span class="font-medium text-text">Name</span>
-              <input class="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text focus:border-[var(--brand)] focus:outline-none" name="name" required />
+              <span>Name</span>
+              <input name="name" required />
             </label>
             <label class="flex flex-col gap-1 text-sm">
-              <span class="font-medium text-text">Email</span>
-              <input class="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text focus:border-[var(--brand)] focus:outline-none" type="email" name="email" required />
+              <span>Email</span>
+              <input type="email" name="email" required />
             </label>
           </div>
           <label class="flex flex-col gap-1 text-sm">
-            <span class="font-medium text-text">Company</span>
-            <input class="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text focus:border-[var(--brand)] focus:outline-none" name="company" />
+            <span>Company</span>
+            <input name="company" />
           </label>
           <label class="flex flex-col gap-1 text-sm">
-            <span class="font-medium text-text">Notes</span>
-            <textarea class="h-24 rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text focus:border-[var(--brand)] focus:outline-none" name="message" placeholder="Trading mandates, regulatory needs, timelines"></textarea>
+            <span>Notes</span>
+            <textarea class="h-24" name="message" placeholder="Trading mandates, regulatory needs, timelines"></textarea>
           </label>
-          <button class="w-full rounded-lg bg-[var(--brand)] px-4 py-2 text-sm font-medium text-[var(--brand-contrast)] shadow-elev-1 transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40" type="submit">
+          <button class="gs-btn-primary" type="submit">
             Request Access
           </button>
-          <p id="lead-form-status" class="text-xs text-muted"></p>
+          <p id="lead-form-status" class="gs-muted-callout"></p>
         </form>
       </div>
     </section>
