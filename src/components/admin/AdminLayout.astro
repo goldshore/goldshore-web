@@ -2,14 +2,17 @@
 import adminActionsScript from '../../scripts/admin-actions.ts?url';
 import formSubmitScript from '../../scripts/form-submit.ts?url';
 import { resolveApiUrl } from '../../utils/api';
+import { buildApiUrl } from '../../lib/api';
 
 const {
   heading = 'Dashboard',
   description = 'Monitor execution, risk, and customer activity in real time.'
 } = Astro.props;
 
-const auditEndpoint = resolveApiUrl('./admin/workflow/audit');
-const whoamiEndpoint = resolveApiUrl('./whoami');
+const defaultApiUrl = 'https://api.goldshore.org/v1';
+const apiUrl = import.meta.env.PUBLIC_API_URL || defaultApiUrl;
+const auditEndpoint = new URL('./admin/workflow/audit', apiUrl).toString();
+const whoamiEndpoint = new URL('./whoami', apiUrl).toString();
 
 const navLinks = [
   { href: '/admin', label: 'Dashboard' },
@@ -53,18 +56,14 @@ const navLinks = [
         <a class="gs-btn-primary gs-btn-sm" href="/admin/customers/new">New Customer</a>
         <button
           class="gs-btn-secondary gs-btn-sm"
-          data-endpoint={auditEndpoint}
-          data-method="POST"
-          data-include-credentials
-        >
-          Run Audit
-        </button>
-        <button
-          class="gs-btn-secondary gs-btn-sm"
           data-endpoint={whoamiEndpoint}
           data-method="GET"
           data-include-credentials
         >
+        <button class="gs-btn-secondary gs-btn-sm" data-endpoint={auditEndpoint} data-method="POST">
+          Run Audit
+        </button>
+        <button class="gs-btn-secondary gs-btn-sm" data-endpoint={whoamiEndpoint} data-method="GET">
           Who Am I
         </button>
       </div>

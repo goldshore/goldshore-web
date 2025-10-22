@@ -1,7 +1,12 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AdminLayout from '../../components/admin/AdminLayout.astro';
-import { resolveApiUrl } from '../../utils/api';
+import { buildApiUrl } from '../../lib/api';
+
+const defaultApiUrl = 'https://api.goldshore.org/v1';
+const apiUrl = import.meta.env.PUBLIC_API_URL || defaultApiUrl;
+const killSwitchEndpoint = new URL('./admin/risk/kill-switch', apiUrl).toString();
+const circuitBreakerEndpoint = new URL('./admin/risk/circuit-breaker', apiUrl).toString();
 
 const limits = [
   { desk: 'Falcon Ridge Capital', net: '$12M', intraday: '$4M', status: 'Within limits' },
@@ -9,9 +14,8 @@ const limits = [
   { desk: 'Vanguard Desk', net: '$25M', intraday: '$8M', status: 'Within limits' }
 ];
 
-const killSwitchEndpoint = resolveApiUrl('./admin/risk/kill-switch');
-const circuitBreakerEndpoint = resolveApiUrl('./admin/risk/circuit-breaker');
-const docsEndpoint = resolveApiUrl('./docs');
+const killSwitchEndpoint = buildApiUrl('/admin/risk/kill-switch');
+const circuitBreakerEndpoint = buildApiUrl('/admin/risk/circuit-breaker');
 ---
 <BaseLayout title="Admin | Risk" description="Review exposure, limits, and kill-switch controls.">
   <AdminLayout heading="Risk" description="Stay ahead of exposure and apply controls without leaving the console.">

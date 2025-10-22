@@ -1,9 +1,10 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import AdminLayout from '../../../components/admin/AdminLayout.astro';
-import { resolveApiUrl } from '../../../utils/api';
 
-const createCustomerEndpoint = resolveApiUrl('./admin/customers');
+const defaultApiUrl = 'https://api.goldshore.org/v1';
+const apiUrl = import.meta.env.PUBLIC_API_URL || defaultApiUrl;
+const createCustomerEndpoint = new URL('./admin/customers', apiUrl).toString();
 ---
 <BaseLayout title="Admin | New Customer" description="Create a customer profile and provision access.">
   <AdminLayout heading="New Customer" description="Generate credentials and invite new desks to the platform.">

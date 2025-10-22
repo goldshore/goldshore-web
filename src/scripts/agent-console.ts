@@ -1,4 +1,6 @@
-import { resolveApiUrl } from '../utils/api';
+import { buildApiUrl } from '../lib/api';
+
+const agentPlanEndpoint = buildApiUrl('/agent/plan');
 
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.querySelector<HTMLFormElement>('#agentForm');
@@ -15,12 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     resultNode.textContent = 'Planning…';
 
     try {
-      const endpoint = form.getAttribute('data-endpoint') || resolveApiUrl('./agent/plan');
-      const endpointUrl = new URL(endpoint, window.location.origin);
-      const shouldIncludeCredentials =
-        form.hasAttribute('data-include-credentials') || endpointUrl.origin === window.location.origin;
-
-      const requestInit: RequestInit = {
+      const response = await fetch(agentPlanEndpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ goal })

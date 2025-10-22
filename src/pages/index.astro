@@ -6,9 +6,6 @@ import GSCard from '../components/ui/GSCard';
 import formSubmitScript from '../scripts/form-submit.ts?url';
 
 const apiUrl = import.meta.env.PUBLIC_API_URL || 'https://api.goldshore.org/v1';
-const docsUrl = new URL('./docs', apiUrl).toString();
-const healthUrl = new URL('./health', apiUrl).toString();
-const riskPnlUrl = new URL('./risk/pnl', apiUrl).toString();
 const leadEndpoint = new URL('./lead', apiUrl).toString();
 const currentYear = new Date().getFullYear();
 

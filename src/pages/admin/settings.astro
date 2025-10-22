@@ -1,10 +1,13 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AdminLayout from '../../components/admin/AdminLayout.astro';
-import { resolveApiUrl } from '../../utils/api';
+import { buildApiUrl } from '../../lib/api';
 
-const rotateKeysEndpoint = resolveApiUrl('./admin/keys/rotate');
-const docsEndpoint = resolveApiUrl('./docs');
+const rotateKeysEndpoint = buildApiUrl('/admin/keys/rotate');
+
+const defaultApiUrl = 'https://api.goldshore.org/v1';
+const apiUrl = import.meta.env.PUBLIC_API_URL || defaultApiUrl;
+const rotateKeysEndpoint = new URL('./admin/keys/rotate', apiUrl).toString();
 ---
 <BaseLayout title="Admin | Settings" description="Manage admin settings, identities, and API keys.">
   <AdminLayout heading="Settings" description="Control who has access and how credentials are distributed.">
