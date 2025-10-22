@@ -3,6 +3,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import AdminLayout from '../../components/admin/AdminLayout.astro';
 import { buildApiUrl } from '../../lib/api';
 
+const defaultApiUrl = 'https://api.goldshore.org/v1';
+const apiUrl = import.meta.env.PUBLIC_API_URL || defaultApiUrl;
+const exportOrdersUrl = new URL('./admin/orders/export', apiUrl).toString();
+
 const orders = [
   { id: 'GS-241106-01', symbol: 'AAPL', side: 'Buy', quantity: '5,000', status: 'Filled', venue: 'NASDAQ' },
   { id: 'GS-241106-02', symbol: 'MSFT', side: 'Sell', quantity: '2,500', status: 'Partial', venue: 'NYSE' },

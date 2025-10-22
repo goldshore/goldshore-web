@@ -3,6 +3,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import AdminLayout from '../../components/admin/AdminLayout.astro';
 import { buildApiUrl } from '../../lib/api';
 
+const defaultApiUrl = 'https://api.goldshore.org/v1';
+const apiUrl = import.meta.env.PUBLIC_API_URL || defaultApiUrl;
+const createSubscriptionEndpoint = new URL('./admin/subscriptions', apiUrl).toString();
+
 const subscriptions = [
   { customer: 'Falcon Ridge Capital', plan: 'Pro', status: 'Active', renews: '2025-04-30' },
   { customer: 'Northwind Markets', plan: 'Free', status: 'Trial', renews: '2024-08-12' },

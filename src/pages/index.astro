@@ -6,6 +6,7 @@ import GSCard from '../components/ui/GSCard';
 import formSubmitScript from '../scripts/form-submit.ts?url';
 
 const apiUrl = import.meta.env.PUBLIC_API_URL || 'https://api.goldshore.org/v1';
+const leadEndpoint = new URL('./lead', apiUrl).toString();
 const currentYear = new Date().getFullYear();
 
 const productFeatures = [
@@ -195,9 +196,9 @@ const integrationBadges = ['Cloudflare', 'D1', 'Queues', 'Vectorize'];
           id="lead-form"
           class="gs-panel gs-form p-6"
           method="post"
-          action="https://api.goldshore.org/v1/lead"
+          action={leadEndpoint}
           data-api-form
-          data-endpoint="https://api.goldshore.org/v1/lead"
+          data-endpoint={leadEndpoint}
           data-method="POST"
           data-status-target="#lead-form-status"
           data-success-message="Thanks! The team will reach out shortly."
