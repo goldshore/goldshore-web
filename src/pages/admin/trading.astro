@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AdminLayout from '../../components/admin/AdminLayout.astro';
+---
+<BaseLayout title="Admin | Trading" description="Monitor trading dashboards, execution health, and key metrics.">
+  <AdminLayout heading="Trading" description="Surface live execution and pivot straight into orders or risk review.">
+    <div class="grid gap-6 md:grid-cols-2">
+      <div class="flex flex-col rounded-xl border border-border/60 bg-surface/70 p-6 shadow-elev-1">
+        <h2 class="font-display text-xl text-text">Orders</h2>
+        <p class="mt-2 text-sm text-muted">Audit live and historical orders with FIX context, counterparties, and fill breakdowns.</p>
+        <a class="mt-4 inline-flex items-center rounded-lg bg-[var(--brand)] px-4 py-2 text-sm font-medium text-[var(--brand-contrast)] shadow-elev-1 transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40" href="/admin/orders">
+          Go to orders
+        </a>
+      </div>
+      <div class="flex flex-col rounded-xl border border-border/60 bg-surface/70 p-6 shadow-elev-1">
+        <h2 class="font-display text-xl text-text">Risk</h2>
+        <p class="mt-2 text-sm text-muted">Check limits, exposures, and kill-switch controls before and during sessions.</p>
+        <a class="mt-4 inline-flex items-center rounded-lg border border-border px-4 py-2 text-sm font-medium text-muted transition hover:text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border/60" href="/admin/risk">
+          Review risk
+        </a>
+      </div>
+    </div>
+    <div class="mt-10 grid gap-4 md:grid-cols-3">
+      <div class="rounded-xl border border-border/60 bg-bg p-6 shadow-elev-1">
+        <p class="text-xs uppercase tracking-[0.2em] text-muted">Latency</p>
+        <p class="mt-3 text-3xl font-semibold text-text">143 ms</p>
+        <p class="mt-1 text-sm text-muted">Median round-trip to equities venues.</p>
+      </div>
+      <div class="rounded-xl border border-border/60 bg-bg p-6 shadow-elev-1">
+        <p class="text-xs uppercase tracking-[0.2em] text-muted">Fills</p>
+        <p class="mt-3 text-3xl font-semibold text-text">98.3%</p>
+        <p class="mt-1 text-sm text-muted">Trailing 7-day execution quality.</p>
+      </div>
+      <div class="rounded-xl border border-border/60 bg-bg p-6 shadow-elev-1">
+        <p class="text-xs uppercase tracking-[0.2em] text-muted">Alerts</p>
+        <p class="mt-3 text-3xl font-semibold text-text">2</p>
+        <p class="mt-1 text-sm text-muted">Active alerts routed to operations.</p>
+      </div>
+    </div>
+  </AdminLayout>
+</BaseLayout>
