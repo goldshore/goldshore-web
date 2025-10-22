@@ -1,4 +1,6 @@
 ---
+import apiStatusScript from '../scripts/api-status.ts?url';
+
 const defaultApiUrl = 'https://api.goldshore.org/v1';
 const apiUrl = import.meta.env.PUBLIC_API_URL || defaultApiUrl;
 const origin = new URL('.', apiUrl).origin;

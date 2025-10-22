@@ -38,10 +38,14 @@ const customers = [
         id="customer-create"
         class="gs-panel gs-form grid gap-4 p-6"
         method="post"
-        data-admin-endpoint="https://api.goldshore.org/v1/admin/customers"
-        data-admin-status-id="customer-create-status"
-        data-admin-pending="Creating customer…"
-        data-admin-success="Customer submitted to API."
+        data-api-form
+        data-credentials="include"
+        data-endpoint="https://api.goldshore.org/v1/admin/customers"
+        data-method="POST"
+        data-status-target="#customer-create-status"
+        data-success-message="Customer submitted to API."
+        data-pending-message="Creating customer…"
+        data-reset-on-success
       >
         <div>
           <h2 class="font-display text-xl text-text">Create customer</h2>
