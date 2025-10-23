@@ -24,7 +24,7 @@
     <rect x="134" y="70" width="372" height="40" rx="20" fill="#2665CB" />
     <rect x="110" y="90" width="420" height="140" rx="32" stroke="#0B2E6B" stroke-width="12" />
   </g>
-  <g class="penrose transition" transform="translate(160 16)">
+  <g class="penrose transition" transform="translate(160 16) scale(-1 1) translate(-160 -16)">
     <defs>
       <linearGradient id="anim-frame" x1="40" y1="32" x2="320" y2="320" gradientUnits="userSpaceOnUse">
         <stop offset="0" stop-color="#3F7AED" />
