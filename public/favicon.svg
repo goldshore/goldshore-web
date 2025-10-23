@@ -17,10 +17,8 @@
       <stop offset="1" stop-color="#174A94" />
     </linearGradient>
   </defs>
-  <g transform="translate(512 0) scale(-1 1)">
-    <path fill="url(#fav-frame)" fill-rule="evenodd" d="M256 24L472 404H40L256 24ZM256 103.92L119.92 343.32H392.08L256 103.92Z" />
-    <path d="M256 24L472 404H392.08L256 103.92V24Z" fill="url(#fav-top)" opacity="0.95" />
-    <path d="M472 404H40L119.92 343.32H392.08L472 404Z" fill="url(#fav-right)" opacity="0.92" />
-    <path d="M40 404L256 24V103.92L119.92 343.32L40 404Z" fill="url(#fav-left)" opacity="0.92" />
-  </g>
+  <path fill="url(#fav-frame)" fill-rule="evenodd" d="M256 24L472 404H40L256 24ZM256 103.92L119.92 343.32H392.08L256 103.92Z" />
+  <path d="M256 24L472 404H392.08L256 103.92V24Z" fill="url(#fav-top)" opacity="0.95" />
+  <path d="M472 404H40L119.92 343.32H392.08L472 404Z" fill="url(#fav-right)" opacity="0.92" />
+  <path d="M40 404L256 24V103.92L119.92 343.32L40 404Z" fill="url(#fav-left)" opacity="0.92" />
 </svg>
