@@ -18,7 +18,7 @@
       <stop offset="1" stop-color="#174A94" />
     </linearGradient>
   </defs>
-  <g opacity="0.96">
+  <g opacity="0.96" transform="translate(512 0) scale(-1 1)">
     <path fill="url(#touch-frame)" fill-rule="evenodd" d="M256 24L472 404H40L256 24ZM256 103.92L119.92 343.32H392.08L256 103.92Z" />
     <path d="M256 24L472 404H392.08L256 103.92V24Z" fill="url(#touch-top)" opacity="0.95" />
     <path d="M472 404H40L119.92 343.32H392.08L472 404Z" fill="url(#touch-right)" opacity="0.92" />
