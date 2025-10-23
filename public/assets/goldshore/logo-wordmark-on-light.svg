@@ -1,0 +1,30 @@
+<svg width="200" height="48" viewBox="0 0 200 48" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">GoldShore mirrored wordmark</title>
+  <desc id="desc">Mirrored GoldShore Penrose mark with accompanying logotype.</desc>
+  <defs>
+    <linearGradient id="gsPenroseGold" x1="16" y1="4" x2="64" y2="44" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#E3B341" />
+      <stop offset="1" stop-color="#F7C84E" />
+    </linearGradient>
+    <linearGradient id="gsPenroseShadow" x1="12" y1="34" x2="56" y2="46" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0B0C10" stop-opacity="0.7" />
+      <stop offset="1" stop-color="#1B1C24" stop-opacity="0.9" />
+    </linearGradient>
+  </defs>
+  <g transform="translate(12 4) scale(-0.35 0.35) translate(-120 0)">
+    <path d="M20 95 60 20 100 95Z" fill="url(#gsPenroseGold)" />
+    <path d="M35 85 85 85 60 40Z" fill="url(#gsPenroseShadow)" />
+    <path d="M30 75 60 30 90 75 75 105 45 105Z" fill="none" stroke="#FCE7A3" stroke-width="6" stroke-linejoin="round" opacity="0.6" />
+  </g>
+  <text
+    x="96"
+    y="30"
+    font-size="20"
+    font-family="'Inter Tight', 'Inter', 'Helvetica Neue', Arial, sans-serif"
+    font-weight="600"
+    letter-spacing="0.08em"
+    fill="#0B0C10"
+  >
+    GOLDSHORE
+  </text>
+</svg>
