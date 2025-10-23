@@ -27,7 +27,7 @@
       <stop offset="1" stop-color="#1A4C99" />
     </linearGradient>
   </defs>
-  <g mask="url(#letter-mask)" transform="translate(512 0) scale(-1 1)">
+  <g mask="url(#letter-mask)" transform="scale(-1 1) translate(-512 0)">
     <path fill="url(#cutout-frame)" fill-rule="evenodd" d="M256 24L472 404H40L256 24ZM256 103.92L119.92 343.32H392.08L256 103.92Z" />
     <path d="M256 24L472 404H392.08L256 103.92V24Z" fill="url(#cutout-top)" opacity="0.95" />
     <path d="M472 404H40L119.92 343.32H392.08L472 404Z" fill="url(#cutout-right)" opacity="0.9" />
