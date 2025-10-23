@@ -3,7 +3,7 @@
   "short_name": "GoldShore",
   "icons": [
     {
-      "src": "/logo-wordmark-on-light.svg",
+      "src": "/assets/goldshore/logo-wordmark-on-light.svg",
       "sizes": "512x512",
       "type": "image/svg+xml"
     }
