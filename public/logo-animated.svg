@@ -79,6 +79,11 @@
       <text x="28" y="190" text-anchor="middle" dominant-baseline="middle" transform="rotate(-60 28 190)" font-size="52" font-weight="700" letter-spacing="0.1em">SHORE</text>
       <text x="160" y="288" text-anchor="middle" dominant-baseline="middle" font-size="52" font-weight="700" letter-spacing="0.16em">LABS</text>
     </g>
+    <g fill="#FFFFFF" stroke="#0B2E6B" stroke-width="5" stroke-linejoin="round" paint-order="stroke fill" transform="translate(160 16)">
+      <text x="292" y="190" text-anchor="middle" dominant-baseline="middle" transform="rotate(60 292 190)" font-size="52" font-weight="700" letter-spacing="0.1em">GOLD</text>
+      <text x="28" y="190" text-anchor="middle" dominant-baseline="middle" transform="rotate(-60 28 190)" font-size="52" font-weight="700" letter-spacing="0.1em">SHORE</text>
+      <text x="160" y="288" text-anchor="middle" dominant-baseline="middle" font-size="52" font-weight="700" letter-spacing="0.16em">LABS</text>
+    </g>
   </g>
   <text class="wordmark transition" x="320" y="290">GOLD SHORE LABS</text>
 </svg>
