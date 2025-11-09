@@ -1,6 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AdminLayout from '../../components/admin/AdminLayout.astro';
+import { buildApiUrl } from '../../lib/api';
+
+const rotateKeysEndpoint = buildApiUrl('/admin/keys/rotate');
+const docsEndpoint = buildApiUrl('/docs');
 ---
 <BaseLayout title="Admin | Settings" description="Manage admin settings, identities, and API keys.">
   <AdminLayout heading="Settings" description="Control who has access and how credentials are distributed.">
@@ -21,9 +25,10 @@ import AdminLayout from '../../components/admin/AdminLayout.astro';
             <li><span class="font-mono text-text">sk_live_********************x9</span></li>
           </ul>
           <button
-            class="mt-4 inline-flex items-center rounded-lg border border-border px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-muted transition hover:text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border/60"
-            data-endpoint="https://api.goldshore.org/v1/admin/keys/rotate"
+            class="mt-4 gs-btn-secondary gs-btn-sm"
+            data-endpoint={rotateKeysEndpoint}
             data-method="POST"
+            data-include-credentials
           >
             Rotate keys
           </button>
@@ -32,7 +37,7 @@ import AdminLayout from '../../components/admin/AdminLayout.astro';
       <div class="rounded-xl border border-border/60 bg-bg p-6 shadow-elev-1">
         <h2 class="font-display text-xl text-text">Webhooks</h2>
         <p class="mt-2 text-sm text-muted">Use the API to configure webhook destinations. We return a signed secret for each endpoint.</p>
-        <a class="mt-4 inline-flex items-center text-sm font-medium text-brand" href="https://api.goldshore.org/v1/docs" rel="noreferrer">
+        <a class="mt-4 inline-flex items-center text-sm font-medium text-brand" href={docsEndpoint} rel="noreferrer">
           Webhook guide
         </a>
       </div>

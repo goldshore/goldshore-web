@@ -1,22 +1,23 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AdminLayout from '../../components/admin/AdminLayout.astro';
+import { buildApiUrl } from '../../lib/api';
 
 const workflows = [
   {
     name: 'End-of-day settlement',
     description: 'Push intraday fills into the settlement queue and notify operations.',
-    endpoint: 'https://api.goldshore.org/v1/admin/workflow/settlement'
+    endpoint: buildApiUrl('/admin/workflow/settlement')
   },
   {
     name: 'Risk recalibration',
     description: 'Recompute risk limits and propagate guardrails to the execution fabric.',
-    endpoint: 'https://api.goldshore.org/v1/admin/workflow/risk-refresh'
+    endpoint: buildApiUrl('/admin/workflow/risk-refresh')
   },
   {
     name: 'Customer onboarding sync',
     description: 'Sync CRM records, D1 entries, and Access seats for new customers.',
-    endpoint: 'https://api.goldshore.org/v1/admin/workflow/onboarding'
+    endpoint: buildApiUrl('/admin/workflow/onboarding')
   }
 ];
 ---
@@ -33,6 +34,7 @@ const workflows = [
             class="mt-6 inline-flex items-center justify-center rounded-lg bg-[var(--brand)] px-4 py-2 text-sm font-medium text-[var(--brand-contrast)] shadow-elev-1 transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40"
             data-endpoint={workflow.endpoint}
             data-method="POST"
+            data-include-credentials
           >
             Trigger workflow
           </button>

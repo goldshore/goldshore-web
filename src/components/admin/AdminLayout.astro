@@ -1,8 +1,15 @@
 ---
+import adminActionsScript from '../../scripts/admin-actions.ts?url';
+import formSubmitScript from '../../scripts/form-submit.ts?url';
+import { resolveApiUrl } from '../../utils/api';
+
 const {
   heading = 'Dashboard',
   description = 'Monitor execution, risk, and customer activity in real time.'
 } = Astro.props;
+
+const auditEndpoint = resolveApiUrl('./admin/workflow/audit');
+const whoamiEndpoint = resolveApiUrl('./whoami');
 
 const navLinks = [
   { href: '/admin', label: 'Dashboard' },
@@ -19,7 +26,7 @@ const navLinks = [
 <div class="flex min-h-screen bg-bg text-text">
   <aside class="hidden w-64 flex-col border-r border-border/60 bg-surface/70 px-4 py-6 md:flex">
     <a href="/admin" class="flex items-center gap-3 px-2 text-sm font-semibold text-text transition hover:opacity-90">
-      <img src="/brand/logo-wordmark-on-light.svg" alt="GoldShore" class="h-6" loading="lazy" />
+      <img src="/assets/goldshore/logo-wordmark-on-light.svg" alt="GoldShore" class="h-6" loading="lazy" />
     </a>
     <nav class="mt-8 space-y-1 text-sm text-muted">
       {navLinks.map((item) => (
@@ -44,10 +51,20 @@ const navLinks = [
       </div>
       <div class="flex flex-1 flex-wrap items-center gap-3 md:justify-end">
         <a class="gs-btn-primary gs-btn-sm" href="/admin/customers/new">New Customer</a>
-        <button class="gs-btn-secondary gs-btn-sm" data-endpoint="https://api.goldshore.org/v1/admin/workflow/audit" data-method="POST">
+        <button
+          class="gs-btn-secondary gs-btn-sm"
+          data-endpoint={auditEndpoint}
+          data-method="POST"
+          data-include-credentials
+        >
           Run Audit
         </button>
-        <button class="gs-btn-secondary gs-btn-sm" data-endpoint="https://api.goldshore.org/v1/whoami" data-method="GET">
+        <button
+          class="gs-btn-secondary gs-btn-sm"
+          data-endpoint={whoamiEndpoint}
+          data-method="GET"
+          data-include-credentials
+        >
           Who Am I
         </button>
       </div>
@@ -59,5 +76,5 @@ const navLinks = [
   </div>
 </div>
 
-<script src="/scripts/admin-actions.js" defer is:inline></script>
-<script src="/scripts/admin-forms.js" defer is:inline></script>
+<script type="module" src={adminActionsScript}></script>
+<script type="module" src={formSubmitScript}></script>

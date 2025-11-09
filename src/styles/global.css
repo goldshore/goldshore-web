@@ -59,7 +59,6 @@ input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 2px rgba(227, 179, 65, 0.4);
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--brand) 40%, transparent);
 }
 
@@ -349,4 +348,9 @@ textarea:focus-visible {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+.gs-action-transition {
+  transition-duration: var(--dur);
+  transition-timing-function: var(--ease);
 }

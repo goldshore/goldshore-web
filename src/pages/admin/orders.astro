@@ -1,12 +1,16 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AdminLayout from '../../components/admin/AdminLayout.astro';
+import { buildApiUrl } from '../../lib/api';
 
 const orders = [
   { id: 'GS-241106-01', symbol: 'AAPL', side: 'Buy', quantity: '5,000', status: 'Filled', venue: 'NASDAQ' },
   { id: 'GS-241106-02', symbol: 'MSFT', side: 'Sell', quantity: '2,500', status: 'Partial', venue: 'NYSE' },
   { id: 'GS-241106-03', symbol: 'SPY', side: 'Buy', quantity: '10,000', status: 'Working', venue: 'ARCA' }
 ];
+
+const exportOrdersUrl = buildApiUrl('/admin/orders/export');
+const apiDocsUrl = buildApiUrl('/docs');
 ---
 <BaseLayout title="Admin | Orders" description="Review orders routed through GoldShore execution.">
   <AdminLayout heading="Orders" description="Surface real-time and historical orders with routing context and quick actions.">
@@ -57,13 +61,13 @@ const orders = [
         </div>
         <div class="rounded-xl border border-border/60 bg-surface/70 p-6 shadow-elev-1">
           <p class="text-xs uppercase tracking-[0.2em] text-muted">Download fills</p>
-          <a class="mt-3 inline-flex items-center rounded-lg bg-[var(--brand)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--brand-contrast)] shadow-elev-1 transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40" href="https://api.goldshore.org/v1/admin/orders/export" rel="noreferrer">
+          <a class="mt-3 inline-flex items-center rounded-lg bg-[var(--brand)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--brand-contrast)] shadow-elev-1 transition hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40" href={exportOrdersUrl} rel="noreferrer">
             Export CSV
           </a>
         </div>
         <div class="rounded-xl border border-border/60 bg-surface/70 p-6 shadow-elev-1">
           <p class="text-xs uppercase tracking-[0.2em] text-muted">Docs</p>
-          <a class="mt-3 inline-flex items-center text-sm font-medium text-brand" href="https://api.goldshore.org/v1/docs" rel="noreferrer">
+          <a class="mt-3 inline-flex items-center text-sm font-medium text-brand" href={apiDocsUrl} rel="noreferrer">
             Order management API
           </a>
         </div>
