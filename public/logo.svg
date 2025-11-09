@@ -26,8 +26,8 @@
     <path d="M40 404L256 24V103.92L119.92 343.32L40 404Z" fill="url(#grad-left)" opacity="0.9" />
   </g>
   <g fill="#FFFFFF" stroke="#0B2E6B" stroke-width="6" stroke-linejoin="round" paint-order="stroke fill">
-    <text x="148" y="214" text-anchor="middle" dominant-baseline="middle" transform="rotate(-60 148 214)" font-family="'Inter Tight', 'Inter', 'Helvetica Neue', Arial, sans-serif" font-weight="700" font-size="72" letter-spacing="0.08em">GOLD</text>
-    <text x="364" y="214" text-anchor="middle" dominant-baseline="middle" transform="rotate(60 364 214)" font-family="'Inter Tight', 'Inter', 'Helvetica Neue', Arial, sans-serif" font-weight="700" font-size="72" letter-spacing="0.08em">SHORE</text>
+    <text x="364" y="214" text-anchor="middle" dominant-baseline="middle" transform="rotate(60 364 214)" font-family="'Inter Tight', 'Inter', 'Helvetica Neue', Arial, sans-serif" font-weight="700" font-size="72" letter-spacing="0.08em">GOLD</text>
+    <text x="148" y="214" text-anchor="middle" dominant-baseline="middle" transform="rotate(-60 148 214)" font-family="'Inter Tight', 'Inter', 'Helvetica Neue', Arial, sans-serif" font-weight="700" font-size="72" letter-spacing="0.08em">SHORE</text>
     <text x="256" y="380" text-anchor="middle" dominant-baseline="middle" transform="rotate(0 256 380)" font-family="'Inter Tight', 'Inter', 'Helvetica Neue', Arial, sans-serif" font-weight="700" font-size="72" letter-spacing="0.12em">LABS</text>
   </g>
 </svg>
